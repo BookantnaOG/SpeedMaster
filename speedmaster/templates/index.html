@@ -1,6 +1,19 @@
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
-<button class="booking-button">Booking</button>
+<div class="first-section">
+    <div class="first-section-left">
+        <h1>SpeedMaster</h1>
+        <h5>Cars and Detailing</h3>
+        <p>บริการล้่างรถ เคลือบแก้ว และติดฟิล์มกันรอย ด้วยเทคโนโลยีเคมีขั้นสูง ที่ช่วยยกระดับความเงางามและปกป้องพื้นผิวรถคุณอย่างมีประสิทธิภาพ</p>
+        <button class="booking-button">Booking</button>
+    </div>
+    <div class="first-section-right">
+        <img src="{% static 'pictures/car1.png' %}" alt="Car Image" height="1280" weight="720">
+    </div>
+    
+</div>
+
 
 {% endblock %}

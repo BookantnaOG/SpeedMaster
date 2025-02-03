@@ -29,10 +29,10 @@ footer {
     width: 100%;
 }
 .custom-nav {
-    background-color: #FEFB52 !important;
+    background-color: #ffde59 !important;
 }
 .booking-button {
-    background-color: orange;
+    background-color: #f3a053;
     color: white;
     font-size: 16px;
     padding: 15px 32px 15px 15px;
@@ -41,10 +41,41 @@ footer {
     cursor: pointer;
     position: relative;
     transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+    padding: 10px 20px;
+    radius:5px;
 }
 .booking-button:hover {
     box-shadow: 20px 0 20px rgba(0, 0, 0, 0.2); /* Shadow dropping sideways */
 }
 .booking-button:active {
     box-shadow: 10px 0 15px rgba(0, 0, 0, 0.4); /* Slightly smaller shadow on click */
+}
+.first-section {
+    background-color: #ffde59;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px; /* Adds padding around the entire section */
+}
+
+.first-section-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 40px; /* Moves the text away from the corner */
+}
+
+
+.first-section-right {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.first-section-right img {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px;
 }
