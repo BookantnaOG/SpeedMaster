@@ -46,7 +46,7 @@ footer {
     radius:5px;
 }
 .booking-button:hover {
-    box-shadow: 20px 0 20px rgba(0, 0, 0, 0.2); /* Shadow dropping sideways */
+    box-shadow: 10px 5px 0px rgba(0, 0, 0, 1); /* Shadow dropping sideways */
 }
 .booking-button:active {
     box-shadow: 10px 0 15px rgba(0, 0, 0, 0.4); /* Slightly smaller shadow on click */
@@ -79,3 +79,139 @@ footer {
     height: auto;
     max-height: 400px;
 }
+
+
+.info-item {
+    display: flex;
+    justify-content: space-around; /* กระจายช่องว่างเท่ากัน */
+    align-items: center;
+    background-color: black;
+    padding: 10px;
+}
+
+.info-box {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    color: aliceblue ;
+    align-items: stretch;
+}
+
+.info-box img {
+    width: 30px !important;
+    height: auto;
+    margin-bottom: 5px;
+    margin-left: -35px !important;
+}
+
+.info-box h1 {
+    font-size: 20px !important;
+    color: aliceblue !important;
+}
+
+.info-box p {
+    font-size: 16px !important;
+    margin: 1px 5px 5px !important ;
+    color: aliceblue !important ;
+}
+
+#About {
+    background-color: white;
+    padding: 50px 10%;
+    text-align: center;
+    position: relative;
+}
+
+#About h1 {
+    font-size: 48px;
+    color: #314e52;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* ใช้ Flexbox สำหรับจัดวาง Left และ Right Container */
+/* ปรับตำแหน่งของ Left และ Right Containers */
+.About-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    position: relative; /* กำหนดให้เป็น relative เพื่อจัดการกับตำแหน่งของ image */
+    z-index: 0; /* ให้ Left/Right อยู่ด้านหลังรูปภาพ */
+}
+
+/* ปรับรูปแบบของ Left และ Right Container */
+.Left-container, .Right-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 34%;
+    padding: 32px;
+    border-radius: 34px;
+}
+.Left-container img, .Right-container img {
+    width: 80px;
+    height: auto;
+}
+/* จัดตำแหน่งรูปภาพตรงกลาง */
+.Center-image {
+    position: absolute;  /* หรือ relative หากต้องการให้มันเคลื่อนที่ตาม container พ่อแม่ */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; /* ตั้ง z-index ให้สูงกว่ากันเพื่อให้มันอยู่ด้านบน */
+    max-width: 300px;
+    height: auto;
+}
+
+.Center-image img {
+    max-width: 400px;
+    margin-left: -42px;
+    height: auto;
+    z-index: 1; 
+    
+}
+.Center-image img:nth-of-type(2) {
+    
+    transform: rotate(90deg);
+    margin-left: -261px; 
+    position: absolute;
+    z-index: 1;
+}
+
+/* หมุนภาพ Flag ตัวที่สอง */
+.Center-image img:nth-of-type(3) {
+    transform: rotate(90deg);
+    margin-left: -163px;
+    margin-top: 45px;
+    position: absolute;
+    z-index: 1;
+}
+
+/* หมุนภาพ Flag ตัวที่สาม */
+.Center-image img:nth-of-type(4) {
+    transform: rotate(90deg); 
+    margin-left: -86px;
+    margin-top: 50px;
+    position: absolute;
+    z-index: 1;
+}
+
+/* ปรับแต่งข้อความ */
+.Left-container div, .Right-container div {
+    text-align: left;
+    max-width: 500px;
+}
+/* Footer Customization */
+footer {
+    background-color: #2c3e50; /* Dark Black */
+    color: white;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.custom-nav {
+    background-color: #ffde59 !important;
+}
+
