@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<section id="home">
+    <h1>SpeedMaster</h1>
+    <h2>Cars and Detailing</h2>
+    <p>บริการล้างรถ เคลือบแก้ว และติดฟิล์มกันรอย ด้วยเทคโนโลยีเคมีขั้นสูง ที่ช่วยยกระดับความเงางามและปกป้องพื้นผิวรถคุณอย่างมีประสิทธิภาพ</p>
+    <img src="{% static 'Image/materieal/Home/car-home.png' %}" alt="Car" />
+    <div class="button-container">
+    <a href="Booking.html" class="booking-button">Booking</a>
+</div>
+    <div class="info-item">
+        <div class="info-box">
+            <img src="{% static 'Image/materieal/Home/Service_icon.png' %}" alt="Service">
+            <h1>Service</h1>
+            <p>บริการล้างรถ เคลือบแก้วและฟิล์มกันรอย</p>
+        </div>
+        
+        <div class="info-box">
+            <img src="{% static 'Image/materieal/Home/Hour_icon.png' %}" alt="Hour">
+            <h1>Hour</h1>
+            <p>เปิดให้บริการทุกวัน 8.30-18.30 น. ไม่มีวันหยุด</p>
+        </div>
+        
+        <div class="info-box">
+            <img src="{% static 'Image/materieal/Home/Location.png' %}" alt="Location">
+            <h1>Location</h1>
+            <p>สาขาในเมือง สาขาคอมเพล็ก</p>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}
