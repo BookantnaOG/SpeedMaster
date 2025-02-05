@@ -2,34 +2,49 @@
 {% load static %}
 
 {% block content %}
-<section id="home">
-    <h1>SpeedMaster</h1>
-    <h2>Cars and Detailing</h2>
-    <p>บริการล้างรถ เคลือบแก้ว และติดฟิล์มกันรอย ด้วยเทคโนโลยีเคมีขั้นสูง ที่ช่วยยกระดับความเงางามและปกป้องพื้นผิวรถคุณอย่างมีประสิทธิภาพ</p>
-    <img src="{% static 'Image/materieal/Home/car-home.png' %}" alt="Car" />
-    <div class="button-container">
-    <a href="Booking.html" class="booking-button">Booking</a>
-</div>
-    <div class="info-item">
-        <div class="info-box">
-            <img src="{% static 'Image/materieal/Home/Service_icon.png' %}" alt="Service">
-            <h1>Service</h1>
-            <p>บริการล้างรถ เคลือบแก้วและฟิล์มกันรอย</p>
+<div class="container">
+    <div class="booking-details">
+        <!-- Left Column: Booking Service -->
+        <div class="left-column">
+            <h1>Booking Service</h1>
+            <form method="post" action="{% url 'booking' %}">
+                {% csrf_token %}
+                <label for="service">บริการที่ต้องการ:</label>
+                <div class="button-group" id="service">
+                    <button type="button" class="service-btn" data-service="car_wash">ล้างรถ</button>
+                    <button type="button" class="service-btn" data-service="ceramic_coating">เคลือบแก้ว</button>
+                    <button type="button" class="service-btn" data-service="film_protection">ติดฟิล์มกันรอย</button>
+                </div>
+
+                <label for="date">เลือกวันที่:</label>
+                <div class="button-group" id="date">
+                    <button type="button" class="date-btn" data-date="monday">จันทร์</button>
+                    <button type="button" class="date-btn" data-date="tuesday">อังคาร</button>
+                    <button type="button" class="date-btn" data-date="wednesday">พุธ</button>
+                    <button type="button" class="date-btn" data-date="thursday">พฤหัสบดี</button>
+                    <button type="button" class="date-btn" data-date="friday">ศุกร์</button>
+                    <button type="button" class="date-btn" data-date="saturday">เสาร์</button>
+                    <button type="button" class="date-btn" data-date="sunday">อาทิตย์</button>
+                </div>
+
+                <label for="time">เลือกเวลา:</label>
+                <div class="button-group" id="time">
+                    <button type="button" class="time-btn" data-time="10:30">10:30</button>
+                    <button type="button" class="time-btn" data-time="11:30">11:30</button>
+                    <button type="button" class="time-btn" data-time="12:30">12:30</button>
+                </div>
+
+                <button type="submit" class="btn">ยืนยันการจอง</button>
+            </form>
         </div>
-        
-        <div class="info-box">
-            <img src="{% static 'Image/materieal/Home/Hour_icon.png' %}" alt="Hour">
-            <h1>Hour</h1>
-            <p>เปิดให้บริการทุกวัน 8.30-18.30 น. ไม่มีวันหยุด</p>
-        </div>
-        
-        <div class="info-box">
-            <img src="{% static 'Image/materieal/Home/Location.png' %}" alt="Location">
-            <h1>Location</h1>
-            <p>สาขาในเมือง สาขาคอมเพล็ก</p>
+
+        <!-- Right Column: Additional Details or Information -->
+        <div class="right-column">
+            <h2>รายละเอียดเพิ่มเติม</h2>
+            <p>กรุณากรอกข้อมูลสำหรับการจองบริการต่างๆ ของเรา. เลือกวันที่และเวลาแล้วกดยืนยันการจอง เพื่อให้บริการที่ดีที่สุด.</p>
         </div>
     </div>
-</section>
+</div>
 
 
 {% endblock %}

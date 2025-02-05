@@ -329,6 +329,33 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+/* Booking Button */
+.booking-button {
+    background-color: #f2a154;
+    color: white;
+    font-size: 20px;
+    padding: 15px 32px 15px 15px;
+    border: none;
+    border-radius: 1px;
+    text-decoration: none; /* ไม่มีเส้นใต้ */
+    cursor: pointer;
+    position: relative; /* เพิ่ม position เพื่อให้จัดการตำแหน่งได้ */
+    top: -62px; /* ปรับตำแหน่งเฉพาะของปุ่ม */
+    left: 17%; /* ปรับตำแหน่งเฉพาะของปุ่ม */
+    z-index: 10; /* เพิ่ม z-index เพื่อให้ปุ่มอยู่เหนือองค์ประกอบอื่นๆ */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Effects on hover */
+.booking-button:hover {
+    box-shadow: 20px 0 20px rgba(0, 0, 0, 0.2); /* Shadow dropping sideways */
+}
+
+/* Effects on active (when clicked) */
+.booking-button:active {
+    box-shadow: 10px 0 15px rgba(0, 0, 0, 0.4); /* Slightly smaller shadow on click */
+}
+
 /* Footer Customization */
 footer {
     background-color: #2c3e50; /* Dark Black */
@@ -419,6 +446,11 @@ footer {
   }
   
   
+  
+  
+
+
+
 /* Footer Customization */
 footer {
     background-color: #2c3e50; /* Dark Black */
@@ -431,6 +463,8 @@ footer {
 .custom-nav {
     background-color: #ffde59 !important;
 }
+
+
 
 
 /* Booking Button */
