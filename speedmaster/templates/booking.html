@@ -4,47 +4,65 @@
 {% block content %}
 <div class="container">
     <div class="booking-details">
-        <!-- Left Column: Booking Service -->
         <div class="left-column">
             <h1>Booking Service</h1>
-            <form method="post" action="{% url 'booking' %}">
+            <form id="booking-form" method="post" action="{% url 'booking' %}">
                 {% csrf_token %}
+
                 <label for="service">บริการที่ต้องการ:</label>
                 <div class="button-group" id="service">
-                    <button type="button" class="service-btn" data-service="car_wash">ล้างรถ</button>
-                    <button type="button" class="service-btn" data-service="ceramic_coating">เคลือบแก้ว</button>
-                    <button type="button" class="service-btn" data-service="film_protection">ติดฟิล์มกันรอย</button>
+                    <label>
+                        <input type="checkbox" class="service-checkbox" value="ล้างรถ" onclick="updateService()"> ล้างรถ
+                    </label>
+                    <label>
+                        <input type="checkbox" class="service-checkbox" value="เคลือบแก้ว" onclick="updateService()"> เคลือบแก้ว
+                    </label>
+                    <label>
+                        <input type="checkbox" class="service-checkbox" value="ติดฟิล์มกันรอย" onclick="updateService()"> ติดฟิล์มกันรอย
+                    </label>
                 </div>
+                <input type="hidden" name="service" id="selected-service">
+
+                <p id="selected-service-display">บริการที่เลือก: </p>
 
                 <label for="date">เลือกวันที่:</label>
                 <div class="button-group" id="date">
-                    <button type="button" class="date-btn" data-date="monday">จันทร์</button>
-                    <button type="button" class="date-btn" data-date="tuesday">อังคาร</button>
-                    <button type="button" class="date-btn" data-date="wednesday">พุธ</button>
-                    <button type="button" class="date-btn" data-date="thursday">พฤหัสบดี</button>
-                    <button type="button" class="date-btn" data-date="friday">ศุกร์</button>
-                    <button type="button" class="date-btn" data-date="saturday">เสาร์</button>
-                    <button type="button" class="date-btn" data-date="sunday">อาทิตย์</button>
+                    <button type="button" class="date-btn" data-value="monday" onclick="updateDate('จันทร์')">จันทร์</button>
+                    <button type="button" class="date-btn" data-value="tuesday" onclick="updateDate('อังคาร')">อังคาร</button>
+                    <button type="button" class="date-btn" data-value="wednesday" onclick="updateDate('พุธ')">พุธ</button>
+                    <button type="button" class="date-btn" data-value="thursday" onclick="updateDate('พฤหัสบดี')">พฤหัสบดี</button>
+                    <button type="button" class="date-btn" data-value="friday" onclick="updateDate('ศุกร์')">ศุกร์</button>
+                    <button type="button" class="date-btn" data-value="saturday" onclick="updateDate('เสาร์')">เสาร์</button>
+                    <button type="button" class="date-btn" data-value="sunday" onclick="updateDate('อาทิตย์')">อาทิตย์</button>
                 </div>
+                <input type="hidden" name="date" id="selected-date">
+
+                <p id="selected-date-display">วันที่ที่เลือก: </p>
 
                 <label for="time">เลือกเวลา:</label>
                 <div class="button-group" id="time">
-                    <button type="button" class="time-btn" data-time="10:30">10:30</button>
-                    <button type="button" class="time-btn" data-time="11:30">11:30</button>
-                    <button type="button" class="time-btn" data-time="12:30">12:30</button>
+                    <button type="button" class="time-btn" data-value="10:30" onclick="updateTime('10:30')">10:30</button>
+                    <button type="button" class="time-btn" data-value="11:30" onclick="updateTime('11:30')">11:30</button>
+                    <button type="button" class="time-btn" data-value="12:30" onclick="updateTime('12:30')">12:30</button>
                 </div>
+                <input type="hidden" name="time" id="selected-time">
 
-                <button type="submit" class="btn">ยืนยันการจอง</button>
+                <p id="selected-time-display">เวลาที่เลือก: </p>
             </form>
         </div>
 
-        <!-- Right Column: Additional Details or Information -->
         <div class="right-column">
-            <h2>รายละเอียดเพิ่มเติม</h2>
-            <p>กรุณากรอกข้อมูลสำหรับการจองบริการต่างๆ ของเรา. เลือกวันที่และเวลาแล้วกดยืนยันการจอง เพื่อให้บริการที่ดีที่สุด.</p>
+            <h2>Booking Details</h2>
+            <p>บริการที่เลือก: <span id="booking-service">ยังไม่ได้เลือก</span></p>
+            <p>วันที่จอง: <span id="booking-date">ยังไม่ได้เลือก</span></p>
+            <p>เวลา: <span id="booking-time">ยังไม่ได้เลือก</span></p>
+
+            <button type="button" class="btn" onclick="submitBooking()">ยืนยันการจอง</button>
         </div>
     </div>
 </div>
 
+<script src="{% static 'booking.js' %}" defer></script>
+<link rel="stylesheet" href="{% static 'booking.css' %}">
 
 {% endblock %}
