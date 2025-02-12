@@ -1,15 +1,24 @@
-/* ตั้งค่าพื้นฐานของ body */
+/* รักษารูปแบบเดิมของ body */
 body {
     font-family: 'Poppins', sans-serif;
     background-color: #f5f5f5;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
-    height: 100vh;
+    flex-direction: column; /* ใช้แนวตั้งสำหรับจัดตำแหน่ง */
+    height: 100vh; /* ทำให้ body ครอบคลุมหน้าจอทั้งหมด */
 }
 
-/* จัดตำแหน่งเนื้อหาให้อยู่ตรงกลาง */
+/* ทำให้ main content มีความยืดหยุ่นและครอบคลุมพื้นที่ */
+.content {
+    flex-grow: 1; /* ทำให้ main content ขยายตัวเต็มที่ */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px; /* เพิ่มระยะห่าง */
+}
+
+/* สำหรับคอนเทนเนอร์หลักที่ปรับให้มีการแบ่งซ้ายขวา */
 .container {
     background: #fff;
     padding: 20px;
@@ -19,15 +28,14 @@ body {
     max-width: 1200px;
     display: flex;
     gap: 30px;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    margin: auto;
-    margin-top: 20px;
+    flex-wrap: nowrap;  /* ปรับให้คอลัมน์ไม่ห่อ */
+    justify-content: space-between; /* ทำให้คอลัมน์อยู่ซ้ายขวา */
+    margin-bottom: 20px; /* เว้นระยะจาก footer */
 }
 
 /* คอลัมน์ซ้าย */
 .left-column {
-    flex: 2;
+    flex: 1; /* ให้คอลัมน์นี้ขยายตัว */
     background: #f0f0f0;
     color: #333;
     padding: 20px;
@@ -37,11 +45,11 @@ body {
     gap: 15px;
 }
 
-/* คอลัมน์ขวา */
+/* คอลัมน์ขวา (Booking details) */
 .right-column {
     flex: 1;
-    background: #314e52;
-    color: white;
+    background: #314e52; /* พื้นหลังสีเขียว */
+    color: white; /* ตัวหนังสือเป็นสีขาว */
     padding: 20px;
     border-radius: 8px;
     display: flex;
@@ -49,18 +57,18 @@ body {
     gap: 15px;
 }
 
-/* หัวข้อ */
+/* ปรับสีของ h1 และ h2 ให้แตกต่างกัน */
 h1 {
-    color: #314e52;
+    color: #314e52; /* สีเขียว */
     margin-bottom: 15px;
 }
 
 h2 {
-    color: #f4a261;
+    color: #f4a261; /* สีส้ม */
     margin-bottom: 15px;
 }
 
-/* ปุ่ม */
+/* ปรับขนาดปุ่มให้ดูเด่นขึ้น */
 button {
     background: #e0e0e0;
     color: #2c4b52;
@@ -72,12 +80,13 @@ button {
     font-weight: bold;
 }
 
-button:hover {
+/* ปรับให้ปุ่มมีสีสดขึ้นในขณะ hover */
+button:hover, .service-btn.selected, .date-btn.selected, .time-btn.selected {
     background: #2c4b52;
     color: white;
 }
 
-/* ปุ่มยืนยันการจอง */
+/* ปรับปุ่มหลักให้ขนาดพอดีและสะดวก */
 .btn {
     background: #f4a261;
     width: 100%;
@@ -94,42 +103,40 @@ button:hover {
     background: #e76f51;
 }
 
-/* ปรับสไตล์ให้ Booking Details */
+/* เพิ่มการเว้นระยะและจัดสไตล์เนื้อหาภายในคอลัมน์ขวา */
 .right-column p {
     color: #ddd;
     line-height: 1.5;
 }
 
-.right-column .btn {
-    background: transparent;
-    border: 2px solid #4caf50;
-    color: #4caf50;
+.right-column .price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
-.right-column .btn:hover {
-    background: #4caf50;
-    color: white;
-}
-
-/* ปรับปุ่มเลือกวันที่และเวลา */
-.button-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.date-btn, .time-btn {
-    padding: 10px;
-    border: 2px solid #2c4b52;
-    background: white;
-    color: #2c4b52;
-    cursor: pointer;
+/* ปรับให้ปุ่มยืนยันการจองดูเด่น */
+.right-column .booking-btn {
+    color: #4caf50; /* ตัวหนังสือเป็นสีเขียว */
+    padding: 12px;
+    text-align: center;
     border-radius: 5px;
-    transition: 0.3s;
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    background: transparent; /* ไม่มีพื้นหลัง */
+    border: 2px solid #4caf50; /* ขอบเป็นสีเขียว */
 }
 
-.date-btn:hover, .time-btn:hover,
-.date-btn.selected, .time-btn.selected {
-    background: #2c4b52;
-    color: white;
+.right-column .booking-btn:hover {
+    background: #4caf50; /* สีพื้นหลังเขียว */
+    color: white; /* ตัวหนังสือเป็นสีขาวในขณะ hover */
+}
+
+/* ปรับระยะห่างและสไตล์เนื้อหาภายในคอลัมน์ซ้าย */
+.left-column p {
+    color: #555;
+    line-height: 1.5;
 }
