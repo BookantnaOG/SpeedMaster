@@ -13,13 +13,13 @@
             <label for="service">บริการที่ต้องการ:</label>
             <div class="button-group" id="service">
                 <label>
-                    <input type="checkbox" class="service-checkbox" value="ล้างรถ" onclick="updateService()"> ล้างรถ
+                    <input type="checkbox" class="service-checkbox" value="ล้างรถ"> ล้างรถ
                 </label>
                 <label>
-                    <input type="checkbox" class="service-checkbox" value="เคลือบแก้ว" onclick="updateService()"> เคลือบแก้ว
+                    <input type="checkbox" class="service-checkbox" value="เคลือบแก้ว"> เคลือบแก้ว
                 </label>
                 <label>
-                    <input type="checkbox" class="service-checkbox" value="ติดฟิล์มกันรอย" onclick="updateService()"> ติดฟิล์มกันรอย
+                    <input type="checkbox" class="service-checkbox" value="ติดฟิล์มกันรอย"> ติดฟิล์มกันรอย
                 </label>
             </div>
             <!-- Input ที่ไม่แสดง แต่เก็บค่าบริการ -->
@@ -28,22 +28,22 @@
             <!-- เลือกวันที่ -->
             <label for="date">เลือกวันที่:</label>
             <div class="button-group" id="date">
-                <button type="button" class="date-btn" onclick="updateDate('จันทร์')">จันทร์</button>
-                <button type="button" class="date-btn" onclick="updateDate('อังคาร')">อังคาร</button>
-                <button type="button" class="date-btn" onclick="updateDate('พุธ')">พุธ</button>
-                <button type="button" class="date-btn" onclick="updateDate('พฤหัสบดี')">พฤหัสบดี</button>
-                <button type="button" class="date-btn" onclick="updateDate('ศุกร์')">ศุกร์</button>
-                <button type="button" class="date-btn" onclick="updateDate('เสาร์')">เสาร์</button>
-                <button type="button" class="date-btn" onclick="updateDate('อาทิตย์')">อาทิตย์</button>
+                <button type="button" class="date-btn">จันทร์</button>
+                <button type="button" class="date-btn">อังคาร</button>
+                <button type="button" class="date-btn">พุธ</button>
+                <button type="button" class="date-btn">พฤหัสบดี</button>
+                <button type="button" class="date-btn">ศุกร์</button>
+                <button type="button" class="date-btn">เสาร์</button>
+                <button type="button" class="date-btn">อาทิตย์</button>
             </div>
             <input type="hidden" name="date" id="selected-date">
 
             <!-- เลือกเวลา -->
             <label for="time">เลือกเวลา:</label>
             <div class="button-group" id="time">
-                <button type="button" class="time-btn" onclick="updateTime('10:30')">10:30</button>
-                <button type="button" class="time-btn" onclick="updateTime('11:30')">11:30</button>
-                <button type="button" class="time-btn" onclick="updateTime('12:30')">12:30</button>
+                <button type="button" class="time-btn">10:30</button>
+                <button type="button" class="time-btn">11:30</button>
+                <button type="button" class="time-btn">12:30</button>
             </div>
             <input type="hidden" name="time" id="selected-time">
 
@@ -62,5 +62,8 @@
 </div>
 
 <script src="{% static 'booking.js' %}" defer></script>
+
 <link rel="stylesheet" href="{% static 'booking.css' %}">
+
 {% endblock %}
+ 

@@ -106,3 +106,54 @@ body {
 .confirmation-section .pay-button:hover {
     background-color: #C07B40;
 }
+/* รายการและราคา (Pricing Details) */
+/* รายการและราคา (Pricing Details) */
+
+/* รายการและราคา (Pricing Details) */
+.pricing-details h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+/* ลบตารางและใช้รายการแทน */
+#service-price-list {
+    list-style-type: none; /* เอาเครื่องหมายลูกศรออก */
+    padding: 0;
+    margin: 0;
+}
+
+/* รายการและราคา (Pricing Details) */
+/* รายการและราคา (Pricing Details) */
+#service-price-list li {
+    background-color: #F1F1F1; /* สีพื้นหลังของแต่ละรายการ */
+    color: #333; /* ตัวหนังสือสีดำ */
+    padding: 12px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* สำหรับค่าบริการ */
+#service-price-list li .service-fee {
+    font-size: 16px; /* ขนาดของข้อความ */
+    color: #333; /* สีข้อความ */
+    padding-left: 10px; /* ให้ข้อความ "ค่าบริการ" อยู่ห่างจากราคาเล็กน้อย */
+    font-weight: bold;
+}
+
+/* เพิ่มสีพื้นหลังที่แตกต่างสำหรับ VAT และราคารวม */
+#vat-price, #total-price {
+    font-weight: bold;
+}
+
+/* สีของราคาสุดท้าย */
+#final-price {
+    color: #D49152;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
