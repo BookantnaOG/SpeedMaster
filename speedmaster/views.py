@@ -18,6 +18,8 @@ def payment(request):
             'date': date,
             'time': time
         }
+
         return render(request, 'payment.html', context)
 
     return render(request, 'payment.html')
+

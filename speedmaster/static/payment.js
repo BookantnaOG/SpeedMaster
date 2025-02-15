@@ -52,13 +52,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('store-payment-btn').addEventListener("click", () => showPaymentForm('store-payment'));
 
     // ใช้โค้ดส่วนลด
+    const finalPrice_undiscounted = parseFloat(document.getElementById('final-price').innerText.replace(" THB", ""));
     document.getElementById('apply-discount-btn').addEventListener("click", function () {
         const discountCode = document.getElementById('discount-code').value;
         let finalPrice = parseFloat(document.getElementById('final-price').innerText.replace(" THB", ""));
-        if (discountCode === "speedmaster") {
+        if ((discountCode === "a") && (finalPrice === finalPrice_undiscounted)) {
             finalPrice *= 0.8;
+            document.getElementById('final-price').textContent = `${finalPrice.toFixed(2)} THB`;
         }
-        document.getElementById('final-price').textContent = `${finalPrice.toFixed(2)} THB`;
+        else {
+            document.getElementById('final-price').textContent = `${finalPrice_undiscounted.toFixed(2)} THB`;
+        }
+        
     });
 
     // การชำระเงิน
