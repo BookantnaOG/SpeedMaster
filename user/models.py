@@ -3,9 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.hashers import make_password
 
 class User(AbstractUser):
-    # Custom fields can go here
-    bio = models.TextField(blank=True, null=True)
-
     # Override related_name for the groups and user_permissions relationships to avoid clashes
     groups = models.ManyToManyField(
         'auth.Group', 

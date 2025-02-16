@@ -9,19 +9,11 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Sign in</h2>
-        <form>
-            <input type="email" placeholder="Email or phone" required>
-            <a href="#">Forgot email?</a>
-            <br><br>
-            <input type="password" placeholder="Enter your password" required>
-            <a href="#">Forgot password?</a>
-            <div class="button-group">
-                <a href="{% url 'register' %}">
-                    <button type="button" class="create-account">Create account</button>
-                </a>                             
-                <button type="submit" class="next">Next</button>
-            </div>
+        <h2>Login</h2>
+        <form method="POST" action="/login/">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="next">Login</button>
         </form>
     </div>
 </body>
