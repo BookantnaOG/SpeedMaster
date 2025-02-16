@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Google Style</title>
+    <link rel="stylesheet" href="{% static 'register.css' %}">
+</head>
+<body>
+
+    <div class="container">
+        <div class="form-box">
+            <h1>Create Account</h1>
+            <form action="#" method="POST">
+                <div class="input-group">
+                    <input type="text" id="first-name" placeholder="First Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="last-name" placeholder="Last Name" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+            <p class="login-link">Already have an account? <a href="#">Sign in</a></p>
+        </div>
+    </div>
+
+</body>
+</html>
