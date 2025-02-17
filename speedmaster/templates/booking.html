@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <!-- คอลัมน์ซ้าย -->
+    <div class="left-column">
+        <h1>Booking Service</h1>
+        <form id="booking-form" method="post" action="{% url 'payment' %}">
+            {% csrf_token %}
+
+            <!-- เลือกบริการ -->
+            <label for="service">บริการที่ต้องการ:</label>
+            <div class="button-group" id="service">
+                <label>
+                    <input type="checkbox" class="service-checkbox" value="ล้างรถ"> ล้างรถ
+                </label>
+                <label>
+                    <input type="checkbox" class="service-checkbox" value="เคลือบแก้ว"> เคลือบแก้ว
+                </label>
+                <label>
+                    <input type="checkbox" class="service-checkbox" value="ติดฟิล์มกันรอย"> ติดฟิล์มกันรอย
+                </label>
+            </div>
+            <!-- Input ที่ไม่แสดง แต่เก็บค่าบริการ -->
+            <input type="hidden" name="service" id="selected-service">
+
+            <!-- เลือกวันที่ -->
+            <label for="date">เลือกวันที่:</label>
+            <div class="button-group" id="date">
+                <button type="button" class="date-btn">จันทร์</button>
+                <button type="button" class="date-btn">อังคาร</button>
+                <button type="button" class="date-btn">พุธ</button>
+                <button type="button" class="date-btn">พฤหัสบดี</button>
+                <button type="button" class="date-btn">ศุกร์</button>
+                <button type="button" class="date-btn">เสาร์</button>
+                <button type="button" class="date-btn">อาทิตย์</button>
+            </div>
+            <input type="hidden" name="date" id="selected-date">
+
+            <!-- เลือกเวลา -->
+            <label for="time">เลือกเวลา:</label>
+            <div class="button-group" id="time">
+                <button type="button" class="time-btn">10:30</button>
+                <button type="button" class="time-btn">11:30</button>
+                <button type="button" class="time-btn">12:30</button>
+            </div>
+            <input type="hidden" name="time" id="selected-time">
+
+            <!-- ปุ่มยืนยันการจอง -->
+            <button type="submit" class="btn">ยืนยันการจอง</button>
+        </form>
+    </div>
+
+    <!-- คอลัมน์ขวา -->
+    <div class="right-column">
+        <h2>Booking Details</h2>
+        <p>บริการที่เลือก: <span id="booking-service">ยังไม่ได้เลือก</span></p>
+        <p>วันที่จอง: <span id="booking-date">ยังไม่ได้เลือก</span></p>
+        <p>เวลา: <span id="booking-time">ยังไม่ได้เลือก</span></p>
+    </div>
+</div>
+
+<script src="{% static 'booking.js' %}" defer></script>
+
+<link rel="stylesheet" href="{% static 'booking.css' %}">
+
+{% endblock %}
+ 
