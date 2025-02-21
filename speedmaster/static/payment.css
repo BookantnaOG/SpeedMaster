@@ -9,8 +9,8 @@ body {
 /* Detail Booking Container */
 .detail-booking-container {
     position: relative;
-    margin-top: 20px; /* ลดช่องว่างด้านบน */
-    padding-bottom: 40px; /* เพิ่ม padding ด้านล่าง */
+    margin-top: 20px;
+    padding-bottom: 40px;
     background-color: #2F3D40;
     color: white;
     padding: 20px;
@@ -36,12 +36,13 @@ body {
 .detail-booking-container input {
     width: 100%;
     max-width: 300px;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 14px;
-    background-color: #fff; /* Background สำหรับ input */
+    background-color: white;
 }
 
 /* Payment Method Container */
@@ -65,14 +66,15 @@ body {
     text-align: center;
 }
 
-.payment-method-container .payment-options {
-    margin-top: 20px;
+/* Payment Options (buttons in one line) */
+.payment-options {
     display: flex;
-    flex-direction: row;
-    gap: 15px;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
-.payment-method-container .payment-options button {
+.payment-options button {
     padding: 10px;
     border: 1px solid white;
     border-radius: 5px;
@@ -81,36 +83,44 @@ body {
     cursor: pointer;
     transition: 0.3s;
     font-size: 14px;
+    white-space: nowrap;
+    min-width: 100px;
 }
 
-.payment-method-container .payment-options button:hover {
+.payment-options button:hover {
     background-color: #FFB800;
     color: black;
 }
 
 /* Payment Forms Container */
 .payment-forms {
+    position: absolute;
+    top: 115px;
+    right: 50px;
     display: flex;
-    justify-content: flex-end; /* จัดฟอร์มไปด้านขวา */
+    justify-content: flex-end;
     align-items: flex-start;
-    margin-top: 20px;
+    gap: 20px;
 }
 
 /* Payment Form Styling */
 .payment-form {
-    width: 100%; /* ให้ขยายเต็มที่ใน container */
-    max-width: 300px; /* จำกัดความกว้างสูงสุด */
+    width: 100%;
+    max-width: 300px;
+    max-height: 525px;
     background-color: #333;
     padding: 20px;
     border-radius: 10px;
-    margin-left: auto; /* จัดให้ฟอร์มไปทางด้านขวาสุด */
+    margin-left: auto;
     color: white;
     border: 1px solid #444;
-    box-sizing: border-box; /* รวม padding และ border ในขนาดทั้งหมด */
-    overflow: hidden; /* ป้องกันไม่ให้เกิดพื้นที่ที่มองไม่เห็น */
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
-
+.payment-form.active {
+    display: block;
+}
 
 .payment-form h3 {
     margin-bottom: 10px;
@@ -175,17 +185,17 @@ body {
     text-align: center;
 }
 
-/* Remove table and use a list */
+/* Service Price List */
 #service-price-list {
-    list-style-type: none; /* ลบ bullet */
+    list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
 /* Service List Item */
 #service-price-list li {
-    background-color: #F1F1F1; /* พื้นหลังสำหรับแต่ละ item */
-    color: #333; /* สีข้อความ */
+    background-color: #F1F1F1;
+    color: #333;
     padding: 12px;
     margin-bottom: 10px;
     border-radius: 5px;
@@ -205,7 +215,7 @@ body {
 
 /* Special styling for VAT and total price */
 #vat-price, #total-price {
-    background-color: #F7F7F7; /* พื้นหลังสีเทาอ่อนสำหรับ VAT และยอดรวม */
+    background-color: #F7F7F7;
     font-weight: bold;
 }
 
@@ -221,6 +231,7 @@ body {
 /* Form Inputs */
 input[type="text"], input[type="email"], input[type="tel"] {
     width: 100%;
+    max-width: 300px;
     padding: 12px;
     margin-top: 8px;
     margin-bottom: 16px;
@@ -246,6 +257,92 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+/* Ensure the button width is uniform */
+.button-wrapper button {
+    width: 100%;
+    max-width: 250px;
+    padding: 12px 0;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #FFB800;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-wrapper button:hover {
     background-color: #D49152;
+}
+
+/* Optional: Style for input fields to match the button's style */
+.input-box input {
+    width: 100%;
+    max-width: 250px;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    background-color: white;
+}
+
+.input-box input:focus {
+    outline: none;
+    border-color: #D49152;
+}
+
+/* ปรับการแสดงผลของ label */
+.input-box label {
+    font-size: 16px;
+    color: #ffffff;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+/* ปรับการแสดงผลของ input */
+.input-box input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: white;
+}
+
+/* ปรับปุ่มใน button-wrapper */
+.button-wrapper button {
+    width: 100%;
+    max-width: 250px;
+    padding: 12px 0;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #FFB800;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-wrapper button:hover {
+    background-color: #D49152;
+}
+
+/* ปรับเฉพาะ input ภายใน .mobile-input */
+.mobile-input input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: white;
 }
