@@ -16,10 +16,6 @@ def dashboard(request):
         context['username'] = 'Guest'
     return render(request, 'dashboard.html', context)
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from .forms import RegisterForm  # Import your custom form
-
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
