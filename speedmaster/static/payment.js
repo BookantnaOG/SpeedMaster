@@ -70,4 +70,5 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('payment-btn').addEventListener("click", function () {
         alert('กำลังดำเนินการชำระเงิน...');
     });
+    
 });
