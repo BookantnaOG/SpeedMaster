@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🛠️ อัปเดตวันที่ที่เลือก
     function updateDate(event) {
-        const date = event.target.innerText; // ใช้ event.target เพื่อดึงข้อมูลวันที่จากปุ่ม
+        const date = event.target.innerText;
         // ✅ บันทึกใน localStorage
         localStorage.setItem('selectedDate', date);
 
@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 🛠️ อัปเดตเวลาที่เลือก
     function updateTime(event) {
-        const time = event.target.innerText; // ใช้ event.target เพื่อดึงข้อมูลเวลาจากปุ่ม
+        const time = event.target.innerText;
         // ✅ บันทึกใน localStorage
         localStorage.setItem('selectedTime', time);
 
@@ -95,6 +95,18 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🛠️ เพิ่ม Event Listener ให้ปุ่มเวลา
     document.querySelectorAll('.time-btn').forEach(button => {
         button.addEventListener('click', updateTime); // ส่ง event มา
+    });
+
+    // 🛠️ ตรวจสอบการเลือกบริการ วันที่ และเวลา ก่อนส่งฟอร์ม
+    document.getElementById('booking-form').addEventListener('submit', function(event) {
+        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
+        const selectedDate = localStorage.getItem('selectedDate');
+        const selectedTime = localStorage.getItem('selectedTime');
+
+        if (selectedServices.length === 0 || !selectedDate || !selectedTime) {
+            alert("กรุณาเลือกบริการ, วันที่ และเวลา ก่อนที่จะยืนยันการจอง");
+            event.preventDefault(); // ไม่ให้ส่งฟอร์มหรือไปหน้าถัดไป
+        }
     });
 
     // ✅ โหลดค่าที่เลือกไว้ก่อนหน้า (ถ้ามี)

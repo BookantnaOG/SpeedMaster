@@ -1,348 +1,136 @@
-/* General body styling */
+/* General Styles */
 body {
-    background-color: white;
     font-family: Arial, sans-serif;
+    background-color: #2f3d40; /* Light background */
     margin: 0;
     padding: 0;
-}
-
-/* Detail Booking Container */
-.detail-booking-container {
-    position: relative;
-    margin-top: 20px;
-    padding-bottom: 40px;
-    background-color: #2F3D40;
-    color: white;
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    border-radius: 10px;
-}
-
-.detail-booking-container h2 {
-    margin-top: 0;
-    font-size: 24px;
-    color: #FFB800;
-}
-
-.detail-booking-container .detail {
-    margin-bottom: 15px;
-}
-
-.detail-booking-container .input-box {
-    margin-bottom: 20px;
-}
-
-.detail-booking-container input {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    background-color: white;
-}
-
-/* Payment Method Container */
-.payment-method-container {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    min-height: 100vh; /* ให้หน้าจอเต็ม */
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-color: #3A4B4D;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.payment-method-container .payment-title {
-    margin-bottom: 10px;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-}
-
-/* Payment Options (buttons in one line) */
-.payment-options {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-
-.payment-options button {
-    padding: 10px;
-    border: 1px solid white;
-    border-radius: 5px;
-    background-color: transparent;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 14px;
-    white-space: nowrap;
-    min-width: 100px;
-}
-
-.payment-options button:hover {
-    background-color: #FFB800;
-    color: black;
+    flex-direction: column; /* จัดเนื้อหาให้เรียงแนวตั้ง */
+    overflow-x: hidden; /* ป้องกันการเลื่อนในแนวนอน */
 }
 
 /* Payment Forms Container */
 .payment-forms {
-    position: absolute;
-    top: 115px;
-    right: 50px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 20px;
-}
-
-/* Payment Form Styling */
-.payment-form {
     width: 100%;
-    max-width: 300px;
-    max-height: 525px;
-    background-color: #333;
+    max-width: 600px;
+    margin: 20px auto;
     padding: 20px;
-    border-radius: 10px;
-    margin-left: auto;
-    color: white;
-    border: 1px solid #444;
-    box-sizing: border-box;
-    overflow: hidden;
+    background-color: #2f3d40;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-grow: 1; /* ให้ฟอร์มขยายเต็มพื้นที่ */
 }
 
-.payment-form.active {
-    display: block;
+/* Payment Form Style */
+.payment-form {
+    display: none;
 }
 
-.payment-form h3 {
-    margin-bottom: 10px;
-}
-
-.payment-form input {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    background-color: #fff;
-}
-
-/* QR Code Styling */
-#qr-code img {
-    width: 150px;
-    height: 150px;
-    display: block;
-    margin: 0 auto;
-}
-
-/* Confirmation Section */
-.confirmation-section {
-    margin-top: 40px;
-}
-
-.confirmation-section h3 {
-    margin-bottom: 15px;
-    font-size: 20px;
-    color: #FFB800;
-}
-
-.confirmation-section .input-box {
-    margin-bottom: 20px;
-}
-
-.confirmation-section .button-wrapper {
-    text-align: right;
-}
-
-.confirmation-section .pay-button {
-    background-color: #D49152;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    font-size: 18px;
-    cursor: pointer;
-    transition: 0.3s;
-    border-radius: 5px;
-}
-
-.confirmation-section .pay-button:hover {
-    background-color: #C07B40;
-}
-
-/* Pricing Details */
-.pricing-details h3 {
+h3 {
+    color: #FFB800; /* Yellow color */
     font-size: 24px;
     margin-bottom: 20px;
-    color: #333;
-    text-align: center;
 }
 
-/* Service Price List */
-#service-price-list {
-    list-style-type: none;
+/* Title Centering */
+.centered {
+    text-align: center;
+    color: #FFB800;
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* Total Price Section */
+.total-price {
+    text-align: center;
+    font-size: 20px;
+    color: #FFF; /* White text */
+    margin-bottom: 20px;
+}
+
+/* Credit Card Form */
+#credit-card-form fieldset {
+    border: none;
     padding: 0;
-    margin: 0;
 }
 
-/* Service List Item */
-#service-price-list li {
-    background-color: #F1F1F1;
-    color: #333;
-    padding: 12px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    font-size: 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+#credit-card-form legend {
+    font-size: 20px;
+    color: #FFB800; /* Yellow color */
 }
 
-/* Service Fee styling */
-#service-price-list li .service-fee {
-    font-size: 16px;
-    color: #333;
-    padding-left: 10px;
-    font-weight: bold;
-}
-
-/* Special styling for VAT and total price */
-#vat-price, #total-price {
-    background-color: #F7F7F7;
-    font-weight: bold;
-}
-
-/* Final price color and styling */
-#final-price {
-    color: #D49152;
-    font-size: 18px;
-    font-weight: bold;
-    margin-top: 20px;
-    text-align: center;
-}
-
-/* Form Inputs */
-input[type="text"], input[type="email"], input[type="tel"] {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+#credit-card-form label {
     font-size: 14px;
-    background-color: white;
+    color: #FFF; /* White label */
+    margin-bottom: 5px;
+    display: block;
 }
 
-input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
+#credit-card-form input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white; /* White input field */
+}
+
+#credit-card-form input:focus {
+    border-color: #D49152; /* Orange border on focus */
     outline: none;
-    border-color: #D49152;
 }
 
-/* Button Styling */
-button {
+/* QR Promptpay Form */
+#qr-code img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px 0;
+}
+
+/* Store Payment Form */
+#store-payment p {
+    font-size: 16px;
+    color: #ddd; /* Light gray text */
+}
+
+/* Style for payment form buttons */
+.payment-form button {
+    background-color: #FFB800; /* Yellow button */
+    color: white;
     padding: 10px 20px;
     border: none;
-    background-color: #FFB800;
-    color: white;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
-}
-
-/* Ensure the button width is uniform */
-.button-wrapper button {
-    width: 100%;
-    max-width: 250px;
-    padding: 12px 0;
     font-size: 16px;
-    text-align: center;
-    border-radius: 5px;
-    background-color: #FFB800;
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.button-wrapper button:hover {
-    background-color: #D49152;
-}
-
-/* Optional: Style for input fields to match the button's style */
-.input-box input {
-    width: 100%;
-    max-width: 250px;
-    padding: 12px;
-    margin-bottom: 16px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    background-color: white;
-}
-
-.input-box input:focus {
-    outline: none;
-    border-color: #D49152;
-}
-
-/* ปรับการแสดงผลของ label */
-.input-box label {
-    font-size: 16px;
-    color: #ffffff;
     display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
+    margin: 20px auto; /* Center the button */
 }
 
-/* ปรับการแสดงผลของ input */
-.input-box input {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    background-color: white;
+.payment-form button:hover {
+    background-color: #D49152; /* Orange hover effect */
 }
 
-/* ปรับปุ่มใน button-wrapper */
-.button-wrapper button {
-    width: 100%;
-    max-width: 250px;
-    padding: 12px 0;
-    font-size: 16px;
-    text-align: center;
-    border-radius: 5px;
+/* Payment selection buttons */
+#credit-card-btn, #qr-code-btn, #store-payment-btn {
     background-color: #FFB800;
     color: white;
+    padding: 10px 20px;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    font-size: 16px;
+    margin-bottom: 10px; /* Space between buttons */
 }
 
-.button-wrapper button:hover {
-    background-color: #D49152;
+#credit-card-btn:hover, #qr-code-btn:hover, #store-payment-btn:hover {
+    background-color: #D49152; /* Orange hover effect */
 }
 
-/* ปรับเฉพาะ input ภายใน .mobile-input */
-.mobile-input input {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 16px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    background-color: white;
+/* Centering the payment buttons inside forms */
+.button-wrapper {
+    text-align: center;
+    margin-top: 20px;
 }
