@@ -187,3 +187,59 @@ b {
     font-weight: bold;
     margin-top: 20px;
 }
+/* Customize Scrollbar for Select */
+select {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #2F3D40;
+    width: 40%;
+    margin-top: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    overflow-y: auto; /* Allow vertical scrolling */
+}
+
+/* Scrollbar Styling */
+select::-webkit-scrollbar {
+    width: 8px;
+}
+
+select::-webkit-scrollbar-thumb {
+    background-color: #FFB800;
+    border-radius: 4px;
+    border: 2px solid #fff;
+}
+
+select::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+    border-radius: 4px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+    background-color: #ff9800;
+}
+
+/* For Firefox */
+select {
+    scrollbar-width: thin;
+    scrollbar-color: #FFB800 #f0f0f0;
+}
+
+/* Additional Styling for the Disabled Option */
+option:disabled {
+    color: #aaa;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+/* Style for the First Disabled "Select" Option */
+option[disabled] {
+    color: #aaa;
+    background-color: #f2f2f2;
+    font-style: italic;
+}

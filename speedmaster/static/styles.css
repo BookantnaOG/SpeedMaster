@@ -391,7 +391,7 @@ p {
 /* ปุ่ม Booking */
 .booking-btn {
     padding: 10px 20px;
-    background-color: #ffc107;
+    background-color: #f2a154;
     color: white;
     border: none;
     border-radius: 5px;
@@ -399,7 +399,9 @@ p {
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-top: auto;
     align-self: center;
+    text-decoration: none; /* Prevent underline */
 }
+
 
 /* เปลี่ยนสีปุ่มเมื่อ hover */
 .booking-btn:hover {
