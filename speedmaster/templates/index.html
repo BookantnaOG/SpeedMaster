@@ -8,28 +8,27 @@
     <p>บริการล้างรถ เคลือบแก้ว และติดฟิล์มกันรอย ด้วยเทคโนโลยีเคมีขั้นสูง ที่ช่วยยกระดับความเงางามและปกป้องพื้นผิวรถคุณอย่างมีประสิทธิภาพ</p>
     <img src="{% static 'Image/Page 1/vecteezy_sport-car-isolated-on-transparent-background-3d-rendering_19069771.png' %}" alt="Car" />
     <div class="button-container">
-        <a href="{% url 'booking' %}" class="booking-button">Booking</a>
-      </div>
+        <a href="{% url 'booking' %}" class="booking-button main">Booking</a>
+    </div>
 
     <div class="info-item">
         <div class="info-box">
-            <img src="{% static 'Image/materieal/Home/Service_icon.png' %}" alt="Service">
+            <img src="{% static 'Image/Page 1/—Pngtree—car-repair-glyph-icon-vector_5079209.png' %}" alt="Service">
             <h1>Service</h1>
             <p>บริการล้างรถ เคลือบแก้วและฟิล์มกันรอย</p>
         </div>
         
         <div class="info-box">
-            <img src="{% static 'Image/materieal/Home/Hour_icon.png' %}" alt="Hour">
+            <img id="hour-icon" src="{% static 'Image/Page 1/CLOCK-131994911255070765_512px.png' %}" alt="Hour">
             <h1>Hour</h1>
             <p>เปิดให้บริการทุกวัน 8.30-18.30 น. ไม่มีวันหยุด</p>
         </div>
-        
         <div class="info-box">
-            <img src="{% static 'Image/materieal/Home/Location.png' %}" alt="Location">
+            <img id="location-icon" src="{% static 'Image/Page 1/pin.png' %}" alt="Location">
             <h1>Location</h1>
             <p>สาขาในเมือง สาขาคอมเพล็ก</p>
         </div>
-    </div>
+        
 </section>
 <!-- About Section -->
 <section id="About">
@@ -60,10 +59,7 @@
         </div>
         <!-- Center image -->
         <div class="Center-image">
-            <img src="{% static 'Image/materieal/About/about.png' %}" alt="Flag">
-            <img src="{% static 'Image/materieal/About/about.png' %}" alt="Flag">
-            <img src="{% static 'Image/materieal/About/about.png' %}" alt="Flag">
-            <img src="{% static 'Image/materieal/About/Car-About.png' %}" alt="Center Image">
+            <img src="{% static 'Image/Page 2/Car-and-flag.png' %}" alt="Center Image">
     </div>
 
         <!-- Right Container -->
@@ -99,88 +95,98 @@
             <div class="membership-box">
                 <h2>Regular</h2>
                 <ul>
-                    <li>ล้างรถ 4 ครั้ง/เดือน</li>
-                    <li>บริการดูดฝุ่นพิเศษ</li>
-                    <li>ส่วนลด 10% สำหรับบริการเสริม</li>
-                    <li>สะสมแต้มครบ 3 เดือน รับล้างฟรี 1 ครั้ง</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> ล้างรถ 4 ครั้ง/เดือน</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> บริการดูดฝุ่นพิเศษ</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> ส่วนลด 10% สำหรับบริการเสริม</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> สะสมแต้มครบ 3 เดือน รับล้างฟรี 1 ครั้ง</li>
                 </ul>
             </div>
             <div class="membership-box">
                 <h2>Premium</h2>
                 <ul>
-                    <li>ล้างรถแบบพรีเมียม ไม่จำกัดครั้ง/เดือน</li>
-                    <li>ขัดเคลือบภายนอกรถฟรี 2 ครั้ง/เดือน</li>
-                    <li>บริการดูดฝุ่น + เช็ดทำความสะอาดภายในทุกครั้ง</li>
-                    <li>ส่วนลด 20% สำหรับบริการเคลือบสีและฟื้นฟูภายใน</li>
-                    <li>ตรวจสภาพฟรี 1 ครั้ง/เดือน</li>
-                    <li>บริการจองล้างรถล่วงหน้าได้ทุกวัน</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> ล้างรถแบบพรีเมียม ไม่จำกัดครั้ง/เดือน</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> ขัดเคลือบภายนอกรถฟรี 2 ครั้ง/เดือน</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> บริการดูดฝุ่น + เช็ดทำความสะอาดภายในทุกครั้ง</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> ส่วนลด 20% สำหรับบริการเคลือบสีและฟื้นฟูภายใน</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> ตรวจสภาพฟรี 1 ครั้ง/เดือน</li>
+                    <li><img src="{% static 'Image/Page 3/ติ๊กถูก.png' %}" class="icon"> บริการจองล้างรถล่วงหน้าได้ทุกวัน</li>
                 </ul>
             </div>
-            <a href="#" class="btn">สมัครสมาชิก</a>
+            <a href="#" class="Reg-btn">สมัครสมาชิก</a>
         </div>
         <div class="image-section">
-            <img src="{% static 'Image/materieal/Membership/Car_Black.jpg' %}" alt="Car 1">
-            <img src="{% static 'Image/materieal/Membership/Car_Red.png' %}" alt="Car 2">
-            <img src="{% static 'Image/materieal/Membership/Car_White.jpg' %}" alt="Car 3">
-        </div>
+            <img class="car-1" src="{% static 'Image/Page 3/pexels-a2pro-6355183.jpg' %}" alt="Car 1">
+            <img class="car-2" src="{% static 'Image/Page 3/Car_Black.jpg' %}" alt="Car 2">
+            <img class="car-3" src="{% static 'Image/Page 3/pexels-lazaro-rodriguez-jr-11199025-6656721.jpg' %}" alt="Car 3">
+        </div>        
     </div>
 </section>
 
 <!-- OurService Section -->
 <section id="OurService">
+    <!-- คำว่า "Our Service" เพิ่มตรงนี้ -->
+    <h2 class="section-title">Our Service</h2>
+  
     <div class="service-container">
-      <div class="service-card">
-        <img src="glass-coating.jpg" alt="Glass Coating">
-        <h3>Glass Coating</h3>
-        <p>Protect your vehicle's paint with a high-quality glass coating that gives a shiny and durable finish.</p>
-        <button class="booking-btn">Book Now</button>
-      </div>
-      <div class="service-card">
-        <img src="scratch-protection-film.jpg" alt="Scratch Protection Film">
-        <h3>Scratch Protection Film</h3>
-        <p>Prevent scratches on your car with our advanced scratch protection film that keeps your car looking brand new.</p>
-        <button class="booking-btn">Book Now</button>
-      </div>
-      <div class="service-card">
-        <img src="another-service.jpg" alt="Another Service">
-        <h3>Other Service</h3>
-        <p>Our other services ensure your car stays protected from environmental damage, providing long-lasting care.</p>
-        <button class="booking-btn">Book Now</button>
-      </div>
+        <div class="service-container">
+            <div class="service-card">
+              <img id="ServiceImage1" src="{% static 'Image/Page 4/Car Washing.png' %}" alt="Car Washing">
+              <h3>ล้าง</h3>
+              <p>ล้างคราบสกปรก เคลือบผิวรถ ทำความสะอาดภายใน.</p>
+              <button class="booking-btn">Book Now</button>
+            </div>
+            <div class="service-card">
+              <img id="ServiceImage2" src="{% static 'Image/Page 4/glass-coating.png' %}" alt="Glass Coating">
+              <h3>เคลือบแก้ว</h3>
+              <p>ปกป้องสีรถจากรอยขนแมว คราบสกปรกที่ฝั่งแน่น รังสี UV และความร้อน
+                เพื่อสีรถดูเงางามนานยิ่งขึ้น</p>
+              <button class="booking-btn">Book Now</button>
+            </div>
+            <div class="service-card">
+              <img id="ServiceImage3" src="{% static 'Image/Page 4/Car-and-shield.png' %}" alt="Car and Shield">
+              <h3>ฟิล์มกันรอย</h3>
+              <p>ป้องกันการเกิดรอยขีดข่วน และรอยถลอก
+                พร้อมกับปกป้องผิวรถได้มากกว่า 5 ปี
+             (เนื้อฟิล์มจะทำการรักษาตัวเองเมื่อโดนความร้อน)</p>
+              <button class="booking-btn">Book Now</button>
+            </div>
+          </div>
+          
     </div>
   </section>
-  
-<!-- Comment-->
+<!-- Comment -->
 <section class="section-content">
+    <!-- โลโก้ต่างๆ -->
     <div class="logo-container">
-      <img src="{% static 'Image/materieal/Comment/Audi.png' %}" alt="Logo 1" class="logo">
-      <img src="{% static 'Image/materieal/Comment/BMW.png' %}" alt="Logo 2" class="logo">
-      <img src="{% static 'Image/materieal/Comment/Honda.png' %}" alt="Logo 3" class="logo">
-      <img src="{% static 'Image/materieal/Comment/Toyota.png' %}" alt="Logo 4" class="logo">
+      <img src="{% static 'Image/Page 5/AUDI_(12).png' %}" alt="Logo 1" class="logo">
+      <img src="{% static 'Image/Page 5/BMWpng.parspng.com-3.png' %}" alt="Logo 2" class="logo">
+      <img src="{% static 'Image/Page 5/pngwing.com-(1).png' %}" alt="Logo 3" class="logo">
+      <img src="{% static 'Image/Page 5/pngwing.com.png' %}" alt="Logo 4" class="logo">
     </div>
   
-    <div class="user-profiles">
-      <div class="user-profile">
-        <img src="user1.jpg" alt="User 1" class="profile-pic">
-        <p class="user-name">User 1</p>
-        <p class="user-description">This is a description of User 1's profile.</p>
+    <div class="speedmaster">Speedmaster</div>
+  
+    <!-- Commentor profiles -->
+    <div class="commentor-profiles">
+      <div class="commentor-profile">
+        <img src="{% static 'Image/UserProfile/User1.jpg' %}" alt="Commentor 1" class="profile-pic">
+        <p class="commentor-name">Narathai</p>
+        <p class="commentor-description">"I wish I would have thought of it first. Thanks guys, keep up the good work! I was amazed at the quality of Backpacks."</p>
       </div>
-      <div class="user-profile">
-        <img src="user2.jpg" alt="User 2" class="profile-pic">
-        <p class="user-name">User 2</p>
-        <p class="user-description">This is a description of User 2's profile.</p>
+  
+      <div class="commentor-profile">
+        <img src="{% static 'Image/UserProfile/User2.jpg' %}" alt="Commentor 2" class="profile-pic">
+        <p class="commentor-name">Adam</p>
+        <p class="commentor-description">"I wish I would have thought of it first. Thanks guys, keep up the good work! I was amazed at the quality of Backpacks."</p>
       </div>
     </div>
-    
-    <div class="section-end">
-      <!-- คุณสามารถใส่เนื้อหาหรือข้อมูลที่ต้องการที่นี่ -->
+  
+  
+    <div class="img-footer">
+      <img src="{% static 'Image/Page 6/pexels-lynxexotics-3954441_2.jpg' %}" alt="Image Footer" class="footer-img">
     </div>
   </section>
   
-  <!--ImgFooter-->
-  <section class="img-footer">
-    <img src="{% static 'Image/materieal/Footer/screen_2x.jpg' %}" alt="Image Footer" class="footer-img">
-  </section>
   
 
 

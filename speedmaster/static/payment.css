@@ -9,6 +9,18 @@ body {
     flex-direction: column; /* จัดเนื้อหาให้เรียงแนวตั้ง */
     overflow-x: hidden; /* ป้องกันการเลื่อนในแนวนอน */
 }
+/* ปรับสีให้เป็นขาวสำหรับข้อความราคาสุทธิและ 0 บาท */
+.total-price p {
+    color: white;
+    text-align: left; /* จัดข้อความไปทางซ้าย */
+    margin: 0; /* เอาระยะห่างออกจากข้อความ */
+}
+
+/* กำหนดสไตล์เฉพาะให้กับ span ที่มี id เป็น total-price */
+#total-price {
+    font-weight: bold; /* ทำให้ข้อความเป็นตัวหนา */
+}
+
 
 /* Payment Forms Container */
 .payment-forms {

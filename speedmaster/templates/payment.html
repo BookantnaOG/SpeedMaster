@@ -13,6 +13,7 @@
         <p>ราคาสุทธิ: <span id="total-price">0 บาท</span></p>
     </div>
 
+
     <!-- Payment Options -->
     <button id="credit-card-btn">ชำระด้วยบัตรเครดิต</button>
     <button id="qr-code-btn">ชำระด้วย QR Promptpay</button>
@@ -44,7 +45,7 @@
     <!-- QR Promptpay Form -->
     <form id="qr-code" class="payment-form" style="display:none;" method="GET" action="/process-qr-payment">
         <h3>QR Promptpay</h3>
-        <img src="{% static 'pictures/materieal/QR/s-1.png' %}" alt="QR Code">
+        <img src="{% static 'Image/materieal/QR/s-1.png' %}" alt="QR Code">
         <div class="button-wrapper">
             <button type="submit">ชำระเงินผ่าน QR</button>
         </div>
