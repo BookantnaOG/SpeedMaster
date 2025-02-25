@@ -12,12 +12,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ตรวจสอบว่าปุ่มแต่ละปุ่มมีอยู่หรือไม่ก่อนเพิ่ม event listener
-    const creditCardBtn = document.getElementById('credit-card-btn');
+  /*  const creditCardBtn = document.getElementById('credit-card-btn');
     if (creditCardBtn) {
         creditCardBtn.addEventListener("click", function() {
             showPaymentForm('credit-card-form');
         });
-    }
+    }*/
 
     const qrCodeBtn = document.getElementById('qr-code-btn');
     if (qrCodeBtn) {
@@ -26,12 +26,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    const storePaymentBtn = document.getElementById('store-payment-btn');
+    /*const storePaymentBtn = document.getElementById('store-payment-btn');
     if (storePaymentBtn) {
         storePaymentBtn.addEventListener("click", function() {
             showPaymentForm('store-payment');
         });
-    }
+    }*/
 
     // คำนวณราคาจาก LocalStorage และแสดงราคาสุทธิ
     const totalPriceElement = document.getElementById('total-price');

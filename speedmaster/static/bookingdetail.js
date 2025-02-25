@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ฟังก์ชันในการแสดงวันและเวลาในรูปแบบที่ต้องการ
     function formatDateTime(day, time) {
         const monthsOfYear = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
         const currentDate = new Date();
@@ -9,7 +8,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return `${day} ที่ ${dayOfMonth} ${month} ${year} เวลา ${time}`;
     }
 
-    // ฟังก์ชันในการดึงวันที่ถูกเลือกจาก localStorage หรือวันที่ปัจจุบัน
     function getSelectedDayFromLocalStorage() {
         const selectedDay = localStorage.getItem('selectedDate');
         if (selectedDay) {
@@ -21,64 +19,141 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // ดึงวันและเวลาและแสดงบนหน้าจอ
     const selectedDay = getSelectedDayFromLocalStorage();
     const selectedTime = localStorage.getItem('selectedTime') || "12:30";
     document.getElementById('booking-time-display').innerText = formatDateTime(selectedDay, selectedTime);
 
-    // ราคาของบริการต่างๆ
     const servicePrices = {
         "เคลือบแก้ว": 500,
         "ฟิล์มกันรอย": 200,
         "ล้างรถ": 100
     };
 
-    // ดึงรายการบริการที่เลือกจาก localStorage
+    const cleanlinessPrices = {
+        "normal": 0,
+        "medium": 50,
+        "dirty": 100,
+        "veryDirty": 150
+    };
+
+    const carSizePrices = {
+        "S": 50,
+        "M": 100,
+        "L": 150,
+        "XL": 200,
+        "XXL": 250,
+        "sports": 300,
+        "motorcycleSmall": 50,
+        "motorcycleLarge": 100
+    };
+
     let selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
     const servicePriceTable = document.getElementById('service-price-table');
-    servicePriceTable.innerHTML = selectedServices.length > 0 ? 
-        `<ul>` + selectedServices.map(service => ` 
-            <li>
-                <span class="service-name">${service}</span> 
-                <span class="service-price">${servicePrices[service] || 0} บาท</span>
-            </li>`).join('') + 
-        `<li>
-            <span class="service-name">ค่าบริการ</span> 
-            <span class="service-price">50 บาท</span>
-        </li>` + 
-        `</ul>` : 
-        '<ul><li>ยังไม่ได้เลือกบริการ</li></ul>';
+    let cleanlinessLevel = localStorage.getItem('cleanlinessLevel') || "normal";
+    let carSize = localStorage.getItem('carSize') || "S";
 
-    // ฟังก์ชันในการคำนวณราคาสุทธิ
+    // Update service price table
+    function updateServicePriceTable() {
+        const cleanlinessFee = cleanlinessPrices[cleanlinessLevel] || 0;
+        const carSizeFee = carSizePrices[carSize] || 0;
+        const totalServicePrice = selectedServices.reduce((total, service) => total + (servicePrices[service] || 0), 0);
+        const totalPrice = totalServicePrice + 50 + cleanlinessFee + carSizeFee; // Add fixed service fee
+        const vat = totalPrice * 0.07;
+        const finalPrice = totalPrice + vat;
+
+        // Update service price table
+        servicePriceTable.innerHTML = selectedServices.length > 0 ? 
+            `<ul>` + selectedServices.map(service => `
+                <li>
+                    <span class="service-name">${service}</span>
+                    <span class="service-price">${servicePrices[service] || 0} บาท</span>
+                </li>`).join('') + 
+            `<li>
+                <div class="service-name">ค่าบริการ</div>
+                <div class="service-price">50 บาท</div>
+            </li>
+            <li>
+                <div class="service-name">ค่าความสะอาด</div>
+                <div class="service-price">${cleanlinessFee} บาท</div>
+            </li>
+            <li>
+                <div class="service-name">ขนาดรถ</div>
+                <div class="service-price">${carSizeFee} บาท</div>
+            </li>
+            <li>
+                <div class="service-name">VAT 7%</div>
+                <div class="service-price">${vat.toFixed(2)} บาท</div>
+            </li>` + 
+            `</ul>` : 
+            '<ul><li>ยังไม่ได้เลือกบริการ</li></ul>';
+
+        // Save final price to localStorage
+        localStorage.setItem('finalPrice', finalPrice.toFixed(2));
+        document.getElementById('final-price').innerHTML = ` 
+            <p><b>ราคารวมสุทธิ:</b> <span id="final-price-amount">${finalPrice.toFixed(2)} บาท</span></p>
+        `;
+    }
+
+    // Calculate final price after applying discount
     function calculateFinalPrice(discount = 0) {
-        let totalPrice = selectedServices.reduce((total, service) => total + (servicePrices[service] || 0), 0) + 50;
+        const cleanlinessFee = cleanlinessPrices[cleanlinessLevel] || 0;
+        const carSizeFee = carSizePrices[carSize] || 0;
+        const totalServicePrice = selectedServices.reduce((total, service) => total + (servicePrices[service] || 0), 0);
+        const totalPrice = totalServicePrice + 50 + cleanlinessFee + carSizeFee; // Add fixed service fee
         const vat = totalPrice * 0.07;
         const finalPrice = totalPrice + vat - discount;
-
-        localStorage.setItem('finalPrice', finalPrice.toFixed(2));
 
         if (isNaN(finalPrice)) {
             document.getElementById('final-price').innerText = 'ราคาไม่ถูกต้อง';
         } else {
-            document.getElementById('final-price').innerText = `${finalPrice.toFixed(2)} THB`;
+            document.getElementById('final-price').innerHTML = ` 
+                 <span id="final-price-amount">${finalPrice.toFixed(2)} บาท</span>
+            `;
         }
+
+        localStorage.setItem('finalPrice', finalPrice.toFixed(2));
     }
 
-    // ฟังก์ชันในการคำนวณส่วนลดและราคาหลังจากส่วนลด
+    // Apply discount if available
     function applyDiscount() {
         const discountCode = document.getElementById('discount-code').value.trim().toLowerCase();
         let discountAmount = 0;
 
-        // คำนวณส่วนลดเมื่อกดปุ่ม "ใช้ส่วนลด"
         if (discountCode === "speedmaster") {
             const basePrice = selectedServices.reduce((total, service) => total + (servicePrices[service] || 0), 0) + 50;
-            discountAmount = basePrice * 0.20;  // 20% discount
+            discountAmount = basePrice * 0.20; // Apply 20% discount
         }
 
-        calculateFinalPrice(discountAmount);  // คำนวณราคาใหม่หลังจากใช้ส่วนลด
+        calculateFinalPrice(discountAmount);
     }
 
-    // ฟังก์ชันในการเลือกบริการ
+    // Event listener for cleanliness level change
+    document.getElementById('cleanliness-level').addEventListener('change', function () {
+        cleanlinessLevel = this.value;
+        localStorage.setItem('cleanlinessLevel', cleanlinessLevel);
+        updateServicePriceTable();
+        calculateFinalPrice();
+    });
+
+    // Event listener for car size change
+    document.getElementById('car-size').addEventListener('change', function () {
+        carSize = this.value;
+        localStorage.setItem('carSize', carSize);
+        updateServicePriceTable();
+        calculateFinalPrice();
+    });
+
+    document.querySelectorAll('.info-icon').forEach(function(icon) {
+        icon.addEventListener('click', function() {
+            this.classList.toggle('active');
+            let tooltip = this.nextElementSibling;
+            if (tooltip) {
+                tooltip.classList.toggle('active');
+            }
+        });
+    });
+
+    // Select a service when clicked
     document.querySelectorAll('.service-btn').forEach(button => {
         button.addEventListener('click', function(event) {
             const service = event.target.innerText;
@@ -86,63 +161,80 @@ document.addEventListener("DOMContentLoaded", function () {
                 selectedServices.push(service);
                 localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
             }
-            calculateFinalPrice();  // คำนวณราคาหลังจากเลือกบริการ
+            updateServicePriceTable();
+            calculateFinalPrice();
         });
     });
 
-    // ฟังก์ชันที่เรียกเมื่อกรอกรหัสส่วนลด
+    // Discount button logic
     document.getElementById('discount-code').addEventListener('input', function () {
-        document.getElementById('apply-discount-btn').disabled = false;  // เปิดใช้งานปุ่ม "ใช้ส่วนลด"
+        document.getElementById('apply-discount-btn').disabled = false;
     });
 
-    // เมื่อกดปุ่ม "ใช้ส่วนลด" ให้คำนวณราคาใหม่
     document.getElementById('apply-discount-btn').addEventListener('click', function () {
         applyDiscount();
     });
 
-    // การยืนยันการทำรายการและเก็บข้อมูลที่ต้องการส่งไปยังหน้า Payment
+    // Payment button logic with validation
     document.getElementById("payment-btn").addEventListener("click", function(event) {
         event.preventDefault();
 
         const carReg = document.getElementById("car-reg").value.trim();
         const email = document.getElementById("email").value.trim();
         const mobile = document.getElementById("mobile").value.trim();
-        const carBrand = document.getElementById("car-brand").value;  // ดึงยี่ห้อรถที่เลือก
+        const carName = document.getElementById("car-name").value.trim();
         const validationMessage = document.querySelector('.validation-message');
 
-        if (!carReg || !email || !mobile || !carBrand) {
+        // Validate all fields are filled
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        const mobileRegex = /^[0-9]{10}$/;
+
+        if (!carReg || !email || !mobile || !carName) {
+            validationMessage.innerText = 'กรุณากรอกข้อมูลให้ครบถ้วน';
+            validationMessage.style.display = 'block';
+            return;
+        }
+
+        // Validate email format
+        if (!emailRegex.test(email)) {
+            validationMessage.innerText = 'กรุณากรอกอีเมลล์ที่ถูกต้อง';
+            validationMessage.style.display = 'block';
+            return;
+        }
+
+        // Validate mobile format
+        if (!mobileRegex.test(mobile)) {
+            validationMessage.innerText = 'กรุณากรอกหมายเลขโทรศัพท์ที่ถูกต้อง';
             validationMessage.style.display = 'block';
             return;
         }
 
         validationMessage.style.display = 'none';
-        
-        // เก็บข้อมูลใน localStorage เพื่อส่งไปยังหน้า payment.html
+
+        // Save payment details to localStorage
         localStorage.setItem('carReg', carReg);
         localStorage.setItem('email', email);
         localStorage.setItem('mobile', mobile);
-        localStorage.setItem('carBrand', carBrand);
+        localStorage.setItem('carName', carName);
 
-        // เปลี่ยนหน้าไปยัง payment.html
         window.location.href = '/payment/';  
     });
 
-    // ในหน้า payment.html, สามารถดึงข้อมูลนี้จาก localStorage ได้
+    // If on payment page, display stored details
     if (window.location.pathname.includes("payment.html")) {
         const carReg = localStorage.getItem('carReg');
         const email = localStorage.getItem('email');
         const mobile = localStorage.getItem('mobile');
-        const carBrand = localStorage.getItem('carBrand');
+        const carName = localStorage.getItem('carName');
         const finalPrice = localStorage.getItem('finalPrice');
 
-        // แสดงข้อมูลในหน้า payment
         document.getElementById('payment-car-reg').innerText = carReg;
         document.getElementById('payment-email').innerText = email;
         document.getElementById('payment-mobile').innerText = mobile;
-        document.getElementById('payment-car-brand').innerText = carBrand;
-        document.getElementById('payment-final-price').innerText = `${finalPrice} THB`;
+        document.getElementById('payment-car-name').innerText = carName;
+        document.getElementById('payment-final-price').innerText = `${finalPrice} บาท`;
     }
 
-    // เรียกใช้ฟังก์ชันคำนวณราคาครั้งแรกเพื่อให้แสดงผลทันที
+    updateServicePriceTable();
     calculateFinalPrice();
 });
