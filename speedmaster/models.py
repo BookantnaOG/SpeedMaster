@@ -1,11 +1,6 @@
 from django.db import models
 from django.conf import settings
 
-
-class UserTelephone(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    telephone = models.CharField(max_length=20)
-
 class Carinfo(models.Model):
     carno = models.AutoField(primary_key=True)
     car_plate = models.CharField(max_length=15)
@@ -21,7 +16,7 @@ class CarDetailingService(models.Model):
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
     status_on = models.DateTimeField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     detailing = models.ForeignKey(CarDetailingService, on_delete=models.CASCADE)
 
 class BookingDetail(models.Model):
