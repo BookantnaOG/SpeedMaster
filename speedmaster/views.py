@@ -1,8 +1,8 @@
-from django.contrib import admin # type: ignore
-from django.urls import path,include # type: ignore
-from django.contrib.auth import views as auth_views # type: ignore
-from django.shortcuts import render # type: ignore
-from django.contrib.auth.decorators import login_required # type: ignore
+from django.contrib import admin 
+from django.urls import path,include 
+from django.contrib.auth import views as auth_views 
+from django.shortcuts import render 
+from django.contrib.auth.decorators import login_required 
 
 
 def index(request):
