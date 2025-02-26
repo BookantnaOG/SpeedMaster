@@ -29,13 +29,6 @@ document.addEventListener("DOMContentLoaded", function () {
         "ล้างรถ": 100
     };
 
-    const cleanlinessPrices = {
-        "normal": 0,
-        "medium": 50,
-        "dirty": 100,
-        "veryDirty": 150
-    };
-
     const carSizePrices = {
         "S": 50,
         "M": 100,
@@ -49,15 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
     const servicePriceTable = document.getElementById('service-price-table');
-    let cleanlinessLevel = localStorage.getItem('cleanlinessLevel') || "normal";
     let carSize = localStorage.getItem('carSize') || "S";
 
     // Update service price table
     function updateServicePriceTable() {
-        const cleanlinessFee = cleanlinessPrices[cleanlinessLevel] || 0;
         const carSizeFee = carSizePrices[carSize] || 0;
         const totalServicePrice = selectedServices.reduce((total, service) => total + (servicePrices[service] || 0), 0);
-        const totalPrice = totalServicePrice + 50 + cleanlinessFee + carSizeFee; // Add fixed service fee
+        const totalPrice = totalServicePrice + 50 + carSizeFee; // Add fixed service fee
         const vat = totalPrice * 0.07;
         const finalPrice = totalPrice + vat;
 
@@ -71,10 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
             `<li>
                 <div class="service-name">ค่าบริการ</div>
                 <div class="service-price">50 บาท</div>
-            </li>
-            <li>
-                <div class="service-name">ค่าความสะอาด</div>
-                <div class="service-price">${cleanlinessFee} บาท</div>
             </li>
             <li>
                 <div class="service-name">ขนาดรถ</div>
@@ -96,10 +83,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Calculate final price after applying discount
     function calculateFinalPrice(discount = 0) {
-        const cleanlinessFee = cleanlinessPrices[cleanlinessLevel] || 0;
         const carSizeFee = carSizePrices[carSize] || 0;
         const totalServicePrice = selectedServices.reduce((total, service) => total + (servicePrices[service] || 0), 0);
-        const totalPrice = totalServicePrice + 50 + cleanlinessFee + carSizeFee; // Add fixed service fee
+        const totalPrice = totalServicePrice + 50 + carSizeFee; // Add fixed service fee
         const vat = totalPrice * 0.07;
         const finalPrice = totalPrice + vat - discount;
 
@@ -126,14 +112,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         calculateFinalPrice(discountAmount);
     }
-
-    // Event listener for cleanliness level change
-    document.getElementById('cleanliness-level').addEventListener('change', function () {
-        cleanlinessLevel = this.value;
-        localStorage.setItem('cleanlinessLevel', cleanlinessLevel);
-        updateServicePriceTable();
-        calculateFinalPrice();
-    });
 
     // Event listener for car size change
     document.getElementById('car-size').addEventListener('change', function () {
