@@ -140,3 +140,83 @@ button:hover, .service-btn.selected, .date-btn.selected, .time-btn.selected {
     color: #555;
     line-height: 1.5;
 }
+
+/* ซ่อนกรอบและสีพื้นหลังของ checkbox */
+.service-checkbox {
+    -webkit-appearance: none; /* ซ่อนกรอบและปรับรูปแบบ */
+    -moz-appearance: none;
+    appearance: none;
+    width: 16px; /* ขนาดของ checkbox */
+    height: 16px;
+    border: 2px solid #ccc; /* ขอบเป็นสีเทา */
+    border-radius: 4px; /* มุมของ checkbox */
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* เมื่อ hover checkbox */
+.service-checkbox:hover {
+    border-color: #ffc107; /* เปลี่ยนสีขอบเมื่อ hover */
+}
+
+/* เมื่อ checkbox ถูกเลือก */
+.service-checkbox:checked {
+    background-color: #ffc107; /* สีพื้นหลังเป็นสีเหลืองเมื่อเลือก */
+    border-color: #ffc107; /* ขอบเป็นสีเหลืองเมื่อเลือก */
+}
+
+/* ปิดการแสดง effect เมื่อ checkbox ถูกเลือก */
+.service-checkbox:checked::before {
+    content: ''; /* ไม่มีเครื่องหมายใดๆ */
+}
+
+/* การจัดเรียงการ์ดบริการ */
+.service-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* การตั้งค่าการ์ด */
+.service-card {
+    width: 127px;
+    height: 150px;
+    padding: 15px;
+    background-color: #e7e6e1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* เพิ่มเอฟเฟกต์เมื่อ hover การ์ด หรือเมื่อการ์ดถูกเลือก หรือกด (active) */
+.service-card:hover,
+.service-card.selected,
+.service-card.active {
+    background-color: #314e52;
+    border-color: #314e52;
+    color: white;
+}
+
+/* การตั้งค่าของรูปภาพภายในการ์ด */
+.service-card img {
+    width: 100%; /* ปรับให้รูปภาพขยายเต็มขนาดของการ์ด */
+    height: auto; /* ปรับขนาดให้พอดีกับการ์ด */
+    object-fit: contain; /* ปรับขนาดให้พอดีกับการ์ด */
+    border-radius: 8px; /* มุมของรูปภาพ */
+    margin-bottom: 10px; /* เพิ่มช่องว่างระหว่างรูปภาพและข้อความ */
+}
+
+/* การตั้งค่า h3 ภายในการ์ด */
+.service-card h3 {
+    font-size: 1rem; /* ปรับขนาดตัวอักษร */
+    color: #333; /* สีข้อความ */
+    margin-top: 10px; /* เพิ่มช่องว่างระหว่างข้อความและขอบการ์ด */
+}

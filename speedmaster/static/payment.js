@@ -1,73 +1,55 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // ฟังก์ชันแสดงรูปแบบวันที่และเวลา
-    function formatDateTime(day, time) {
-        const daysOfWeek = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
-        const monthsOfYear = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
-
-        const currentDate = new Date();
-        const dayOfWeek = daysOfWeek[currentDate.getDay()]; // วันในสัปดาห์จากเครื่อง
-        const dayOfMonth = currentDate.getDate(); // วันที่ในเดือนจากเครื่อง
-        const month = monthsOfYear[currentDate.getMonth()]; // เดือนจากเครื่อง
-        const year = currentDate.getFullYear() + 543; // พ.ศ.
-
-        return `${dayOfWeek}ที่ ${dayOfMonth} ${month} ${year} เวลา ${time}`;
-    }
-
-    // แสดงวันที่และเวลาจองจาก Local Storage
-    const selectedDay = localStorage.getItem('selectedDay') || "จันทร์";
-    const selectedTime = localStorage.getItem('selectedTime') || "10:30";
-    document.getElementById('booking-time-display').innerText = formatDateTime(selectedDay, selectedTime);
-
-    // ค่าบริการ
-    const servicePrices = {
-        "เคลือบแก้ว": 500,
-        "ติดฟิล์มกันรอย": 200,
-        "ล้างรถ": 100
-    };
-
-    // แสดงบริการที่เลือก
-    let selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
-    const servicePriceTable = document.getElementById('service-price-table');
-    servicePriceTable.innerHTML = selectedServices.length > 0 ? 
-        selectedServices.map(service => `<li>${service} ${servicePrices[service] || 0} THB</li>`).join('') + 
-        `<li>ค่าบริการ 50 THB</li>` : 
-        '<li>ยังไม่ได้เลือกบริการ</li>';
-
-    // คำนวณราคารวม
-    function calculateFinalPrice() {
-        let totalPrice = selectedServices.reduce((total, service) => total + (servicePrices[service] || 0), 0) + 50;
-        const vat = totalPrice * 0.07;
-        document.getElementById('final-price').innerText = `${(totalPrice + vat).toFixed(2)} THB`;
-    }
-    calculateFinalPrice();
-
-    // ฟังก์ชันเลือกช่องทางชำระเงิน
+    // ฟังก์ชันแสดงฟอร์มช่องทางการชำระเงิน
     function showPaymentForm(formId) {
-        document.querySelectorAll('.payment-form').forEach(form => form.style.display = 'none');
-        document.getElementById(formId).style.display = 'block';
+        document.querySelectorAll('.payment-form').forEach(function(form) {
+            form.style.display = 'none'; // ซ่อนฟอร์มทั้งหมด
+        });
+
+        const selectedForm = document.getElementById(formId);
+        if (selectedForm) {
+            selectedForm.style.display = 'block'; // แสดงฟอร์มที่เลือก
+        }
     }
 
-    document.getElementById('credit-card-btn').addEventListener("click", () => showPaymentForm('credit-card-form'));
-    document.getElementById('qr-code-btn').addEventListener("click", () => showPaymentForm('qr-code'));
-    document.getElementById('store-payment-btn').addEventListener("click", () => showPaymentForm('store-payment'));
+    // ตรวจสอบว่าปุ่มแต่ละปุ่มมีอยู่หรือไม่ก่อนเพิ่ม event listener
+  /*  const creditCardBtn = document.getElementById('credit-card-btn');
+    if (creditCardBtn) {
+        creditCardBtn.addEventListener("click", function() {
+            showPaymentForm('credit-card-form');
+        });
+    }*/
 
-    // ใช้โค้ดส่วนลด
-    const finalPrice_undiscounted = parseFloat(document.getElementById('final-price').innerText.replace(" THB", ""));
-    document.getElementById('apply-discount-btn').addEventListener("click", function () {
-        const discountCode = document.getElementById('discount-code').value;
-        let finalPrice = parseFloat(document.getElementById('final-price').innerText.replace(" THB", ""));
-        if ((discountCode === "a") && (finalPrice === finalPrice_undiscounted)) {
-            finalPrice *= 0.8;
-            document.getElementById('final-price').textContent = `${finalPrice.toFixed(2)} THB`;
-        }
-        else {
-            document.getElementById('final-price').textContent = `${finalPrice_undiscounted.toFixed(2)} THB`;
-        }
-        
-    });
+    const qrCodeBtn = document.getElementById('qr-code-btn');
+    if (qrCodeBtn) {
+        qrCodeBtn.addEventListener("click", function() {
+            showPaymentForm('qr-code');
+        });
+    }
 
-    // การชำระเงิน
-    document.getElementById('payment-btn').addEventListener("click", function () {
-        alert('กำลังดำเนินการชำระเงิน...');
+    /*const storePaymentBtn = document.getElementById('store-payment-btn');
+    if (storePaymentBtn) {
+        storePaymentBtn.addEventListener("click", function() {
+            showPaymentForm('store-payment');
+        });
+    }*/
+
+    // คำนวณราคาจาก LocalStorage และแสดงราคาสุทธิ
+    const totalPriceElement = document.getElementById('total-price');
+    if (totalPriceElement) {
+        const finalPrice = localStorage.getItem('finalPrice') || '0'; // ใช้ค่า '0' ถ้าไม่มีใน LocalStorage
+        totalPriceElement.innerText = `${finalPrice} บาท`;
+    }
+
+    // Handle submission of each payment form
+    document.querySelectorAll('.payment-form').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // ป้องกันการส่งฟอร์มโดยตรง
+
+            // แสดงข้อความแจ้งเตือนว่าการชำระเงินสำเร็จ
+            alert("ชำระเงินสำเร็จ! กำลังกลับไปยังหน้าแรก...");
+
+            // Redirect ไปยังหน้าหลัก
+            window.location.href = '/';
+        });
     });
 });

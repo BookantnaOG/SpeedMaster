@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'bookingDetail.css' %}">
+
+<div class="detail-booking-container">
+    <h2>Booking Detail</h2>
+
+    <!-- รายการบริการ -->
+    <div class="service-details">
+        <h3>รายการบริการที่เลือก</h3>
+        <div class="service-list">
+            <ul id="service-price-table"></ul>
+        </div>
+    </div>
+
+    <!-- ตัวเลือกเพิ่มเติมที่มีผลต่อราคา -->
+    <form id="pricing-options-form">
+        <div class="pricing-options-container">
+            <div class="pricing-options">
+                <h3>ตัวเลือกเพิ่มเติมที่มีผลต่อราคา</h3>
+                <div class="input-box">
+                    <label for="cleanliness-level">ระดับความสะอาด</label>
+                    <select id="cleanliness-level" name="cleanliness-level" required>
+                        <option value="normal">ปกติ</option>
+                        <option value="medium">ปานกลาง</option>
+                        <option value="dirty">สกปรก</option>
+                        <option value="veryDirty">สกปรกมาก</option>
+                    </select>
+                    <div class="tooltip-container">
+                        <button type="button" class="info-icon">i</button>
+                        <div class="tooltip">
+                            <p>ยิ่งสกปรกมาก, ยิ่งต้องใช้เวลาในการทำความสะอาด หากเลือกไม่ตรงตามความจริงเราอาจจะมีค่าบริการเพิ่มเติม</p>
+                            <p>หากลูกค้ามาแค่เคลือบแก้วหรือทำบริการอื่น โปรดเลือก 
+                                <strong>ปกติ</strong></p>
+                            </div>
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="car-size">ขนาดของรถ</label>
+                    <select id="car-size" name="car-size" required>
+                        <option value="S">ขนาดเล็ก (S, M)</option>
+                        <option value="L">ขนาดกลาง (L, XL)</option>
+                        <option value="XXL">ขนาดใหญ่ (XXL)</option>
+                        <option value="sports">รถสปอร์ต</option>
+                        <option value="motorcycleSmall">รถมอเตอร์ไซต์ขนาดเล็ก</option>
+                        <option value="motorcycleLarge">รถมอเตอร์ไซต์ขนาดใหญ่</option>
+                    </select>
+                    <div class="tooltip-container">
+                        <button type="button" class="info-icon">i</button>
+                        <div class="tooltip">
+                            <p><strong>ขนาดเล็ก:</strong> Mirage, Brio, March, Swift, Attrage, Note, MG3, Jass</p>
+                            <p><strong>ขนาดกลาง:</strong> CR-V, Civic, Altis, Corolla</p>
+                            <p><strong>ขนาดใหญ่:</strong> Fortuner, Pajero, Pickup Trucks</p>
+                            <p><strong>รถสปอร์ต:</strong> Porsche, Ferrari, Lamborghini</p>
+                            <p><strong>รถมอเตอร์ไซต์ขนาดเล็ก:</strong> Honda wave, Yamaha Fino</p>
+                            <p><strong>รถมอเตอร์ไซต์ขนาดใหญ่:</strong> Harley Davidson, Yamaha MT-09</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- ใส่โค้ดส่วนลด -->
+    <div class="discount-section">
+        <div class="input-box">
+            <label for="discount-code" class="input-label">ใส่โค้ดส่วนลด</label>
+            <input type="text" id="discount-code" placeholder="speedmaster(20%)">
+            <button id="apply-discount-btn" class="discount-btn">ใช้ส่วนลด</button>
+        </div>
+    </div>
+
+    <!-- แสดงราคาหลังจากใช้ส่วนลด -->
+    <div class="detail-container">
+        <p><b>ราคารวมสุทธิ:</b></p>
+        <span id="final-price">0.00 บาท</span> <!-- Changed the ID for final price -->
+    </div>
+    
+    <!-- แสดงเวลาที่จอง -->
+    <div class="detail-container">
+        <p><b>เวลาที่จอง:</b></p>
+        <span id="booking-time-display">ยังไม่ได้เลือก</span>
+    </div>
+
+    <div class="confirmation-container">
+        <!-- Confirmation Section -->
+        <form action="/payment/" method="POST" id="confirmation-form">
+            <div class="confirmation-section">
+                <h3>ยืนยันการทำรายการ</h3>
+                <div class="input-fields">
+                    <!-- เปลี่ยนจากเลือกขนาดรถ เป็นให้พิมพ์ชื่อรถแทน -->
+                    <div class="input-box">
+                        <label for="car-name">ชื่อรถ</label>
+                        <input type="text" id="car-name" name="car-name" placeholder="กรอกชื่อรถของคุณ" required>
+                    </div>
+                    
+                    <div class="input-box">
+                        <label for="car-reg">ทะเบียนรถ</label>
+                        <input type="text" id="car-reg" name="car-reg" placeholder="กรอกทะเบียนรถ" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="กรอกอีเมล" required>
+                    </div>
+                    <div class="input-box mobile-input">
+                        <label for="mobile">Mobile</label>
+                        <input type="text" id="mobile" name="mobile" placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก" required>
+                    </div>
+                    <div class="button-wrapper">
+                        <button type="submit" id="payment-btn" class="pay-button">PAYMENT</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Validation Message -->
+    <div class="validation-message" style="display: none; color: red;">
+        กรุณากรอกข้อมูลให้ครบถ้วนเพื่อใช้สิทธิ์การยืนยันข้อมูล
+        <div class="car-reg-validation-message" style="display: none;">
+            รูปแบบทะเบียนรถไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง
+        </div>
+        <div class="email-validation-message" style="display: none;">
+            กรุณากรอกอีเมลให้ถูกต้อง
+        </div>
+        <div class="mobile-validation-message" style="display: none;">
+            กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง
+        </div>
+    </div>
+
+</div>
+
+<script src="{% static 'bookingdetail.js' %}"></script>
+
+{% endblock %}

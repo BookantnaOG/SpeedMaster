@@ -3,99 +3,62 @@
 
 {% block content %}
 <link rel="stylesheet" href="{% static 'payment.css' %}">
+<!-- Title for payment selection -->
+<h2 class="centered">เลือกช่องทางชำระ</h2>
 
-<div class="detail-booking-container">
-    <h2>Booking Detail</h2>
-
-    <!-- รายการบริการ -->
-    <div class="service-details">
-        <h3>รายการบริการที่เลือก</h3>
-        <div class="service-list">
-            <ul id="service-price-table"></ul>
-        </div>
+<!-- Payment Forms -->
+<div class="payment-forms">
+    <!-- Total Price Section -->
+    <div class="total-price">
+        <p>ราคาสุทธิ: <span id="total-price">0 บาท</span></p>
     </div>
 
-    <!-- Payment and Discount Section -->
-    <div class="payment-and-discount-container">
-        <div class="payment-method-container">
-            <h3 class="payment-title">เลือกช่องทางการชำระ:</h3>
-            <div class="payment-options">
-                <button id="credit-card-btn">บัตรเครดิต</button>
-                <button id="qr-code-btn">QR Promptpay</button>
-                <button id="store-payment-btn">ชำระที่หน้าร้าน</button>
-            </div>
+
+    <!-- Payment Options -->
+    <!-- <button id="credit-card-btn">ชำระด้วยบัตรเครดิต</button>-->
+    <button id="qr-code-btn">ชำระด้วย QR Promptpay</button>
+   <!-- <button id="store-payment-btn">ชำระที่หน้าร้าน</button>-->
+
+    <!-- Credit Card Form 
+    <form id="credit-card-form" class="payment-form" style="display:none;" method="POST" action="/process-payment">
+        {% csrf_token %}
+        <h3>กรอกรายละเอียดบัตรเครดิต</h3>
+        <fieldset>
+            <legend>Credit Card Details</legend>
+            <label for="card-number">หมายเลขบัตร</label>
+            <input type="text" name="card-number" id="card-number" placeholder="หมายเลขบัตร" required>
+
+            <label for="expiry-date">วันหมดอายุ (MM/YY)</label>
+            <input type="text" name="expiry-date" id="expiry-date" placeholder="MM/YY" required>
+
+            <label for="cvv">CVV</label>
+            <input type="text" name="cvv" id="cvv" placeholder="CVV" required>
+
+            <label for="cardholder-name">ชื่อเจ้าของบัตร</label>
+            <input type="text" name="cardholder-name" id="cardholder-name" placeholder="ชื่อเจ้าของบัตร" required>
+        </fieldset>
+        <div class="button-wrapper">
+            <button type="submit">ชำระเงินผ่านบัตรเครดิต</button>
         </div>
+    </form>-->
 
-        <!-- Payment Forms -->
-        <div class="payment-forms">
-            <!-- Credit Card Form -->
-            <div id="credit-card-form" class="payment-form" style="display:none;">
-                <h3>กรอกรายละเอียดบัตรเครดิต</h3>
-                <fieldset>
-                    <legend>Credit Card Details</legend>
-                    <label for="card-number">หมายเลขบัตร</label>
-                    <input type="text" id="card-number" placeholder="หมายเลขบัตร" required>
-                    <label for="expiry-date">วันหมดอายุ (MM/YY)</label>
-                    <input type="text" id="expiry-date" placeholder="MM/YY" required>
-                    <label for="cvv">CVV</label>
-                    <input type="text" id="cvv" placeholder="CVV" required>
-                    <label for="cardholder-name">ชื่อเจ้าของบัตร</label>
-                    <input type="text" id="cardholder-name" placeholder="ชื่อเจ้าของบัตร" required>
-                </fieldset>
-            </div>
-
-            <!-- QR Promptpay Form -->
-            <div id="qr-code" class="payment-form" style="display:none;">
-                <h3>QR Promptpay</h3>
-                <img src="{% static 'qr_code_image.png' %}" alt="QR Promptpay">
-            </div>
-
-            <!-- Store Payment Form -->
-            <div id="store-payment" class="payment-form" style="display:none;">
-                <h3>ชำระที่หน้าร้าน</h3>
-                <p>โปรดไปที่ร้านเพื่อทำการชำระเงิน</p>
-            </div>
+    <!-- QR Promptpay Form -->
+    <form id="qr-code" class="payment-form" style="display:none;" method="GET" action="/process-qr-payment">
+        <h3>QR Promptpay</h3>
+        <img src="{% static 'Image/materieal/QR/s-1.png' %}" alt="QR Code">
+        <div class="button-wrapper">
+            <button type="submit">ชำระเงินผ่าน QR</button>
         </div>
+    </form>
 
-        <!-- ใส่โค้ดส่วนลด -->
-        <div class="discount-section">
-            <div class="input-box">
-                <label for="discount-code">ใส่โค้ดส่วนลด</label>
-                <input type="text" id="discount-code" placeholder="speedmaster(20%)">
-                <button id="apply-discount-btn">ใช้ส่วนลด</button>
-            </div>
+    <!-- Store Payment Form 
+    <form id="store-payment" class="payment-form" style="display:none;" method="GET" action="/store-payment">
+        <h3>ชำระที่หน้าร้าน</h3>
+        <p>โปรดไปที่ร้านเพื่อทำการชำระเงิน</p>
+        <div class="button-wrapper">
+            <button type="submit">ชำระที่ร้าน</button>
         </div>
-    </div>
-
-    <!-- แสดงราคาหลังจากใช้ส่วนลด -->
-    <div class="detail">
-        <p><b>ราคารวมหลังส่วนลด: <span id="final-price">0.00 THB</span></b></p>
-    </div>
-
-    <!-- แสดงเวลาที่จอง -->
-    <p><b>วันที่จอง: <span id="booking-time-display">ยังไม่ได้เลือก</span></b></p>
-
-    <!-- Confirmation Section -->
-    <div class="confirmation-section">
-        <h3>ยืนยันการทำรายการ</h3>
-        <div class="input-fields">
-            <div class="input-box">
-                <label for="car-reg">ทะเบียนรถ</label>
-                <input type="text" id="car-reg" placeholder="กรอกทะเบียนรถ" required>
-            </div>
-            <div class="input-box">
-                <label for="email">Email</label>
-                <input type="email" id="email" placeholder="กรอกอีเมล" required>
-            </div>
-            <div class="input-box mobile-input">
-                <label for="mobile">Mobile</label>
-                <input type="text" id="mobile" placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก" required>
-            </div>
-            <div class="button-wrapper">
-                <button id="payment-btn" class="pay-button">PAYMENT</button>
-            </div>
-        </div>
-    </div>
+    </form>-->
 </div>
 
 <script src="{% static 'payment.js' %}"></script>
