@@ -1,3 +1,6 @@
+from django.contrib import admin
+from django.urls import path,include
+from django.contrib.auth import views as auth_views
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 

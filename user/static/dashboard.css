@@ -1,0 +1,141 @@
+/* Ensure the whole page has a white background */
+body {
+    background-color: white; /* Set background color to white for the whole page */
+}
+
+.profile-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    margin-left: 525px;
+    max-width: 800px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+
+
+/* Header styling */
+h2 {
+    color: #333;
+    margin-bottom: 20px; /* เพิ่มระยะห่างใต้หัวข้อ */
+}
+
+/* Profile image styling */
+.profile img {
+    width: 120px; /* ขยายขนาดรูปโปรไฟล์ */
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+}
+
+/* Form styles */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* เพิ่มระยะห่างระหว่างฟิลด์ฟอร์ม */
+}
+
+.profile-form label {
+    width: 100%;
+    text-align: left; /* จัดให้ชิดซ้าย */
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.profile-form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Button group styles */
+.buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 15px; /* เพิ่มช่องว่างระหว่างปุ่ม */
+    margin-top: 10px;
+}
+
+.buttons button {
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    flex: 1; /* ปรับขนาดปุ่มให้มีความกว้างเท่ากัน */
+}
+
+/* Button specific colors */
+.edit-btn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.change-pass-btn {
+    background-color: #ffa500;
+    color: white;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+/* Membership box container styles */
+.membership {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* เพิ่มช่องว่างระหว่างกล่องสมาชิก */
+    margin-top: 30px;
+}
+
+/* Styling for each membership box */
+.membership-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%; /* ปรับความกว้างของแต่ละกล่องให้สมดุล */
+    text-align: center;
+    position: relative; /* For positioning the button */
+    overflow: hidden; /* Hide the button initially */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Add smooth hover transition */
+}
+
+/* Hover effect for the membership boxes */
+.membership-box:hover {
+    transform: scale(1.05); /* Slightly scale up the box on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+}
+
+/* Button styling, initially hidden */
+.subscribe-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    position: absolute; /* Position it at the bottom of the box */
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); /* Center the button horizontally */
+    opacity: 0; /* Initially hide the button */
+    visibility: hidden; /* Initially hide the button */
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Fade in on hover */
+}
+
+/* Show the button when hovering over the membership box */
+.membership-box:hover .subscribe-btn {
+    opacity: 1; /* Make the button visible */
+    visibility: visible; /* Ensure the button is clickable */
+}

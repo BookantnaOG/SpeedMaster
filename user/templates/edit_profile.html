@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>แก้ไขข้อมูลโปรไฟล์</h2>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="POST" class="profile-form">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Django จะแสดงฟอร์มอัตโนมัติ -->
+
+        <div class="buttons">
+            <button type="submit" class="save-btn">บันทึกการเปลี่ยนแปลง</button>
+            <a href="{% url 'dashboard' %}" class="cancel-btn">ยกเลิก</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
