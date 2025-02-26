@@ -40,16 +40,17 @@ document.addEventListener("DOMContentLoaded", function () {
         totalPriceElement.innerText = `${finalPrice} บาท`;
     }
 
-    // Handle submission of each payment form
-    document.querySelectorAll('.payment-form').forEach(function(form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // ป้องกันการส่งฟอร์มโดยตรง
+    // // Handle submission of each payment form
+    // document.querySelectorAll('.payment-form').forEach(function(form) {
+    //     form.addEventListener('submit', function(event) {
+    //         event.preventDefault(); // ป้องกันการส่งฟอร์มโดยตรง
 
-            // แสดงข้อความแจ้งเตือนว่าการชำระเงินสำเร็จ
-            alert("ชำระเงินสำเร็จ! กำลังกลับไปยังหน้าแรก...");
+    //         // แสดงข้อความแจ้งเตือนว่าการชำระเงินสำเร็จ
+    //         alert("ชำระเงินสำเร็จ! กำลังกลับไปยังหน้าแรก...");
 
-            // Redirect ไปยังหน้าหลัก
-            window.location.href = '/';
-        });
-    });
+    //         // Redirect ไปยังหน้าหลัก
+    //         window.location.href = '/';
+    //     });
+    // });
+    
 });
