@@ -1,51 +1,45 @@
 from django.db import models
-from django.conf import settings  # To reference custom User model
+
+class CarInfo(models.Model):
+    car_no = models.CharField(max_length=20, primary_key=True)
+    car_plate = models.CharField(max_length=20, unique=True)
+    car_name = models.CharField(max_length=100)
+    car_size = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.car_name} ({self.car_plate})"
+
+class DetailingService(models.Model):
+    detailing_id = models.AutoField(primary_key=True)
+    detailing_type = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    cleanness = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.detailing_type
 
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
-    booking_date = models.DateTimeField(auto_now_add=True)
     status_on = models.CharField(max_length=50)
-    bill = models.DecimalField(max_digits=10, decimal_places=2)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user_id = models.IntegerField()  # Assuming foreign key to a User model
+    detailing = models.ForeignKey(DetailingService, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Booking {self.booking_id} - {self.status_on}"
 
-class CarInfo(models.Model):
-    car_license_plate = models.CharField(max_length=20, primary_key=True)
-    car_type = models.CharField(max_length=50)
-    car_name = models.CharField(max_length=100)
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.car_name} ({self.car_license_plate})"
-
-class CarDetailingService(models.Model):
-    detailing_id = models.AutoField(primary_key=True)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    detailing_type = models.CharField(max_length=50)
-    service = models.ForeignKey('Service', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"{self.detailing_type} - ${self.price}"
-
 class BookingDetail(models.Model):
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
-    detailing = models.ForeignKey(CarDetailingService, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50)
-    quantity = models.PositiveIntegerField()
-    fee = models.DecimalField(max_digits=10, decimal_places=2)
+    detailing = models.ForeignKey(DetailingService, on_delete=models.CASCADE)
+    car = models.ForeignKey(CarInfo, on_delete=models.CASCADE)
+    bill_no = models.CharField(max_length=50, unique=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"Detail for Booking {self.booking.booking_id} - {self.detailing.detailing_type}"
+        return f"Bill {self.bill_no} - {self.total_price}"
 
-class Service(models.Model):
-    service_id = models.AutoField(primary_key=True)
-    service_name = models.CharField(max_length=100)
-    description = models.TextField()
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    duration = models.DurationField()
+class Payment(models.Model):
+    bill_no = models.OneToOneField(BookingDetail, on_delete=models.CASCADE)
+    payment_type = models.CharField(max_length=50)
+    paid = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.service_name
+        return f"Payment for {self.bill_no} - {self.payment_type}"
