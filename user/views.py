@@ -66,3 +66,7 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'ออกจากระบบสำเร็จ!')
     return redirect('login')  # ไปที่หน้า login หลังจากออกจากระบบสำเร็จ
+
+
+def payment_view(request):
+    return render(request, 'speedmaster/payment.html')

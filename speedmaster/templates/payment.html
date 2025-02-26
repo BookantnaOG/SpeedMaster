@@ -14,36 +14,11 @@
     </div>
 
 
-    <!-- Payment Options -->
+
     <!-- <button id="credit-card-btn">ชำระด้วยบัตรเครดิต</button>-->
     <button id="qr-code-btn">ชำระด้วย QR Promptpay</button>
-   <!-- <button id="store-payment-btn">ชำระที่หน้าร้าน</button>-->
-
-    <!-- Credit Card Form 
-    <form id="credit-card-form" class="payment-form" style="display:none;" method="POST" action="/process-payment">
-        {% csrf_token %}
-        <h3>กรอกรายละเอียดบัตรเครดิต</h3>
-        <fieldset>
-            <legend>Credit Card Details</legend>
-            <label for="card-number">หมายเลขบัตร</label>
-            <input type="text" name="card-number" id="card-number" placeholder="หมายเลขบัตร" required>
-
-            <label for="expiry-date">วันหมดอายุ (MM/YY)</label>
-            <input type="text" name="expiry-date" id="expiry-date" placeholder="MM/YY" required>
-
-            <label for="cvv">CVV</label>
-            <input type="text" name="cvv" id="cvv" placeholder="CVV" required>
-
-            <label for="cardholder-name">ชื่อเจ้าของบัตร</label>
-            <input type="text" name="cardholder-name" id="cardholder-name" placeholder="ชื่อเจ้าของบัตร" required>
-        </fieldset>
-        <div class="button-wrapper">
-            <button type="submit">ชำระเงินผ่านบัตรเครดิต</button>
-        </div>
-    </form>-->
-
-    <!-- QR Promptpay Form -->
-    <form id="qr-code" class="payment-form" style="display:none;" method="GET" action="/process-qr-payment">
+   
+    <form id="qr-code" class="payment-form" style="display:none;" method="GET" action="/dashboard/">
         <h3>QR Promptpay</h3>
         <img src="{% static 'Image/materieal/QR/s-1.png' %}" alt="QR Code">
         <div class="button-wrapper">
@@ -51,14 +26,6 @@
         </div>
     </form>
 
-    <!-- Store Payment Form 
-    <form id="store-payment" class="payment-form" style="display:none;" method="GET" action="/store-payment">
-        <h3>ชำระที่หน้าร้าน</h3>
-        <p>โปรดไปที่ร้านเพื่อทำการชำระเงิน</p>
-        <div class="button-wrapper">
-            <button type="submit">ชำระที่ร้าน</button>
-        </div>
-    </form>-->
 </div>
 
 <script src="{% static 'payment.js' %}"></script>

@@ -14,6 +14,25 @@
             <a href="#" id="loginReminderButton" class="booking-button main">Booking</a>
         {% endif %}
     </div>
+    <div class="info-item">
+        <div class="info-box">
+            <img src="{% static 'Image/materieal/Home/Service_icon.png' %}" alt="Service">
+            <h1>Service</h1>
+            <p>บริการล้างรถ เคลือบแก้วและฟิล์มกันรอย</p>
+        </div>
+
+        <div class="info-box">
+            <img src="{% static 'Image/materieal/Home/Hour_icon.png' %}" alt="Hour">
+            <h1>Hour</h1>
+            <p>เปิดให้บริการทุกวัน 8.30-18.30 น. ไม่มีวันหยุด</p>
+        </div>
+
+        <div class="info-box">
+            <img src="{% static 'Image/materieal/Home/Location.png' %}" alt="Location">
+            <h1>Location</h1>
+            <p>สาขาในเมือง สาขาคอมเพล็ก</p>
+        </div>
+    </div>
 </section>
 
 <!-- Pop-up Box -->
@@ -117,7 +136,7 @@
     <h2 class="section-title">Our Service</h2>
     <div class="service-container">
         <div class="service-card">
-            <img id="ServiceImage1" src="{% static 'Image/Page 4/Car Washing.png' %}" alt="Car Washing">
+            <img src="{% static 'Image/Page 4/Car Washing.png' %}" alt="Car Washing">
             <h3>ล้าง</h3>
             <p>ล้างคราบสกปรก เคลือบผิวรถ ทำความสะอาดภายใน.</p>
             {% if user.is_authenticated %}
@@ -127,7 +146,7 @@
             {% endif %}
         </div>
         <div class="service-card">
-            <img id="ServiceImage2" src="{% static 'Image/Page 4/glass-coating.png' %}" alt="Glass Coating">
+            <img src="{% static 'Image/Page 4/glass-coating.png' %}" alt="Glass Coating">
             <h3>เคลือบแก้ว</h3>
             <p>ปกป้องสีรถจากรอยขนแมว คราบสกปรกที่ฝั่งแน่น รังสี UV และความร้อน</p>
             {% if user.is_authenticated %}
@@ -137,7 +156,7 @@
             {% endif %}
         </div>
         <div class="service-card">
-            <img id="ServiceImage3" src="{% static 'Image/Page 4/Car-and-shield.png' %}" alt="Car and Shield">
+            <img src="{% static 'Image/Page 4/Car-and-shield.png' %}" alt="Car and Shield">
             <h3>ฟิล์มกันรอย</h3>
             <p>ป้องกันการเกิดรอยขีดข่วนจากการใช้งานในชีวิตประจำวัน</p>
             {% if user.is_authenticated %}
@@ -147,9 +166,13 @@
             {% endif %}
         </div>
     </div>
+    <section class="img-footer">
+        <img src="{% static 'Image/Page 6/pexels-lynxexotics-3954441_2.jpg' %}" alt="Image Footer" class="footer-img">
+    </section>
 </section>
+    <script>
 
-<script>
+
 // JavaScript for opening and closing popup
 document.addEventListener('DOMContentLoaded', function() {
     const loginReminderButton = document.getElementById('loginReminderButton');

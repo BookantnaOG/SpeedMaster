@@ -1,15 +1,16 @@
 /* Ensure the whole page has a white background */
 body {
-    background-color: white; /* Set background color to white for the whole page */
+    background-color: white;
 }
 
+/* Profile container styles */
 .profile-container {
     background-color: white;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     width: 100%;
-    margin-left: 525px;
+    margin: 0 auto; /* Centers the container horizontally */
     max-width: 800px;
     text-align: center;
     display: flex;
@@ -20,16 +21,15 @@ body {
     justify-content: flex-start;
 }
 
-
 /* Header styling */
 h2 {
     color: #333;
-    margin-bottom: 20px; /* เพิ่มระยะห่างใต้หัวข้อ */
+    margin-bottom: 20px; 
 }
 
 /* Profile image styling */
 .profile img {
-    width: 120px; /* ขยายขนาดรูปโปรไฟล์ */
+    width: 120px;
     height: 120px;
     border-radius: 50%;
     margin-bottom: 15px;
@@ -40,12 +40,12 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px; /* เพิ่มระยะห่างระหว่างฟิลด์ฟอร์ม */
+    gap: 15px;
 }
 
 .profile-form label {
     width: 100%;
-    text-align: left; /* จัดให้ชิดซ้าย */
+    text-align: left; 
     margin-bottom: 5px;
     font-weight: bold;
 }
@@ -61,7 +61,7 @@ h2 {
 .buttons {
     display: flex;
     justify-content: space-around;
-    gap: 15px; /* เพิ่มช่องว่างระหว่างปุ่ม */
+    gap: 15px;
     margin-top: 10px;
 }
 
@@ -70,7 +70,7 @@ h2 {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    flex: 1; /* ปรับขนาดปุ่มให้มีความกว้างเท่ากัน */
+    flex: 1; 
 }
 
 /* Button specific colors */
@@ -93,7 +93,7 @@ h2 {
 .membership {
     display: flex;
     justify-content: space-between;
-    gap: 20px; /* เพิ่มช่องว่างระหว่างกล่องสมาชิก */
+    gap: 20px;
     margin-top: 30px;
 }
 
@@ -103,17 +103,17 @@ h2 {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 48%; /* ปรับความกว้างของแต่ละกล่องให้สมดุล */
+    width: 48%; 
     text-align: center;
-    position: relative; /* For positioning the button */
-    overflow: hidden; /* Hide the button initially */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Add smooth hover transition */
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
 /* Hover effect for the membership boxes */
 .membership-box:hover {
-    transform: scale(1.05); /* Slightly scale up the box on hover */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance shadow on hover */
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 /* Button styling, initially hidden */
@@ -125,17 +125,121 @@ h2 {
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    position: absolute; /* Position it at the bottom of the box */
+    position: absolute;
     bottom: 10px;
     left: 50%;
-    transform: translateX(-50%); /* Center the button horizontally */
-    opacity: 0; /* Initially hide the button */
-    visibility: hidden; /* Initially hide the button */
-    transition: opacity 0.3s ease, visibility 0.3s ease; /* Fade in on hover */
+    transform: translateX(-50%);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 /* Show the button when hovering over the membership box */
 .membership-box:hover .subscribe-btn {
-    opacity: 1; /* Make the button visible */
-    visibility: visible; /* Ensure the button is clickable */
+    opacity: 1;
+    visibility: visible;
+}
+/* Styles for the status cards container */
+.status-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+    z-index: 1000;
+    margin-top: -590px;
+    align-items: center;
+}
+/* การ์ดสถานะ */
+.status-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 16%;
+    top: -250px;
+    left: 90px;
+    margin-right: 41px;
+}
+/* การ์ดแต่ละตัว */
+.status-card {
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 100%;
+    text-align: center;
+}
+
+.status-card h3 {
+    color: #333;
+}
+
+.status-card p {
+    color: #555;
+}
+
+.status-card button {
+    padding: 10px 15px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.status-card button:hover {
+    background-color: #0056b3;
+}
+
+/* Additional Profile and Membership styles */
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.profile input {
+    margin: 5px 0;
+    padding: 8px;
+    font-size: 14px;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.button-adjust {
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+.subscribe-btn {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.subscribe-btn:hover {
+    background-color: #45a049;
+}
+
+.membership-box {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 10px;
+}
+
+.membership-box h3 {
+    font-size: 18px;
+}
+
+.membership-box p {
+    font-size: 14px;
 }

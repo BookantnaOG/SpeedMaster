@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile & Membership</title>
     <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-    <script src="{% static 'dashboard.js' %}" defer></script> 
+    <script src="{% static 'dashboard.js' %}" defer></script>  <!-- เชื่อมโยงกับไฟล์ JavaScript -->
 </head>
 <body>
     <div class="profile-container">
@@ -45,17 +45,40 @@
                 <p><strong>ฟรี</strong></p>
                 <p>บริการดูข้อมูลพื้นฐาน</p>
                 <p>ส่วนลด 10% สำหรับบริการเสริม</p>
-                <button class="subscribe-btn">สมัครสมาชิก</button>
+                <button class="subscribe-btn" onclick="openPopup('success')">สมัครสมาชิก</button>
             </div>
             <div class="membership-box premium">
                 <h3>Premium</h3>
                 <p><strong>200 บ. / เดือน</strong></p>
                 <p>บริการดูข้อมูลพรีเมียม & ใช้งานฟีเจอร์พิเศษ</p>
                 <p>ส่วนลด 20% สำหรับบริการเสริม</p>
-                <button class="subscribe-btn">สมัครสมาชิก</button>
+                <button class="subscribe-btn" onclick="openPopup('premium')">สมัครสมาชิก</button>
             </div>
         </div>
     </div>
+
+        <!-- สถานะการ์ดสำหรับสถานะต่างๆ -->
+    <div class="status-cards-container">
+        <div class="status-card" id="card-success">
+            <h3>จองสำเร็จแล้ว</h3>
+            <p>การจองของคุณสำเร็จแล้ว! กรุณารอซักครู่ในการทำความสะอาด</p>
+            <button ="displayCard('card-success')">ตกลง</button>  <!-- เมื่อคลิกแสดงการ์ด -->
+        </div>
+
+        <div class="status-card" id="card-premium">
+            <h3>กำลังบริการอยู่</h3>
+            <p>บริการของคุณกำลังดำเนินการอยู่! เหลือเวลา <span id="countdown-timer">40</span> นาที</p>
+            <button ="displayCard('card-premium')">ตกลง</button>  <!-- เมื่อคลิกแสดงการ์ด -->
+        </div>
+
+        <div class="status-card" id="card-receipt">
+            <h3>ใบเสร็จ</h3>
+            <p>คุณสามารถขอใบเสร็จได้ที่นี่!</p>
+            <button ="displayCard('card-receipt')">ขอใบเสร็จ</button>  <!-- เมื่อคลิกแสดงการ์ด -->
+        </div>
+    </div>
+
+
 </body>
 </html>
 {% endblock %}

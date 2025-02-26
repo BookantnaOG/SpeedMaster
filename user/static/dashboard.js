@@ -1,5 +1,3 @@
-// script.js
-
 let isEditing = false;  // ตัวแปรที่ใช้เก็บสถานะการแก้ไขโปรไฟล์
 
 // ฟังก์ชันสำหรับสลับสถานะการแก้ไขโปรไฟล์
@@ -60,3 +58,33 @@ function deleteAccount() {
         alert("บัญชีถูกลบแล้ว!");  // สามารถเชื่อมกับ backend ในการลบบัญชี
     }
 }
+
+function displayCard(cardId) {
+    const card = document.getElementById(cardId);
+    card.style.display = 'block';  // แสดงการ์ด
+
+    // Make sure the button stays visible (optional, if you want to ensure button visibility after click)
+    const button = card.querySelector('button');
+    button.style.display = 'block';  // Ensure the button stays visible after the click
+}
+
+
+
+// ฟังก์ชันนับถอยหลังสำหรับการบริการ
+function startCountdown() {
+    let countdown = 40;  // เริ่มจาก 40 นาที
+    const countdownElement = document.getElementById('countdown-timer');
+    
+    const interval = setInterval(function() {
+        countdown--;
+        countdownElement.textContent = countdown;  // แสดงตัวเลขนับถอยหลัง
+        if (countdown <= 0) {
+            clearInterval(interval);  // หยุดการนับถอยหลังเมื่อถึง 0
+        }
+    }, 1000);  // ใช้เวลา 100ms เพื่อให้เทสในเวลา 10 วินาที
+}
+
+// เรียกใช้ฟังก์ชันนับถอยหลังเมื่อการ์ด "กำลังบริการอยู่" ถูกแสดง
+startCountdown();
+
+
