@@ -1,34 +1,57 @@
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     height: 100vh;
     background-color: #f8f9fa;
+    margin: 0;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: #FFD43B;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.navbar .menu a {
+    text-decoration: none;
+    color: black;
+    margin: 0 15px;
+    font-size: 16px;
 }
 
 .login-container {
     background: white;
     padding: 30px;
-    width: 360px;
+    width: 400px;
     text-align: center;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.logo {
-    width: 75px;
-    margin-bottom: 10px;
+    margin-top: 100px;
 }
 
 h2 {
     font-size: 22px;
-    margin: 10px 0;
-}
-
-p {
-    color: #5f6368;
-    font-size: 14px;
     margin-bottom: 20px;
 }
 
@@ -40,45 +63,50 @@ input {
     border-radius: 4px;
 }
 
-a {
-    display: block;
-    font-size: 14px;
-    color: #1a73e8;
-    text-decoration: none;
-    margin-bottom: 20px;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-.button-group {
+.remember {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-}
-
-.create-account {
-    background: none;
-    border: none;
-    color: #1a73e8;
     font-size: 14px;
-    cursor: pointer;
-}
-
-.create-account:hover {
-    text-decoration: underline;
 }
 
 .next {
-    background: #1a73e8;
+    background: #f2a154;
     color: white;
     border: none;
     padding: 10px 15px;
+    width: 100%;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 15px;
 }
 
 .next:hover {
-    background: #1558d6;
+    background: #f2a154;
+}
+
+.register {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.register a {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+
+.remember {
+    display: flex;
+    justify-content: space-between; /* กระจายช่องว่างระหว่าง label กับลิงก์ */
+    align-items: center;            /* จัดให้อยู่ตรงกลางในแนวตั้ง */
+    font-size: 14px;
+    width: 100%;
+}
+
+/* ป้องกันไม่ให้ข้อความใน label หักบรรทัด */
+.remember label {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
 }

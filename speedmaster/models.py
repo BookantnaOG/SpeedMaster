@@ -1,5 +1,5 @@
 from django.db import models
-from django.conf import settings  # To reference custom User model
+from django.conf import settings
 
 
 class Service(models.Model):
@@ -46,7 +46,6 @@ class CarInfo(models.Model):
         return f"{self.car_name} ({self.car_license_plate}) user: {self.user}"
 
 class BookingDetail(models.Model):
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     detailing = models.ForeignKey(CarDetailingService, on_delete=models.CASCADE)
     car_info = models.ForeignKey(CarInfo, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)

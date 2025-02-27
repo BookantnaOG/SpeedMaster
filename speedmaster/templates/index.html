@@ -8,33 +8,45 @@
     <p>บริการล้างรถ เคลือบแก้ว และติดฟิล์มกันรอย ด้วยเทคโนโลยีเคมีขั้นสูง ที่ช่วยยกระดับความเงางามและปกป้องพื้นผิวรถคุณอย่างมีประสิทธิภาพ</p>
     <img src="{% static 'Image/Page 1/vecteezy_sport-car-isolated-on-transparent-background-3d-rendering_19069771.png' %}" alt="Car" />
     <div class="button-container">
-        <a href="{% url 'booking' %}" class="booking-button main">Booking</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'booking' %}" class="booking-button main">Booking</a>
+        {% else %}
+            <a href="#" id="loginReminderButton" class="booking-button main">Booking</a>
+        {% endif %}
     </div>
-
     <div class="info-item">
         <div class="info-box">
-            <img src="{% static 'Image/Page 1/—Pngtree—car-repair-glyph-icon-vector_5079209.png' %}" alt="Service">
+            <img src="{% static 'Image/materieal/Home/Service_icon.png' %}" alt="Service">
             <h1>Service</h1>
             <p>บริการล้างรถ เคลือบแก้วและฟิล์มกันรอย</p>
         </div>
-        
+
         <div class="info-box">
-            <img id="hour-icon" src="{% static 'Image/Page 1/CLOCK-131994911255070765_512px.png' %}" alt="Hour">
+            <img src="{% static 'Image/materieal/Home/Hour_icon.png' %}" alt="Hour">
             <h1>Hour</h1>
             <p>เปิดให้บริการทุกวัน 8.30-18.30 น. ไม่มีวันหยุด</p>
         </div>
+
         <div class="info-box">
-            <img id="location-icon" src="{% static 'Image/Page 1/pin.png' %}" alt="Location">
+            <img src="{% static 'Image/materieal/Home/Location.png' %}" alt="Location">
             <h1>Location</h1>
             <p>สาขาในเมือง สาขาคอมเพล็ก</p>
         </div>
-        
+    </div>
 </section>
+
+<!-- Pop-up Box -->
+<div id="popupBox" class="popup">
+    <div class="popup-content">
+        <p>กรุณาล็อกอินก่อนจอง</p>
+        <button class="close-button">Close</button>
+    </div>
+</div>
+
 <!-- About Section -->
 <section id="About">
     <h1>About Us</h1>
     <div class="About-container">
-        <!-- Left Container -->
         <div class="Left-container">
             <img src="{% static 'Image/materieal/About/Check.png' %}" alt="Check">
             <div>
@@ -46,23 +58,19 @@
             <img src="{% static 'Image/materieal/About/Check.png' %}" alt="Check">
             <div>
                 <h5>Interior Cleaning</h5>
-                <p>ทำความสะอาดฟื้นฟูสภาพรถให้กลับใมาเหมือนใหม่อีกครั้ง</p>
+                <p>ทำความสะอาดฟื้นฟูสภาพรถให้กลับมาเหมือนใหม่อีกครั้ง</p>
             </div>
         </div>
         <div class="Left-container">
             <img src="{% static 'Image/materieal/About/Check.png' %}" alt="Check">
             <div>
                 <h5>Expertise You Can Trust</h5>
-                <p>มีทีมงานผู้เชี่ยวชาญพร้อมดูแลทุกขั้นตอน เพื่อให้มั่นใจว่ารถของคุณได้รับการบริการที่ดีที่สุด
-                </p>
+                <p>มีทีมงานผู้เชี่ยวชาญพร้อมดูแลทุกขั้นตอน เพื่อให้มั่นใจว่ารถของคุณได้รับการบริการที่ดีที่สุด</p>
             </div>
         </div>
-        <!-- Center image -->
         <div class="Center-image">
             <img src="{% static 'Image/Page 2/Car-and-flag.png' %}" alt="Center Image">
-    </div>
-
-        <!-- Right Container -->
+        </div>
         <div class="Right-container">
             <img src="{% static 'Image/materieal/About/Check.png' %}" alt="Check">
             <div>
@@ -86,6 +94,7 @@
         </div>
     </div>
 </section>
+
 <!-- Membership Section -->
 <section id="Membership">
     <div class="container">
@@ -124,57 +133,65 @@
 
 <!-- OurService Section -->
 <section id="OurService">
-    <!-- คำว่า "Our Service" เพิ่มตรงนี้ -->
     <h2 class="section-title">Our Service</h2>
-  
     <div class="service-container">
-        <div class="service-container">
-            {% for service in services %}
-            <div class="service-card">
-              <img src="{% static 'Image/Page 4/' %}{{ service.service_name }}.png" alt="{{ service.service_name }}">
-              <h3>ล้าง</h3>
-              <p>{{ service.description }}</p>
-              <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
-            </div>
-            {% endfor %}
-          </div>
-          
+        <div class="service-card">
+            <img src="{% static 'Image/Page 4/Car Washing.png' %}" alt="Car Washing">
+            <h3>ล้าง</h3>
+            <p>ล้างคราบสกปรก เคลือบผิวรถ ทำความสะอาดภายใน.</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
+            {% else %}
+                <a href="#" id="loginReminderButton" class="booking-btn">Book Now</a>
+            {% endif %}
+        </div>
+        <div class="service-card">
+            <img src="{% static 'Image/Page 4/glass-coating.png' %}" alt="Glass Coating">
+            <h3>เคลือบแก้ว</h3>
+            <p>ปกป้องสีรถจากรอยขนแมว คราบสกปรกที่ฝั่งแน่น รังสี UV และความร้อน</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
+            {% else %}
+                <a href="#" id="loginReminderButton" class="booking-btn">Book Now</a>
+            {% endif %}
+        </div>
+        <div class="service-card">
+            <img src="{% static 'Image/Page 4/Car-and-shield.png' %}" alt="Car and Shield">
+            <h3>ฟิล์มกันรอย</h3>
+            <p>ป้องกันการเกิดรอยขีดข่วนจากการใช้งานในชีวิตประจำวัน</p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
+            {% else %}
+                <a href="#" id="loginReminderButton" class="booking-btn">Book Now</a>
+            {% endif %}
+        </div>
     </div>
-  </section>
-<!-- Comment -->
-<section class="section-content">
-    <!-- โลโก้ต่างๆ -->
-    <div class="logo-container">
-      <img src="{% static 'Image/Page 5/AUDI_(12).png' %}" alt="Logo 1" class="logo">
-      <img src="{% static 'Image/Page 5/BMWpng.parspng.com-3.png' %}" alt="Logo 2" class="logo">
-      <img src="{% static 'Image/Page 5/pngwing.com-(1).png' %}" alt="Logo 3" class="logo">
-      <img src="{% static 'Image/Page 5/pngwing.com.png' %}" alt="Logo 4" class="logo">
-    </div>
-  
-    <div class="speedmaster">Speedmaster</div>
-  
-    <!-- Commentor profiles -->
-    <div class="commentor-profiles">
-      <div class="commentor-profile">
-        <img src="{% static 'Image/UserProfile/User1.jpg' %}" alt="Commentor 1" class="profile-pic">
-        <p class="commentor-name">Narathai</p>
-        <p class="commentor-description">"I wish I would have thought of it first. Thanks guys, keep up the good work! I was amazed at the quality of Backpacks."</p>
-      </div>
-  
-      <div class="commentor-profile">
-        <img src="{% static 'Image/UserProfile/User2.jpg' %}" alt="Commentor 2" class="profile-pic">
-        <p class="commentor-name">Adam</p>
-        <p class="commentor-description">"I wish I would have thought of it first. Thanks guys, keep up the good work! I was amazed at the quality of Backpacks."</p>
-      </div>
-    </div>
-  
-  
-    <div class="img-footer">
-      <img src="{% static 'Image/Page 6/pexels-lynxexotics-3954441_2.jpg' %}" alt="Image Footer" class="footer-img">
-    </div>
-  </section>
-  
-  
+    <section class="img-footer">
+        <img src="{% static 'Image/Page 6/pexels-lynxexotics-3954441_2.jpg' %}" alt="Image Footer" class="footer-img">
+    </section>
+</section>
+    <script>
 
+
+// JavaScript for opening and closing popup
+document.addEventListener('DOMContentLoaded', function() {
+    const loginReminderButton = document.getElementById('loginReminderButton');
+    const popupBox = document.getElementById('popupBox');
+    const closeButton = document.querySelector('.close-button');
+    
+    if (loginReminderButton) {
+        loginReminderButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            popupBox.style.display = 'block'; // Show the popup
+        });
+    }
+
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            popupBox.style.display = 'none'; // Close the popup
+        });
+    }
+});
+</script>
 
 {% endblock %}

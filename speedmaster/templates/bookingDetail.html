@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 {% load static %}
 
-{% block content %}
+{% block content %} 
 <link rel="stylesheet" href="{% static 'bookingDetail.css' %}">
 
 <div class="detail-booking-container">
@@ -13,6 +13,38 @@
             <ul id="service-price-table"></ul>
         </div>
     </div>
+
+    <!-- ตัวเลือกเพิ่มเติมที่มีผลต่อราคา -->
+    <form id="pricing-options-form">
+        <div class="pricing-options-container">
+            <div class="pricing-options">
+                <h3>ตัวเลือกเพิ่มเติมที่มีผลต่อราคา</h3>
+                
+                <div class="input-box">
+                    <label for="car-size">ขนาดของรถ</label>
+                    <select id="car-size" name="car-size" required>
+                        <option value="S">ขนาดเล็ก (S, M)</option>
+                        <option value="L">ขนาดกลาง (L, XL)</option>
+                        <option value="XXL">ขนาดใหญ่ (XXL)</option>
+                        <option value="sports">รถสปอร์ต</option>
+                        <option value="motorcycleSmall">รถมอเตอร์ไซต์ขนาดเล็ก</option>
+                        <option value="motorcycleLarge">รถมอเตอร์ไซต์ขนาดใหญ่</option>
+                    </select>
+                    <div class="tooltip-container">
+                        <button type="button" class="info-icon">i</button>
+                        <div class="tooltip">
+                            <p><strong>ขนาดเล็ก:</strong> Mirage, Brio, March, Swift, Attrage, Note, MG3, Jass</p>
+                            <p><strong>ขนาดกลาง:</strong> CR-V, Civic, Altis, Corolla</p>
+                            <p><strong>ขนาดใหญ่:</strong> Fortuner, Pajero, Pickup Trucks</p>
+                            <p><strong>รถสปอร์ต:</strong> Porsche, Ferrari, Lamborghini</p>
+                            <p><strong>รถมอเตอร์ไซต์ขนาดเล็ก:</strong> Honda wave, Yamaha Fino</p>
+                            <p><strong>รถมอเตอร์ไซต์ขนาดใหญ่:</strong> Harley Davidson, Yamaha MT-09</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <!-- ใส่โค้ดส่วนลด -->
     <div class="discount-section">
@@ -26,9 +58,9 @@
     <!-- แสดงราคาหลังจากใช้ส่วนลด -->
     <div class="detail-container">
         <p><b>ราคารวมสุทธิ:</b></p>
-        <span name="final-price">0.00 บาท</span>
+        <span id="final-price">0.00 บาท</span> <!-- Changed the ID for final price -->
     </div>
-
+    
     <!-- แสดงเวลาที่จอง -->
     <div class="detail-container">
         <p><b>เวลาที่จอง:</b></p>
@@ -41,42 +73,12 @@
             <div class="confirmation-section">
                 <h3>ยืนยันการทำรายการ</h3>
                 <div class="input-fields">
+                    <!-- เปลี่ยนจากเลือกขนาดรถ เป็นให้พิมพ์ชื่อรถแทน -->
                     <div class="input-box">
-                        <label for="car-brand">ยี่ห้อรถ</label>
-                        <select id="car-brand" name="car-brand" required>
-                            <option value="" disabled selected>เลือกยี่ห้อรถ</option>
-                            <option value="Toyota">Toyota</option>
-                            <option value="Honda">Honda</option>
-                            <option value="BMW">BMW</option>
-                            <option value="Ford">Ford</option>
-                            <option value="Mercedes">Mercedes</option>
-                            <option value="Nissan">Nissan</option>
-                            <option value="Mazda">Mazda</option>
-                            <option value="Chevrolet">Chevrolet</option>
-                            <option value="Hyundai">Hyundai</option>
-                            <option value="Audi">Audi</option>
-                            <option value="Kia">Kia</option>
-                            <option value="Volkswagen">Volkswagen</option>
-                            <option value="Subaru">Subaru</option>
-                            <option value="Porsche">Porsche</option>
-                            <option value="Lexus">Lexus</option>
-                            <option value="Jaguar">Jaguar</option>
-                            <option value="Peugeot">Peugeot</option>
-                            <option value="Ferrari">Ferrari</option>
-                            <option value="Lamborghini">Lamborghini</option>
-                            <option value="Tesla">Tesla</option>
-                            <option value="Mitsubishi">Mitsubishi</option>
-                            <option value="Renault">Renault</option>
-                            <option value="Chrysler">Chrysler</option>
-                            <option value="Land Rover">Land Rover</option>
-                            <option value="Fiat">Fiat</option>
-                            <option value="Volvo">Volvo</option>
-                            <option value="Bentley">Bentley</option>
-                            <option value="Aston Martin">Aston Martin</option>
-                            <option value="Rolls Royce">Rolls Royce</option>
-                            <!-- เพิ่มยี่ห้ออื่น ๆ ที่คุณต้องการ -->
-                        </select>
+                        <label for="car-name">ชื่อรถ</label>
+                        <input type="text" id="car-name" name="car-name" placeholder="กรอกชื่อรถของคุณ" required>
                     </div>
+                    
                     <div class="input-box">
                         <label for="car-reg">ทะเบียนรถ</label>
                         <input type="text" id="car-reg" name="car-reg" placeholder="กรอกทะเบียนรถ" required>
@@ -94,9 +96,19 @@
     </div>
 
     <!-- Validation Message -->
-    <div class="validation-message" style="display: none;">
+    <div class="validation-message" style="display: none; color: red;">
         กรุณากรอกข้อมูลให้ครบถ้วนเพื่อใช้สิทธิ์การยืนยันข้อมูล
+        <div class="car-reg-validation-message" style="display: none;">
+            รูปแบบทะเบียนรถไม่ถูกต้อง กรุณาตรวจสอบอีกครั้ง
+        </div>
+        <div class="email-validation-message" style="display: none;">
+            กรุณากรอกอีเมลให้ถูกต้อง
+        </div>
+        <div class="mobile-validation-message" style="display: none;">
+            กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง
+        </div>
     </div>
+
 </div>
 
 <script src="{% static 'bookingdetail.js' %}"></script>

@@ -85,3 +85,6 @@ def bookingdetail(request):
             })
             return render(request, "payment.html", context)
     return render(request, 'bookingDetail.html')
+
+def dashboard_view(request):
+    return render(request, 'user/dashborad.html')
