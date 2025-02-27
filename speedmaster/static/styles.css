@@ -59,8 +59,8 @@ body {
 #home img {
     width: 37%;
     height: auto;
-    margin-top: -1%;
-    margin-left: 45%;
+    margin-top: -12%;
+    margin-left: 47%;
 }
 
 /*info custom*/
@@ -68,11 +68,11 @@ body {
 
 .info-item {
     display: flex;
-    justify-content: space-around; /* กระจายช่องว่างเท่ากัน */
     align-items: center;
     background-color: black;
     padding: 10px;
     justify-content: space-evenly;
+    margin-top: -90px;
 }
 
 .info-box {
@@ -85,11 +85,23 @@ body {
 }
 
 .info-box img {
-    width: 30px !important;
-    height: auto;
-    margin-bottom: 5px;
-    margin-left: -35px !important;
+    width: 45px !important;
+    margin-bottom: 3px;
+    margin-left: -50px !important;
+    margin-top: 1px !important;
 }
+
+#hour-icon {
+    width: 50px !important;
+}
+#location-icon {
+    width: 43px !important;
+    margin-bottom: 7px;
+    margin-left: -50px !important;
+    margin-top: 1px !important;
+}
+
+
 
 .info-box h1 {
     font-size: 20px !important;
@@ -151,38 +163,13 @@ body {
 }
 
 .Center-image img {
-    max-width: 400px;
-    margin-left: -230px;
-    margin-top: 190px;
+    max-width: 1000px;
+    margin-left: -350px;
+    margin-top: -20px;
     height: auto;
-    transform: rotate(90deg);
-}
-.Center-image img:nth-of-type(2) {
-    transform: rotate(90deg);
-    margin-left: -295px;
-    margin-top: 187px;
-    position: absolute;
-    z-index: 1;
-}
-
-/* หมุนภาพ Flag ตัวที่สอง */
-.Center-image img:nth-of-type(3) {
-    transform: rotate(90deg);
-    margin-left: -192px;
-    margin-top: 195px;
-    position: absolute;
-    z-index: 1;
-}
-
-/* หมุนภาพ Flag ตัวที่สาม */
-.Center-image img:nth-of-type(4) {
     transform: rotate(0deg);
-    margin-left: -313px;
-    margin-top: -8px;
-    position: absolute;
-    height: 303px;
-    z-index: 1;
 }
+
 
 /* ปรับแต่งข้อความ */
 .Left-container div, .Right-container div {
@@ -192,8 +179,8 @@ body {
 
 /* Membership Section */
 #Membership {
-    background-color: #f8f9fa;
-    padding: 50px 0;
+    background-color: #e7e6e1;
+    padding: 20px ;
     text-align: center;
 }
 
@@ -207,29 +194,48 @@ body {
 
 #Membership h1 {
     font-size: 2.5em;
-    color: #333;
+    color: #314e52;
     margin-bottom: 20px;
+    text-align: start;
 }
 
 #Membership p {
     font-size: 1.2em;
-    color: #555;
+    color: #000000;
     margin-bottom: 40px;
+    text-align: start;
+}
+/* Style for the list items with checkmark images */
+.membership ul {
+    list-style: none;
+    padding-left: 0; /* Remove default list bullets */
+}
+
+.membership li {
+    display: flex;
+    align-items: center; /* Align icon and text */
+    padding-left: 30px; /* Space for the checkmark */
+    margin-bottom: 10px; /* Space between items */
+}
+
+.icon {
+    width: 20px; /* Set width of the checkmark icon */
+    height: 20px; /* Set height of the checkmark icon */
+    margin-right: 10px; /* Space between the icon and the text */
+    vertical-align: middle; /* Align vertically with the text */
 }
 
 .membership-box {
-    background: #fff;
     padding: 20px;
-    margin: 20px;
+    margin: 0px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 410px;
     text-align: left;
 }
 
 .membership-box h2 {
     font-size: 1.8em;
-    color: #007bff;
+    color: #314e52;
     margin-bottom: 15px;
 }
 
@@ -244,20 +250,28 @@ body {
     padding: 5px 0;
 }
 
-.btn {
+.Reg-btn {
     display: inline-block;
-    background: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    margin-top: 20px;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
     text-decoration: none;
-    border-radius: 5px;
-    transition: 0.3s;
+    color: white;
+    background-color: #ff5722; /* สีส้มเด่น */
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.btn:hover {
-    background: #0056b3;
+/* เปลี่ยนสีเมื่อ hover */
+.Reg-btn:hover {
+    background-color: #e64a19;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
 }
+
+
 
 /* Membership Image Section */
 .image-section {
@@ -267,95 +281,149 @@ body {
     margin-top: 30px;
     flex-wrap: wrap;
 }
+.image-section img {
+    max-width: 320px;
+    max-height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.car-1 {
+    width: 300px;
+    height: 230px;
+    margin-right: 20px;
+}
 
-/*Ourservice*/
+.car-2 {
+    width: 318px;
+    height: 230px;
+    margin-right: 20px;
+}
+
+.car-3 {
+    width: 320px;
+    height: 200px;
+    margin-right: 20px;
+}
+
+/* OurService */
 #OurService {
     padding: 50px;
     background-color: #f4f4f4;
     text-align: center;
-  }
-  
-  .service-container {
-    display: flex;
-    justify-content: space-around;
-    gap: 30px;
-  }
-  
-  .service-card {
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  .service-card img {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-  }
-  
-  .service-card h3 {
-    font-size: 24px;
-    margin-top: 20px;
-    color: #333;
-  }
-  
-  .service-card p {
-    font-size: 16px;
-    color: #666;
-    margin: 20px 0;
-  }
-  
-  .booking-btn {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .booking-btn:hover {
-    background-color: #0056b3;
-  }
-  
-.image-section img {
-    width: 100%;
-    max-width: 300px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
-/* Booking Button */
-.booking-button {
+
+/* จัดตำแหน่งคำว่า "Our Service" ให้ตรงกลาง */
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #314e52;
+}
+
+/* กำหนดสีให้ h3 */
+h3 {
+    font-size: 1.5rem; /* ปรับขนาดให้พอดีการ์ด */
+    font-weight: bold;
+    color: #314e52;
+    margin-bottom: 10px; /* ลดช่องว่างเกิน */
+}
+
+/* กำหนดสีให้ p */
+p {
+    color: #333;
+    font-size: 1rem; /* ปรับให้พอดีการ์ด */
+    line-height: 1.5; /* ปรับให้ข้อความอ่านง่าย */
+    word-wrap: break-word; /* ป้องกันข้อความล้น */
+    padding: 0 10px; /* เว้นระยะขอบให้สมดุล */
+}
+
+/* จัดตำแหน่งการ์ดทั้งหมด */
+.service-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap; /* ทำให้ responsive เมื่อหน้าจอเล็ก */
+}
+
+/* การตั้งค่าการ์ด */
+.service-card {
+    position: relative;
+    width: 280px; /* เพิ่มความกว้างเล็กน้อย */
+    padding: 20px;
+    background-color: #e7e6e1;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* การตั้งค่าเบื้องต้นของรูปภาพ */
+.service-card img {
+    width: 75%; /* ปรับให้ไม่เกินการ์ด */
+    height: 180px; /* ลดขนาดให้สมดุล */
+    object-fit: cover;
+    transition: filter 0.3s ease;
+}
+
+/* เปลี่ยนเป็นสีขาวเมื่อ hover */
+.service-card:hover img {
+    filter: brightness(0) invert(1); /* ทำให้ภาพเป็นสีขาว */
+}
+
+/* เปลี่ยนสีพื้นหลังและขอบของการ์ดเมื่อ hover */
+.service-card:hover {
+    background-color: #314e52;
+    border-color: #314e52;
+}
+
+/* เปลี่ยนสีของข้อความ (h3, p) เมื่อ hover */
+.service-card:hover h3,
+.service-card:hover p {
+    color: #ffffff;
+}
+
+/* ปุ่ม Booking */
+.booking-btn {
+    padding: 10px 20px;
     background-color: #f2a154;
     color: white;
-    font-size: 20px;
-    padding: 15px 32px 15px 15px;
     border: none;
-    border-radius: 1px;
-    text-decoration: none; /* ไม่มีเส้นใต้ */
+    border-radius: 5px;
     cursor: pointer;
-    position: relative; /* เพิ่ม position เพื่อให้จัดการตำแหน่งได้ */
-    top: -62px; /* ปรับตำแหน่งเฉพาะของปุ่ม */
-    left: 17%; /* ปรับตำแหน่งเฉพาะของปุ่ม */
-    z-index: 10; /* เพิ่ม z-index เพื่อให้ปุ่มอยู่เหนือองค์ประกอบอื่นๆ */
-    transition: all 0.3s ease-in-out;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-top: auto;
+    align-self: center;
+    text-decoration: none; /* Prevent underline */
 }
 
-/* Effects on hover */
-.booking-button:hover {
-    box-shadow: 20px 0 20px rgba(0, 0, 0, 0.2); /* Shadow dropping sideways */
+
+/* เปลี่ยนสีปุ่มเมื่อ hover */
+.booking-btn:hover {
+    background-color: #e6a800;
 }
 
-/* Effects on active (when clicked) */
-.booking-button:active {
-    box-shadow: 10px 0 15px rgba(0, 0, 0, 0.4); /* Slightly smaller shadow on click */
+
+/* เปลี่ยนภาพเมื่อคลิก (active) สำหรับทั้งสามการ์ด */
+.service-card:nth-child(1):active .service-img {
+    background-image: url('{% static "Image/Page 4/Car-Washing-white.png" %}');
 }
 
+.service-card:nth-child(2):active .service-img {
+    background-image: url('{% static "Image/Page 4/car-white.png" %}');
+}
+
+.service-card:nth-child(3):active .service-img {
+    background-image: url('{% static "Image/Page 4/glass-coating-white.png" %}');
+}
+
+
+  
 
 /* Footer Customization */
 footer {
@@ -373,81 +441,115 @@ footer {
     background-color: #f4f4f4;
   }
   
-  /* Logo container */
-  .logo-container {
+  /* ปรับแต่ง container ของโลโก้ */
+.logo-container {
     display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 30px;
-  }
-  
-  /* Logo styling */
-  .logo {
-    width: 50px;
-    height: 50px;
-  }
-  
-  /* User profiles section */
-  .user-profiles {
+    justify-content: center; /* จัดให้อยู่กึ่งกลาง */
+    align-items: center;
+    flex-wrap: wrap; /* ให้โลโก้ขึ้นบรรทัดใหม่เมื่อพื้นที่ไม่พอ */
+    gap: 20px; /* ระยะห่างระหว่างโลโก้ */
+    padding: 20px;
+}
+
+/* ตั้งค่าพื้นฐานของโลโก้ */
+.logo {
+    width: 120px; /* ปรับขนาดโลโก้เริ่มต้น */
+    height: auto;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* ปรับขนาดโลโก้เมื่อ hover */
+.logo:hover {
+    transform: scale(1.1); /* ขยายโลโก้เล็กน้อยเมื่อ hover */
+    filter: brightness(1.2); /* เพิ่มความสว่าง */
+}
+
+/* ปรับขนาดของแต่ละโลโก้แยกกัน */
+.logo:nth-child(1) {
+    width: 210px;
+}
+
+.logo:nth-child(2) {
+    width: 130px;
+}
+
+.logo:nth-child(3) {
+    width: 110px;
+}
+
+.logo:nth-child(4) {
+    width: 140px;
+}
+
+/* Commentor profiles section */
+.commentor-profiles {
     display: flex;
     justify-content: center;
     gap: 40px;
+    align-items: center; /* ทำให้เนื้อหากลาง */
+    margin-top: 20px;
   }
   
-  /* User profile styling */
-  .user-profile {
+  /* Commentor profile styling */
+  .commentor-profile {
     text-align: center;
+    max-width: 200px;
+    width: 100%;
   }
   
+  /* รูปโปรไฟล์เป็นวงกลม */
   .profile-pic {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
+    margin-bottom: 10px; /* เพิ่มช่องว่างระหว่างรูปกับข้อความ */
+    border: 3px solid #ddd; /* เพิ่มกรอบให้กับรูปภาพ */
   }
   
-  .user-name {
+  /* ข้อความ */
+  .commentor-name {
+    font-size: 16px;
     font-weight: bold;
-    margin-top: 10px;
+    margin-bottom: 5px; /* เพิ่มช่องว่างระหว่างชื่อกับคำบรรยาย */
+    color: #333; /* เปลี่ยนสีของชื่อ */
   }
   
-  .user-description {
-    color: #777;
+  .commentor-description {
     font-size: 14px;
+    color: #555;
+    line-height: 1.4; /* ปรับความสูงบรรทัดของคำบรรยาย */
     margin-top: 5px;
-  }
-  
-  /* Styling for the custom footer section */
-  .section-end {
-    background-color: #4caf50;
-    color: white;
+    text-align: justify; /* ทำให้คำบรรยายมีการจัดระเบียบ */
     padding: 10px;
-    margin-top: 30px;
+    background-color: #f9f9f9; /* เพิ่มพื้นหลังที่อ่อนเพื่อทำให้ข้อความอ่านง่าย */
+    border-radius: 8px; /* เพิ่มขอบโค้งให้กับกล่องข้อความ */
+    border: 1px solid #ddd; /* เพิ่มกรอบรอบ ๆ กล่องข้อความ */
   }
   
+  /* Speedmaster */
+  .speedmaster {
+    font-size: 24px;
+    font-weight: bold;
+    color: #314e52;
+    text-align: center; /* ให้ข้อความอยู่กลาง */
+    margin-bottom: 20px; /* เพิ่มระยะห่างจากโปรไฟล์ */
+  }
   
-/* Section styling */
-.footer-img {
+  /* Section styling for footer image */
+  .footer-img {
     width: 100%;
     height: 40vh;
     object-fit: cover;
     filter: contrast(1.5);
     position: relative;
+    margin-top: 30px; /* เพิ่มช่องว่างระหว่างฟุตเตอร์และส่วนอื่น ๆ */
   }
   
-  .footer-img::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, rgba(49, 78, 82, 0.6), rgba(49, 78, 82, 0.6)); /* Gradient สี #314e52 */
-    z-index: 0; /* ให้ gradient อยู่ใต้ภาพ */
+  /* เพิ่มการจัดระเบียบให้ดีขึ้นในกรณีที่รูปภาพใน footer ล้น */
+  .footer-img {
+    object-position: center;
   }
-  
-  
-  
   
 
 
@@ -465,64 +567,32 @@ footer {
     background-color: #ffde59 !important;
 }
 
-
-
-
 /* Booking Button */
-
 .booking-button {
     background-color: #f2a154;
     color: white;
     font-size: 20px;
-    padding: 15px 32px 15px 15px;
+    padding: 15px 32px;
+    width: 200px;
     border: none;
     border-radius: 1px;
     cursor: pointer;
     position: relative;
-    top: -62px;
+    top: -175px;
     left: 17%;
     transition: all 0.3s ease-in-out;
-}
-.booking-button:hover {
-    box-shadow: 20px 0 20px rgba(0, 0, 0, 0.2); /* Shadow dropping sideways */
-}
-.booking-button:active {
-    box-shadow: 10px 0 15px rgba(0, 0, 0, 0.4); /* Slightly smaller shadow on click */
+    text-decoration: none; /* ลบเส้นใต้ */
+    display: inline-block;
+    text-align: center; /* จัดตัวอักษรให้อยู่กลางแนวนอน */
+    line-height: 50px; /* จัดแนวตั้งให้ตัวอักษรอยู่กลาง */
 }
 
+/* เปลี่ยน shadow เมื่อ hover */
 .booking-button:hover {
     box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.7); /* Shadow dropping sideways */
 }
 
+/* เปลี่ยน shadow เมื่อ active */
 .booking-button:active {
     box-shadow: 10px 0 15px rgba(0, 0, 0, 0.4); /* Slightly smaller shadow on click */
 }
-
-/* Responsive Styles - For smaller screens */
-@media (max-width: 1200px) {
-    /* Adjust for mid-range screens like tablets */
-    #home h1 {
-        font-size: 42px;
-        top: 20%;
-    }
-
-    #home h2 {
-        font-size: 28px;
-        left: 10%;
-    }
-
-    #home p {
-        font-size: 16px;
-        max-width: 80%;
-        left: 0;
-    }
-
-    .booking-button {
-        font-size: 14px;
-        padding: 12px 24px;
-        left: 15%;
-        top: -61px;
-    }
-   
-}
-

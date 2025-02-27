@@ -6,44 +6,46 @@
     <!-- คอลัมน์ซ้าย -->
     <div class="left-column">
         <h1>Booking Service</h1>
-        <form id="booking-form" method="post" action="{% url 'payment' %}">
+        <form id="booking-form" method="GET" action="{% url 'bookingdetail' %}">
             {% csrf_token %}
 
             <!-- เลือกบริการ -->
             <label for="service">บริการที่ต้องการ:</label>
-            <div class="button-group" id="service">
-                <label>
-                    <input type="checkbox" class="service-checkbox" value="ล้างรถ"> ล้างรถ
-                </label>
-                <label>
-                    <input type="checkbox" class="service-checkbox" value="เคลือบแก้ว"> เคลือบแก้ว
-                </label>
-                <label>
-                    <input type="checkbox" class="service-checkbox" value="ติดฟิล์มกันรอย"> ติดฟิล์มกันรอย
-                </label>
+            <div class="service-container">
+                {% for service in services %}
+                <div class="service-card" data-service="{{ service.service_name }}" data-price="{{ service.price }}">
+                    <img src="{% static 'Image/Page 4/' %}{{ service.service_name }}.png" alt="{{service.service_name}}">
+                    <h3>{{ service.service_name }}</h3>
+                </div>
+            {% endfor %}            
             </div>
             <!-- Input ที่ไม่แสดง แต่เก็บค่าบริการ -->
             <input type="hidden" name="service" id="selected-service">
+            <input type="hidden" name="price" id="selected-price">
 
             <!-- เลือกวันที่ -->
             <label for="date">เลือกวันที่:</label>
             <div class="button-group" id="date">
-                <button type="button" class="date-btn">จันทร์</button>
-                <button type="button" class="date-btn">อังคาร</button>
-                <button type="button" class="date-btn">พุธ</button>
-                <button type="button" class="date-btn">พฤหัสบดี</button>
-                <button type="button" class="date-btn">ศุกร์</button>
-                <button type="button" class="date-btn">เสาร์</button>
-                <button type="button" class="date-btn">อาทิตย์</button>
+                <button type="button" class="date-btn" data-day="จันทร์">จันทร์</button>
+                <button type="button" class="date-btn" data-day="อังคาร">อังคาร</button>
+                <button type="button" class="date-btn" data-day="พุธ">พุธ</button>
+                <button type="button" class="date-btn" data-day="พฤหัสบดี">พฤหัสบดี</button>
+                <button type="button" class="date-btn" data-day="ศุกร์">ศุกร์</button>
+                <button type="button" class="date-btn" data-day="เสาร์">เสาร์</button>
+                <button type="button" class="date-btn" data-day="อาทิตย์">อาทิตย์</button>
             </div>
             <input type="hidden" name="date" id="selected-date">
 
             <!-- เลือกเวลา -->
             <label for="time">เลือกเวลา:</label>
             <div class="button-group" id="time">
-                <button type="button" class="time-btn">10:30</button>
-                <button type="button" class="time-btn">11:30</button>
-                <button type="button" class="time-btn">12:30</button>
+                <button type="button" class="time-btn" data-time="10:30">10:30</button>
+                <button type="button" class="time-btn" data-time="11:30">11:30</button>
+                <button type="button" class="time-btn" data-time="12:30">12:30</button>
+                <button type="button" class="time-btn" data-time="13:30">13:30</button>
+                <button type="button" class="time-btn" data-time="14:30">14:30</button>
+                <button type="button" class="time-btn" data-time="15:30">15:30</button>
+                <button type="button" class="time-btn" data-time="16:30">16:30</button>
             </div>
             <input type="hidden" name="time" id="selected-time">
 
@@ -62,8 +64,6 @@
 </div>
 
 <script src="{% static 'booking.js' %}" defer></script>
-
 <link rel="stylesheet" href="{% static 'booking.css' %}">
 
 {% endblock %}
- 

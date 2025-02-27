@@ -20,10 +20,17 @@ class User(AbstractUser):
 
 class User_Telephone(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='telephones')  
-    telephone_number = models.CharField(max_length=15)  
+    telephone_number = models.CharField(max_length=15, unique=True)  
 
     class Meta:
         unique_together = ('user', 'telephone_number')  # Ensures both fields together are unique
 
     def __str__(self):
         return f"{self.user.username} - {self.telephone_number}"
+
+class Membership(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='member')  
+    member_type = models.CharField(max_length=50)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.member_type}"

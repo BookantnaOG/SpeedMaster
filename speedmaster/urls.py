@@ -7,6 +7,9 @@ urlpatterns = [
     path("", views.index, name="home"),  
     path("booking/", views.booking, name="booking"),  
     path('payment/', views.payment, name='payment'),
+    path('bookingdetail/',views.bookingdetail, name='bookingdetail'),
+    path('process-qr-payment/',views.process_payment_qr, name='process-qr-payment'),
     path('', include('user.urls')), 
+    
 ]
 
