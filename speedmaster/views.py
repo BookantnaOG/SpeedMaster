@@ -88,3 +88,17 @@ def bookingdetail(request):
 
 def dashboard_view(request):
     return render(request, 'user/dashborad.html')
+
+from django.shortcuts import render
+
+def custom_404(request, exception):
+    return render(request, 'Error.html', {'error_code': 404}, status=404)
+
+def custom_500(request):
+    return render(request, 'Error.html', {'error_code': 500}, status=500)
+
+def custom_503(request):
+    return render(request, 'Error.html', {'error_code': 503}, status=503)
+
+def custom_400(request, exception):
+    return render(request, 'Error.html', {'error_code': 400}, status=400)

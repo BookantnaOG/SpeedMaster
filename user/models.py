@@ -2,9 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.hashers import make_password
 
-class Membership(models.Model):
-    membership_id = models.AutoField(primary_key=True)
-    membership_name = models.CharField(max_length=255)
+#class Membership(models.Model):
+    #membership_id = models.AutoField(primary_key=True)
+    #membership_name = models.CharField(max_length=255)
 
 class User(AbstractUser):
     # Override related_name for the groups and user_permissions relationships to avoid clashes
@@ -18,7 +18,7 @@ class User(AbstractUser):
         related_name='user_set_custom', 
         blank=True
     )
-    membership = models.ForeignKey(Membership, on_delete=models.SET_NULL, null=True, blank=True, related_name='users')
+    #membership = models.ForeignKey(Membership, on_delete=models.SET_NULL, null=True, blank=True, related_name='users')
 
     def __str__(self):
         return self.username
