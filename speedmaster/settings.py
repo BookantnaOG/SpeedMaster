@@ -24,7 +24,6 @@ SECRET_KEY = 'django-insecure-p*q=^g2sy%i4h+=0ak5+ux1shmi738x&-cb-hast&v-f)&$@zv
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 
@@ -49,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'speedmaster.middleware.Custom404Middleware',
     
 ]
 

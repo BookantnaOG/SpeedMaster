@@ -2,6 +2,24 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Booking, CarInfo, Service
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseNotFound, HttpResponseServerError
+from django.http import Http404
+
+# ฟังก์ชันสำหรับจัดการข้อผิดพลาด 404
+def custom_404(request, exception):
+    return render(request, 'Error.html', {'error_code': 404}, status=404)
+
+# ฟังก์ชันสำหรับจัดการข้อผิดพลาด 500
+def custom_500(request):
+    return render(request, 'Error.html', {'error_code': 500}, status=500)
+
+# ฟังก์ชันสำหรับจัดการข้อผิดพลาด 403
+def custom_403(request, exception):
+    return render(request, 'Error.html', {'error_code': 403}, status=403)
+
+# ฟังก์ชันสำหรับจัดการข้อผิดพลาด 400
+def custom_400(request, exception):
+    return render(request, 'Error.html', {'error_code': 400}, status=400)
 
 def username(request):
     # Initialize the context dictionary
@@ -86,19 +104,8 @@ def bookingdetail(request):
             return render(request, "payment.html", context)
     return render(request, 'bookingDetail.html')
 
+@login_required
 def dashboard_view(request):
     return render(request, 'user/dashborad.html')
 
-from django.shortcuts import render
 
-def custom_404(request, exception):
-    return render(request, 'Error.html', {'error_code': 404}, status=404)
-
-def custom_500(request):
-    return render(request, 'Error.html', {'error_code': 500}, status=500)
-
-def custom_503(request):
-    return render(request, 'Error.html', {'error_code': 503}, status=503)
-
-def custom_400(request, exception):
-    return render(request, 'Error.html', {'error_code': 400}, status=400)

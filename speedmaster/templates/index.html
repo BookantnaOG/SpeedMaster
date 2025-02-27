@@ -11,7 +11,7 @@
         {% if user.is_authenticated %}
             <a href="{% url 'booking' %}" class="booking-button main">Booking</a>
         {% else %}
-            <a href="#" id="loginReminderButton" class="booking-button main">Booking</a>
+            <a href="{% url 'register' %}" class="booking-button main" onclick="return confirmRegistration()">Booking</a>
         {% endif %}
     </div>
     <div class="info-item">
@@ -142,7 +142,7 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
             {% else %}
-                <a href="#" id="loginReminderButton" class="booking-btn">Book Now</a>
+                <a href="{% url 'register' %}" class="booking-btn" onclick="return confirmRegistration()">Book Now</a>
             {% endif %}
         </div>
         <div class="service-card">
@@ -152,7 +152,7 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
             {% else %}
-                <a href="#" id="loginReminderButton" class="booking-btn">Book Now</a>
+                <a href="{% url 'register' %}" class="booking-btn" onclick="return confirmRegistration()">Book Now</a>
             {% endif %}
         </div>
         <div class="service-card">
@@ -162,7 +162,7 @@
             {% if user.is_authenticated %}
                 <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
             {% else %}
-                <a href="#" id="loginReminderButton" class="booking-btn">Book Now</a>
+                <a href="{% url 'register' %}" class="booking-btn" onclick="return confirmRegistration()">Book Now</a>
             {% endif %}
         </div>
     </div>
@@ -170,28 +170,15 @@
         <img src="{% static 'Image/Page 6/pexels-lynxexotics-3954441_2.jpg' %}" alt="Image Footer" class="footer-img">
     </section>
 </section>
-    <script>
-
-
-// JavaScript for opening and closing popup
-document.addEventListener('DOMContentLoaded', function() {
-    const loginReminderButton = document.getElementById('loginReminderButton');
-    const popupBox = document.getElementById('popupBox');
-    const closeButton = document.querySelector('.close-button');
-    
-    if (loginReminderButton) {
-        loginReminderButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            popupBox.style.display = 'block'; // Show the popup
-        });
+<script>
+    function confirmRegistration() {
+        // แสดง alert
+        if (confirm("คุณกำลังจะไปยังหน้าลงทะเบียนหรือไม่?")) {
+            return true;  // ถ้าเลือก OK, ไปที่หน้า Register
+        } else {
+            return false; // ถ้าเลือก Cancel, ไม่ไปที่หน้า Register
+        }
     }
-
-    if (closeButton) {
-        closeButton.addEventListener('click', function() {
-            popupBox.style.display = 'none'; // Close the popup
-        });
-    }
-});
 </script>
 
 {% endblock %}

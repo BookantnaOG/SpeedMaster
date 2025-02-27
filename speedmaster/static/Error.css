@@ -1,0 +1,46 @@
+/* Error.css */
+.error-message {
+    background-color: #ffffff; /* สีพื้นหลังเป็นสีขาว */
+    border: 1px solid #ccc; /* ขอบกล่องสีเทาอ่อน */
+    padding: 20px; /* ช่องว่างภายในกล่อง */
+    border-radius: 8px; /* มุมกล่องโค้งมน */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงาเบาๆ รอบๆ กล่อง */
+    max-width: 600px; /* ความกว้างสูงสุดของกล่อง */
+    margin: 50px auto; /* การจัดตำแหน่งให้อยู่กลางหน้าจอ */
+    text-align: center; /* จัดข้อความให้อยู่กลาง */
+}
+
+.error-message h1 {
+    font-size: 24px; /* ขนาดตัวอักษรสำหรับหัวข้อ */
+    color: #e74c3c; /* สีแดงเข้มสำหรับหัวข้อข้อผิดพลาด */
+    margin-bottom: 15px; /* ระยะห่างด้านล่างของหัวข้อ */
+}
+
+.error-message p {
+    font-size: 18px; /* ขนาดตัวอักษรสำหรับข้อความ */
+    color: #555; /* สีตัวอักษรสำหรับข้อความ */
+    margin-bottom: 20px; /* ระยะห่างด้านล่างของข้อความ */
+}
+
+.error-message a {
+    color: #3498db; /* สีของลิงค์เป็นสีน้ำเงิน */
+    text-decoration: none; /* ไม่ให้มีขีดเส้นใต้ */
+}
+
+.error-message a:hover {
+    text-decoration: underline; /* เมื่อเอาเมาส์ไปชี้ที่ลิงค์จะมีขีดเส้นใต้ */
+}
+.back-to-home {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    padding: 10px;
+    background-color: #f1f1f1;
+    color: #000;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.back-to-home:hover {
+    background-color: #ddd;
+}
