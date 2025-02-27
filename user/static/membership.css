@@ -1,0 +1,176 @@
+/* Reset some default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f1f3f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('{% static "background.jpg" %}') no-repeat center center/cover;
+    z-index: -1;
+}
+
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: #FFD43B;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-weight: bold;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.navbar .menu a {
+    text-decoration: none;
+    color: black;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+
+h1 {
+    text-align: left;
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #202124;
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #dcdfe1;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #202124;
+}
+
+input:focus {
+    border-color: #f4c542;
+    outline: none;
+}
+
+.code-box {
+    text-align: center;
+    margin-bottom: 20px;
+    background: #fff8dc;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    border: 2px solid #f4c542;
+}
+
+.payment-options {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+button.btn {
+    padding: 12px 20px;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    border: 2px solid #1d2d35;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button.btn:hover {
+    background-color: #f4c542;
+    border-color: #f4c542;
+}
+
+.credit-card-info, .qr-code {
+    display: none;
+    text-align: center;
+    margin-bottom: 20px;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.qr-code img {
+    width: 200px;
+    height: 200px;
+}
+
+.payment-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #f2a154, #f2a154);
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.payment-btn:hover {
+    background: linear-gradient(to right,#f2a154, #f2a154);
+}
+.container-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.car-image {
+    flex: 1;
+    background: url("{% static 'car-image.png' %}") no-repeat center;
+    background-size: cover;
+    height: 500px;
+    width: 50%;
+}
+
+.container {
+    flex: 1;
+    width: 450px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 8px 8px 0px #1d2d35, 12px 12px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border-left: 8px solid #f4c542;
+    border-top: 8px solid #f4c542;
+}

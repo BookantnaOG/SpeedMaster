@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'membership.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{% static 'logo.png' %}" alt="Logo">
+            <span>SpeedMaster</span>
+        </div>
+        <div class="menu">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Service</a>
+            <a href="#">Contact</a>
+        </div>
+    </nav>
+    <div class="car-image">
+        <img src="{% static 'car-image.png' %}" alt="Car">
+    </div>
+    <div class="container">
+        <h1>Membership</h1>
+        <form method="POST" action="/register/">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="first_name" placeholder="First Name" required>
+                <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="code-box">
+                <label>Code</label>
+                <input type="text" name="code" placeholder="รหัสได้รับการลงทะเบียนแล้ว">
+            </div>
+            <h3>เลือกช่องทางการชำระ:</h3>
+            <div class="payment-options">
+                <button type="button" class="btn" id="credit-card-btn">บัตรเครดิต</button>
+                <button type="button" class="btn" id="qr-btn">QR Promptpay</button>
+            </div>
+            <div class="credit-card-info" id="credit-card-info">
+                <input type="text" placeholder="หมายเลขบัตร" required>
+                <input type="text" placeholder="วันหมดอายุ (ดด/ปป)" required>
+                <input type="text" placeholder="CVV" required>
+                <input type="text" placeholder="ชื่อเจ้าของบัตร" required>
+            </div>
+            <div class="qr-code" id="qr-code">
+                <img src="{% static 'qr-code.png' %}" alt="QR Promptpay">
+            </div>
+            <button type="submit" class="btn payment-btn">PAYMENT</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById("credit-card-btn").addEventListener("click", function() {
+            document.getElementById("credit-card-info").style.display = "block";
+            document.getElementById("qr-code").style.display = "none";
+        });
+        document.getElementById("qr-btn").addEventListener("click", function() {
+            document.getElementById("credit-card-info").style.display = "none";
+            document.getElementById("qr-code").style.display = "block";
+        });
+    </script>
+</body>
+</html>
+{% endblock %}
