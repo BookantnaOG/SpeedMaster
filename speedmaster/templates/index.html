@@ -129,27 +129,14 @@
   
     <div class="service-container">
         <div class="service-container">
+            {% for service in services %}
             <div class="service-card">
-              <img id="ServiceImage1" src="{% static 'Image/Page 4/Car Washing.png' %}" alt="Car Washing">
+              <img src="{% static 'Image/Page 4/' %}{{ service.service_name }}.png" alt="{{ service.service_name }}">
               <h3>ล้าง</h3>
-              <p>ล้างคราบสกปรก เคลือบผิวรถ ทำความสะอาดภายใน.</p>
+              <p>{{ service.description }}</p>
               <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
             </div>
-            <div class="service-card">
-              <img id="ServiceImage2" src="{% static 'Image/Page 4/glass-coating.png' %}" alt="Glass Coating">
-              <h3>เคลือบแก้ว</h3>
-              <p>ปกป้องสีรถจากรอยขนแมว คราบสกปรกที่ฝั่งแน่น รังสี UV และความร้อน
-                เพื่อสีรถดูเงางามนานยิ่งขึ้น</p>
-                <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
-            </div>
-            <div class="service-card">
-              <img id="ServiceImage3" src="{% static 'Image/Page 4/Car-and-shield.png' %}" alt="Car and Shield">
-              <h3>ฟิล์มกันรอย</h3>
-              <p>ป้องกันการเกิดรอยขีดข่วน และรอยถลอก
-                พร้อมกับปกป้องผิวรถได้มากกว่า 5 ปี
-             (เนื้อฟิล์มจะทำการรักษาตัวเองเมื่อโดนความร้อน)</p>
-             <a href="{% url 'booking' %}" class="booking-btn">Book Now</a>
-            </div>
+            {% endfor %}
           </div>
           
     </div>

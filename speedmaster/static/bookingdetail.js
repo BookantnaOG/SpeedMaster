@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const servicePrices = {
         "เคลือบแก้ว": 500,
         "ฟิล์มกันรอย": 200,
-        "ล้างรถ": 100
+        "ทำความสะอาด": 100
     };
 
     // ดึงรายการบริการที่เลือกจาก localStorage
@@ -105,12 +105,11 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
 
         const carReg = document.getElementById("car-reg").value.trim();
-        const email = document.getElementById("email").value.trim();
         const mobile = document.getElementById("mobile").value.trim();
         const carBrand = document.getElementById("car-brand").value;  // ดึงยี่ห้อรถที่เลือก
         const validationMessage = document.querySelector('.validation-message');
 
-        if (!carReg || !email || !mobile || !carBrand) {
+        if (!carReg || !mobile || !carBrand) {
             validationMessage.style.display = 'block';
             return;
         }
@@ -119,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // เก็บข้อมูลใน localStorage เพื่อส่งไปยังหน้า payment.html
         localStorage.setItem('carReg', carReg);
-        localStorage.setItem('email', email);
         localStorage.setItem('mobile', mobile);
         localStorage.setItem('carBrand', carBrand);
 
@@ -130,14 +128,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // ในหน้า payment.html, สามารถดึงข้อมูลนี้จาก localStorage ได้
     if (window.location.pathname.includes("payment.html")) {
         const carReg = localStorage.getItem('carReg');
-        const email = localStorage.getItem('email');
         const mobile = localStorage.getItem('mobile');
         const carBrand = localStorage.getItem('carBrand');
         const finalPrice = localStorage.getItem('finalPrice');
 
         // แสดงข้อมูลในหน้า payment
         document.getElementById('payment-car-reg').innerText = carReg;
-        document.getElementById('payment-email').innerText = email;
         document.getElementById('payment-mobile').innerText = mobile;
         document.getElementById('payment-car-brand').innerText = carBrand;
         document.getElementById('payment-final-price').innerText = `${finalPrice} THB`;

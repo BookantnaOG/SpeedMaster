@@ -6,24 +6,18 @@
     <!-- คอลัมน์ซ้าย -->
     <div class="left-column">
         <h1>Booking Service</h1>
-        <form id="booking-form" method="post" action="{% url 'bookingdetail' %}">
+        <form id="booking-form" method="GET" action="{% url 'bookingdetail' %}">
             {% csrf_token %}
 
             <!-- เลือกบริการ -->
             <label for="service">บริการที่ต้องการ:</label>
             <div class="service-container">
-                <div class="service-card" data-service="ล้างรถ" data-price="100">
-                    <img id="ServiceImage1" src="{% static 'Image/Page 4/Car Washing.png' %}" alt="Car Washing">
-                    <h3>ล้าง</h3>
+                {% for service in services %}
+                <div class="service-card" data-service="{{ service.service_name }}" data-price="{{ service.price }}">
+                    <img src="{% static 'Image/Page 4/' %}{{ service.service_name }}.png" alt="{{service.service_name}}">
+                    <h3>{{ service.service_name }}</h3>
                 </div>
-                <div class="service-card" data-service="เคลือบแก้ว" data-price="500">
-                    <img id="ServiceImage2" src="{% static 'Image/Page 4/glass-coating.png' %}" alt="Glass Coating">
-                    <h3>เคลือบแก้ว</h3>
-                </div>
-                <div class="service-card" data-service="ฟิล์มกันรอย" data-price="200">
-                    <img id="ServiceImage3" src="{% static 'Image/Page 4/Car-and-shield.png' %}" alt="Car and Shield">
-                    <h3>ฟิล์มกันรอย</h3>
-                </div>
+            {% endfor %}            
             </div>
             <!-- Input ที่ไม่แสดง แต่เก็บค่าบริการ -->
             <input type="hidden" name="service" id="selected-service">

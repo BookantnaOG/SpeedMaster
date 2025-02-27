@@ -6,7 +6,6 @@
 
 <div class="detail-booking-container">
     <h2>Booking Detail</h2>
-
     <!-- รายการบริการ -->
     <div class="service-details">
         <h3>รายการบริการที่เลือก</h3>
@@ -27,7 +26,7 @@
     <!-- แสดงราคาหลังจากใช้ส่วนลด -->
     <div class="detail-container">
         <p><b>ราคารวมสุทธิ:</b></p>
-        <span id="final-price">0.00 บาท</span>
+        <span name="final-price">0.00 บาท</span>
     </div>
 
     <!-- แสดงเวลาที่จอง -->
@@ -38,7 +37,7 @@
 
     <div class="confirmation-container">
         <!-- Confirmation Section -->
-        <form action="/payment/" method="POST" id="confirmation-form">
+        <form action="bookingdetail/" method="POST" id="confirmation-form">
             <div class="confirmation-section">
                 <h3>ยืนยันการทำรายการ</h3>
                 <div class="input-fields">
@@ -81,10 +80,6 @@
                     <div class="input-box">
                         <label for="car-reg">ทะเบียนรถ</label>
                         <input type="text" id="car-reg" name="car-reg" placeholder="กรอกทะเบียนรถ" required>
-                    </div>
-                    <div class="input-box">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="กรอกอีเมล" required>
                     </div>
                     <div class="input-box mobile-input">
                         <label for="mobile">Mobile</label>
