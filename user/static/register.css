@@ -1,68 +1,157 @@
-/* Container for the registration form */
-.login-container {
-    display: grid;
-    grid-template-columns: 1fr; /* Single column layout */
-    grid-template-rows: auto auto 1fr;
-    gap: 20px;
-    max-width: 500px;
-    margin: 50px auto;
+/* General Styles */
+body {
+    background-color: rgb(255, 222, 89);
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    top: 0;
+    overflow-x: hidden;
+}
+
+/* ป้องกันองค์ประกอบที่เกินขอบจอ */
+* {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Registration container background */
+.reg-container {
+    background-color: white;
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    background-color: white;  /* Change background to white */
-    text-align: center;
+    max-width: 1218px;
+    border-radius: 65px;
+    margin-left: 372px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
 }
 
-/* Title styling */
-.login-container h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
+
+.color-effect {
+    transition: filter 0.3s ease;
+    width: 100%;
+    height: auto;
+    filter: grayscale(100%); /* Initially grayscale */
 }
 
-/* Form styling using grid */
-.register-form {
-    display: grid;
-    grid-template-columns: 1fr;  /* Single column layout */
-    gap: 1px;  /* Space between form elements */
-    width: 100%;  /* Ensure form takes full width */
-}
-
-/* Input field styling */
-.register-form input {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    width: 100%;  /* Ensure input takes full width */
-    box-sizing: border-box; /* Include padding and border in the total width */
-}
-
-/* Submit button styling */
-.register-form button.next {
-    padding: 12px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    width: 100%;  /* Full width button */
-}
-
-.register-form button.next:hover {
-    background-color: #0056b3;
-}
-
-/* Link to the login page */
-.login-link {
-    font-size: 14px;
-    color: #007bff;
-    text-decoration: none;
-    margin-top: 10px;
+.car-image {
+    width: 419px;
     display: inline-block;
+    overflow: hidden;
+    margin-right: 10px;
+    border-radius: 56px;
 }
 
-.login-link:hover {
+.rounded-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px; /* Rounds the corners of the image */
+    transition: filter 0.3s ease;
+}
+
+.car-image:hover .rounded-image {
+    filter: grayscale(0%) sepia(100%) saturate(200%) hue-rotate(30deg); /* Add color effect on hover */
+}
+
+/* Registration Form */
+.register-form {
+    flex: 1;
+    width: 450px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 8px 8px 0px #1d2d35, 12px 12px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border-left: 8px solid #f4c542;
+    border-top: 8px solid #f4c542;
+}
+
+/* Register title styling */
+h2 {
+    font-size: 28px;
+    font-weight: bold;
+    color: #202124;
+    text-align: left;
+    margin-top: -18px;
+}
+
+/* Input group styling */
+.input-group-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #dcdfe1;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #202124;
+}
+
+input:focus {
+    border-color: #f4c542;
+    outline: none;
+}
+
+/* Button styling */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+button.btn {
+    padding: 12px 20px;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    border: 2px solid #1d2d35;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button.btn:hover {
+    background-color: #f4c542;
+    border-color: #f4c542;
+}
+
+/* Login link styling */
+.login {
+    text-align: center;
+    margin-top: 25px;
+}
+
+.login a {
+    color: #f4c542;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login a:hover {
     text-decoration: underline;
 }

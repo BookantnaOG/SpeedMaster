@@ -8,22 +8,66 @@
 <link rel="stylesheet" href="{% static 'register.css' %}">
 
 <!-- Registration Container -->
-<div class="login-container">
-    <h2>Register</h2>
-    
+<div class="reg-container">
+    <!-- Car Image Section -->
+    <div class="car-image">
+        <img src="{% static 'Register_image_page.jpg' %}" alt="Car">
+    </div>
+
     <!-- Registration Form -->
     <form method="POST" action="/register/" class="register-form">
         {% csrf_token %}
         
-        <!-- Form fields will be rendered here -->
-        {{ form }}
+        <!-- Register Title -->
+        <h2>Register</h2>
         
-        <!-- Submit Button -->
-        <button type="submit" class="next">Register</button>
+        <!-- Username Field -->
+        <div class="input-group">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+        </div>
+
+        <!-- First Name and Last Name Fields -->
+        <div class="input-group-row">
+            <div class="input-field">
+                <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                {{ form.first_name }}
+            </div>
+            
+            <div class="input-field">
+                <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                {{ form.last_name }}
+            </div>
+        </div>
+
+        <!-- Email Field -->
+        <div class="input-group">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+        </div>
+        
+        <!-- Password Fields -->
+        <div class="input-group-row">
+            <div class="input-field">
+                <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                {{ form.password1 }}
+            </div>
+            
+            <div class="input-field">
+                <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                {{ form.password2 }}
+            </div>
+        </div>
+
+         <div class="button-container">
+            <button type="submit" class="btn">Register</button>
+        </div>
+
+        <!-- Link to login page -->
+        <div class="login">
+            Already have an account? <a href="{% url 'login' %}">Login</a>
+        </div>
     </form>
-    
-    <!-- Link to login page -->
-    <a href="{% url 'login' %}" class="login-link">Already have an account? Sign in</a>
 </div>
 
 {% endblock %}

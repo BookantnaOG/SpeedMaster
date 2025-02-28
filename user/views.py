@@ -36,13 +36,14 @@ def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # ล็อกอินอัตโนมัติหลังจากการสมัคร
+            user = form.save()  # บันทึกผู้ใช้ใหม่
+            login(request, user)  # ล็อกอินอัตโนมัติหลังจากสมัคร
             messages.success(request, 'การลงทะเบียนสำเร็จ! ยินดีต้อนรับเข้าสู่ระบบ!')
             return redirect("home")  # ไปที่หน้า home หลังจากสมัครสมาชิก
     else:
-        form = RegisterForm()
+        form = RegisterForm()  # ถ้าเป็น GET request ให้แสดงฟอร์มเปล่า
     return render(request, "register.html", {"form": form})
+
 
 # Login view
 def login_view(request):
@@ -73,9 +74,15 @@ def logout_view(request):
 def payment_view(request):
     return render(request, 'speedmaster/payment.html')
 
+@login_required
 def membership_view(request):
     return render(request, 'Membership.html')
 
 def get_qr_code(request):
     qr_image_url = static("QR/s-1.png")  # ใช้ path ภายใน static เท่านั้น
     return JsonResponse({"qr_image_url": qr_image_url})
+
+
+def membership_dashboard(request):
+    
+    return redirect('/dashboard/')

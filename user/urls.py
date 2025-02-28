@@ -11,4 +11,5 @@ urlpatterns = [
     path('payment/', views.payment_view, name='payment'),
     path('membership/',views.membership_view, name='membership'),
     path("get_qr_code/", get_qr_code, name="get_qr_code"),
+    path('membership/dashboard/', views.membership_dashboard, name='membership_dashboard'),
 ]
