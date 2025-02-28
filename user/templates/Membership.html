@@ -1,7 +1,9 @@
 {% extends 'layout.html' %}
+
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% load static %}
     <meta charset="UTF-8">
@@ -9,10 +11,18 @@
     <title>Register</title>
     <link rel="stylesheet" href="{% static 'membership.css' %}">
 </head>
+
 <body>
+    <!-- เพิ่ม class car-image สำหรับการจัดรูป -->
     <div class="car-image">
-        <img src="{% static 'car-image.png' %}" alt="Car">
+        <img src="{% static 'pictures/car1.png' %}" alt="Profile Picture">
     </div>
+    
+    <!-- Duplicate the car image and flip it horizontally -->
+    <div class="car-image flipped">
+        <img src="{% static 'pictures/car1.png' %}" alt="Profile Picture">
+    </div>
+
     <div class="Membership-container">
         <h1>Membership</h1>
         <form method="POST" action="/dashboard/">
@@ -42,10 +52,9 @@
         </form>
     </div>
 
-
     <script>
-        document.getElementById("qr-btn").addEventListener("click", function() {
-            fetch("{% url 'get_qr_code' %}") 
+        document.getElementById("qr-btn").addEventListener("click", function () {
+            fetch("{% url 'get_qr_code' %}")
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById("qr-image").src = data.qr_image_url;
@@ -55,5 +64,6 @@
         });
     </script>
 </body>
-</html>  
+
+</html>
 {% endblock %}

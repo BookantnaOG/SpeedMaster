@@ -2,83 +2,81 @@
 {% load static %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile & Membership</title>
-    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-    <script src="{% static 'dashboard.js' %}" defer></script>  <!-- เชื่อมโยงกับไฟล์ JavaScript -->
-</head>
-<body>
-    <div class="profile-container">
-        <h2>แก้ไขข้อมูลโปรไฟล์</h2>
-        <form class="profile-form" method="POST" action="{% url 'update_profile' %}">
-            {% csrf_token %}
-            <div class="profile">
-                <img src="{% static 'profile-placeholder.png' %}" alt="Profile Picture">
-                <p>ID: 0123456</p>
-                <label for="first-name">First Name</label>
-                <input type="text" id="first-name" name="first_name" placeholder="First Name" value="สมชาย" disabled>
-                
-                <label for="last-name">Last Name</label>
-                <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="สุขใจ" disabled>
-                
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="Email" value="Somchai1234@mail.com" disabled>
-                
-                <label for="contact">Contact Number</label>
-                <input type="text" id="contact" name="contact" placeholder="Contact Number" value="0897654345" disabled>
-            </div>
-            <div class="buttons">
-                <button type="button" class="edit-btn button-adjust" onclick="toggleEdit()">แก้ไขโปรไฟล์</button>
-                <button type="submit" class="save-btn button-adjust" style="display:none;">บันทึก</button>
-                <button type="button" class="change-pass-btn" onclick="changePassword()">เปลี่ยนรหัสผ่าน</button>
-                <button type="button" class="delete-btn" onclick="deleteAccount()">ลบบัญชี</button>
-            </div>
-        </form>
-        <h2>ประเภทสมาชิก</h2>
-        <div class="membership">
-            <div class="membership-box regular">
-                <h3>Regular</h3>
-                <p><strong>ฟรี</strong></p>
-                <p>บริการดูข้อมูลพื้นฐาน</p>
-                <p>ส่วนลด 10% สำหรับบริการเสริม</p>
-                <button class="subscribe-btn" onclick="openPopup('success')">สมัครสมาชิก</button>
-            </div>
-            <div class="membership-box premium">
-                <h3>Premium</h3>
-                <p><strong>200 บ. / เดือน</strong></p>
-                <p>บริการดูข้อมูลพรีเมียม & ใช้งานฟีเจอร์พิเศษ</p>
-                <p>ส่วนลด 20% สำหรับบริการเสริม</p>
-                <button class="subscribe-btn" onclick="openPopup('premium')">สมัครสมาชิก</button>
-            </div>
+
+<!-- Link to specific register CSS -->
+<link rel="stylesheet" href="{% static 'dashboard.css' %}">
+<script src="{% static 'dashboard.js' %}" defer></script>
+
+<div class="profile-container">
+    <h2>แก้ไขข้อมูลโปรไฟล์</h2>
+    <form class="profile-form" method="POST" action="{% url 'update_profile' %}">
+        {% csrf_token %}
+        <div class="profile">
+            <img src="{% static 'Register_image_page.jpg' %}" alt="Profile Picture">
+            <p>ID: 0123456</p>
+            <label for="first-name">First Name</label>
+            <input type="text" id="first-name" name="first_name" placeholder="First Name" value="สมชาย" disabled>
+            
+            <label for="last-name">Last Name</label>
+            <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="สุขใจ" disabled>
+            
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="Email" value="Somchai1234@mail.com" disabled>
+            
+            <label for="contact">Contact Number</label>
+            <input type="text" id="contact" name="contact" placeholder="Contact Number" value="0897654345" disabled>
+        </div>
+        <div class="buttons">
+            <button type="button" class="edit-btn button-adjust" onclick="toggleEdit()">แก้ไขโปรไฟล์</button>
+            <button type="submit" class="save-btn button-adjust" style="display:none;">บันทึก</button>
+            <button type="button" class="change-pass-btn" onclick="changePassword()">เปลี่ยนรหัสผ่าน</button>
+            <button type="button" class="delete-btn" onclick="deleteAccount()">ลบบัญชี</button>
+        </div>
+    </form>
+
+    <h2>ประเภทสมาชิก</h2>
+    <div class="membership">
+        <div class="membership-box regular {% if user_is_regular %}selected{% endif %}">
+            <h3>Regular</h3>
+            <p><strong>ฟรี</strong></p>
+            <p>บริการดูข้อมูลพื้นฐาน</p>
+            <p>ส่วนลด 10% สำหรับบริการเสริม</p>
+            <button class="subscribe-btn" disabled>
+                {% if user_is_regular %}สมัครสมาชิกไว้แล้ว{% else %}สมัครสมาชิก{% endif %}
+            </button>
+        </div>
+        
+        <div class="membership-box premium {% if user_is_premium %}selected{% endif %}">
+            <h3>Premium</h3>
+            <p><strong>200 บ. / เดือน</strong></p>
+            <p>บริการดูข้อมูลพรีเมียม & ใช้งานฟีเจอร์พิเศษ</p>
+            <p>ส่วนลด 20% สำหรับบริการเสริม</p>
+            <button class="subscribe-btn" 
+                {% if user_is_premium %}disabled{% else %}onclick="window.location.href='{% url 'membership' %}'"{% endif %}>
+                {% if user_is_premium %}สมัครสมาชิกไว้แล้ว{% else %}สมัครสมาชิก{% endif %}
+            </button>
         </div>
     </div>
+</div>
 
-        <!-- สถานะการ์ดสำหรับสถานะต่างๆ -->
-    <div class="status-cards-container">
-        <div class="status-card" id="card-success">
-            <h3>จองสำเร็จแล้ว</h3>
-            <p>การจองของคุณสำเร็จแล้ว! กรุณารอซักครู่ในการทำความสะอาด</p>
-            <button ="displayCard('card-success')">ตกลง</button>  <!-- เมื่อคลิกแสดงการ์ด -->
-        </div>
-
-        <div class="status-card" id="card-premium">
-            <h3>กำลังบริการอยู่</h3>
-            <p>บริการของคุณกำลังดำเนินการอยู่! เหลือเวลา <span id="countdown-timer">40</span> นาที</p>
-            <button ="displayCard('card-premium')">ตกลง</button>  <!-- เมื่อคลิกแสดงการ์ด -->
-        </div>
-
-        <div class="status-card" id="card-receipt">
-            <h3>ใบเสร็จ</h3>
-            <p>คุณสามารถขอใบเสร็จได้ที่นี่!</p>
-            <button ="displayCard('card-receipt')">ขอใบเสร็จ</button>  <!-- เมื่อคลิกแสดงการ์ด -->
-        </div>
+<div class="status-cards-container">
+    <div class="status-card" id="card-success">
+        <h3>จองสำเร็จแล้ว</h3>
+        <p>การจองของคุณสำเร็จแล้ว! กรุณารอซักครู่ในการทำความสะอาด</p>
+        <button onclick="displayCard('card-success')">ตกลง</button>
     </div>
 
+    <div class="status-card" id="card-premium">
+        <h3>กำลังบริการอยู่</h3>
+        <p>บริการของคุณกำลังดำเนินการอยู่! เหลือเวลา <span id="countdown-timer">40</span> นาที</p>
+        <button onclick="displayCard('card-premium')">ตกลง</button>
+    </div>
 
-</body>
-</html>
+    <div class="status-card" id="card-receipt">
+        <h3>ใบเสร็จ</h3>
+        <p>คุณสามารถขอใบเสร็จได้ที่นี่!</p>
+        <button onclick="displayCard('card-receipt')">ขอใบเสร็จ</button>
+    </div>
+</div>
+
 {% endblock %}

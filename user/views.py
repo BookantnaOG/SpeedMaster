@@ -83,6 +83,28 @@ def get_qr_code(request):
     return JsonResponse({"qr_image_url": qr_image_url})
 
 
+
 def membership_dashboard(request):
-    
-    return redirect('/dashboard/')
+    # การประมวลผลและส่งข้อมูลไปยัง template
+    return render(request, 'dashboard.html')
+
+
+
+def membership_dashboard(request):
+    # เช็คประเภทสมาชิก
+    user_is_regular = False
+    user_is_premium = False
+
+    # ตรวจสอบประเภทสมาชิกของผู้ใช้ที่ล็อกอิน
+    if request.user.profile.membership_type == 'Regular':
+        user_is_regular = True
+    elif request.user.profile.membership_type == 'Premium':
+        user_is_premium = True
+
+    # ส่งข้อมูลไปยัง template
+    return render(request, 'dashboard.html', {
+        'user_is_regular': user_is_regular,
+        'user_is_premium': user_is_premium,
+    })
+
+

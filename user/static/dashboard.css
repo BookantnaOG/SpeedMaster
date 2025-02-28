@@ -1,6 +1,17 @@
-/* Ensure the whole page has a white background */
+/* General Styles */
 body {
-    background-color: white;
+    background-color: rgb(255, 222, 89);
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    top: 0;
+    overflow-x: hidden;
+}
+
+/* ป้องกันองค์ประกอบที่เกินขอบจอ */
+* {
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Profile container styles */
@@ -154,9 +165,9 @@ h2 {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: 16%;
-    top: -250px;
-    left: 90px;
+    width: 20%;
+    top: -276px;
+    left: 20px;
     margin-right: 41px;
 }
 /* การ์ดแต่ละตัว */

@@ -25,3 +25,23 @@ class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True, max_length=30)
     last_name = forms.CharField(required=True, max_length=150)
+
+
+from django import forms
+
+class MembershipForm(forms.Form):
+    first_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'placeholder': 'First Name', 'required': 'required'})
+    )
+    last_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'required': 'required'})
+    )
+    password = forms.CharField(
+        max_length=100,
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'required': 'required'})
+    )
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={'placeholder': 'Email', 'required': 'required'})
+    )
