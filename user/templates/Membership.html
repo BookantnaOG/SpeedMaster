@@ -10,22 +10,10 @@
     <link rel="stylesheet" href="{% static 'membership.css' %}">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">
-            <img src="{% static 'logo.png' %}" alt="Logo">
-            <span>SpeedMaster</span>
-        </div>
-        <div class="menu">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Service</a>
-            <a href="#">Contact</a>
-        </div>
-    </nav>
     <div class="car-image">
         <img src="{% static 'car-image.png' %}" alt="Car">
     </div>
-    <div class="container">
+    <div class="Membership-container">
         <h1>Membership</h1>
         <form method="POST" action="/register/">
             {% csrf_token %}
@@ -45,31 +33,27 @@
             </div>
             <h3>เลือกช่องทางการชำระ:</h3>
             <div class="payment-options">
-                <button type="button" class="btn" id="credit-card-btn">บัตรเครดิต</button>
                 <button type="button" class="btn" id="qr-btn">QR Promptpay</button>
             </div>
-            <div class="credit-card-info" id="credit-card-info">
-                <input type="text" placeholder="หมายเลขบัตร" required>
-                <input type="text" placeholder="วันหมดอายุ (ดด/ปป)" required>
-                <input type="text" placeholder="CVV" required>
-                <input type="text" placeholder="ชื่อเจ้าของบัตร" required>
-            </div>
-            <div class="qr-code" id="qr-code">
-                <img src="{% static 'qr-code.png' %}" alt="QR Promptpay">
+            <div class="qr-code" id="qr-code" style="display: none;">
+                <img id="qr-image" src="" alt="QR Promptpay">
             </div>
             <button type="submit" class="btn payment-btn">PAYMENT</button>
         </form>
     </div>
+
+
     <script>
-        document.getElementById("credit-card-btn").addEventListener("click", function() {
-            document.getElementById("credit-card-info").style.display = "block";
-            document.getElementById("qr-code").style.display = "none";
-        });
         document.getElementById("qr-btn").addEventListener("click", function() {
-            document.getElementById("credit-card-info").style.display = "none";
-            document.getElementById("qr-code").style.display = "block";
+            fetch("{% url 'get_qr_code' %}") 
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("qr-image").src = data.qr_image_url;
+                    document.getElementById("qr-code").style.display = "block";
+                })
+                .catch(error => console.error("Error loading QR Code:", error));
         });
     </script>
 </body>
-</html>
+</html>  
 {% endblock %}

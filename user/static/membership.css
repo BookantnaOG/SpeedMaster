@@ -1,176 +1,124 @@
-/* Reset some default styles */
-* {
+/* ตั้งค่าพื้นฐาน */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background: #f5f5f5;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f1f3f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    position: relative;
-}
-
-.background {
+.car-image {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('{% static "background.jpg" %}') no-repeat center center/cover;
-    z-index: -1;
-}
-
-.navbar {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    background: #FFD43B;
-    display: flex;
-    justify-content: space-between;
-    padding: 15px 40px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.navbar .logo {
-    font-weight: bold;
-    font-size: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.navbar .logo img {
-    width: 30px;
-    margin-right: 10px;
-}
-
-.navbar .menu a {
-    text-decoration: none;
-    color: black;
-    margin: 0 15px;
-    font-size: 16px;
+    left: 20px; /* ปรับระยะห่างจากขอบซ้าย */
+    top: 10px;
 }
 
 
-h1 {
-    text-align: left;
+.car-image img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* กล่องเนื้อหาหลัก */
+.Membership-container {
+    background: white;
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* หัวข้อ */
+.Membership-container h1 {
+    color: #ff6600;
     margin-bottom: 20px;
-    font-size: 26px;
-    color: #202124;
-    font-weight: bold;
 }
 
+/* กล่อง input */
 .input-group {
     display: flex;
     justify-content: space-between;
-    gap: 10px;
     margin-bottom: 15px;
 }
 
-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #dcdfe1;
-    border-radius: 5px;
-    font-size: 14px;
-    color: #202124;
-}
-
-input:focus {
-    border-color: #f4c542;
-    outline: none;
-}
-
-.code-box {
-    text-align: center;
-    margin-bottom: 20px;
-    background: #fff8dc;
+.input-group input {
+    width: 48%;
     padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    font-weight: bold;
-    border: 2px solid #f4c542;
 }
 
+.input-group input[type="email"],
+.input-group input[type="password"] {
+    width: 100%;
+}
+
+/* กล่องรหัส */
+.code-box {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.code-box label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.code-box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* ปุ่มเลือกชำระเงิน */
 .payment-options {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    justify-content: space-around;
+    margin: 15px 0;
 }
 
-button.btn {
-    padding: 12px 20px;
-    background-color: white;
-    color: black;
-    font-size: 16px;
-    border: 2px solid #1d2d35;
+.btn {
+    background: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
 }
 
-button.btn:hover {
-    background-color: #f4c542;
-    border-color: #f4c542;
+.btn:hover {
+    background: #e65c00;
 }
 
+/* ซ่อนข้อมูลการชำระเงิน */
 .credit-card-info, .qr-code {
     display: none;
-    text-align: center;
-    margin-bottom: 20px;
-    background: #f9f9f9;
-    padding: 15px;
+    margin-top: 15px;
+}
+
+/* ช่องข้อมูลบัตร */
+.credit-card-info input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    border: 1px solid #ccc;
 }
 
+/* QR Code */
 .qr-code img {
-    width: 200px;
-    height: 200px;
+    max-width: 150px;
 }
 
+/* ปุ่มสุดท้าย */
 .payment-btn {
     width: 100%;
+    margin-top: 20px;
     padding: 12px;
-    background: linear-gradient(to right, #f2a154, #f2a154);
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.payment-btn:hover {
-    background: linear-gradient(to right,#f2a154, #f2a154);
-}
-.container-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-.car-image {
-    flex: 1;
-    background: url("{% static 'car-image.png' %}") no-repeat center;
-    background-size: cover;
-    height: 500px;
-    width: 50%;
-}
-
-.container {
-    flex: 1;
-    width: 450px;
-    padding: 30px;
-    background-color: #ffffff;
-    box-shadow: 8px 8px 0px #1d2d35, 12px 12px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
-    border-left: 8px solid #f4c542;
-    border-top: 8px solid #f4c542;
+    font-size: 16px;
 }

@@ -3,6 +3,8 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.decorators import login_required 
 from django.contrib import messages 
+from django.http import JsonResponse
+from django.templatetags.static import static
 from .forms import RegisterForm, UserUpdateForm  
 
 # Dashboard view to show user info
@@ -70,3 +72,10 @@ def logout_view(request):
 
 def payment_view(request):
     return render(request, 'speedmaster/payment.html')
+
+def membership_view(request):
+    return render(request, 'Membership.html')
+
+def get_qr_code(request):
+    qr_image_url = static("QR/s-1.png")  # ใช้ path ภายใน static เท่านั้น
+    return JsonResponse({"qr_image_url": qr_image_url})

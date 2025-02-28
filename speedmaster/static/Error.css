@@ -2,45 +2,42 @@
 .error-message {
     background-color: #ffffff; /* สีพื้นหลังเป็นสีขาว */
     border: 1px solid #ccc; /* ขอบกล่องสีเทาอ่อน */
-    padding: 20px; /* ช่องว่างภายในกล่อง */
-    border-radius: 8px; /* มุมกล่องโค้งมน */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เงาเบาๆ รอบๆ กล่อง */
-    max-width: 600px; /* ความกว้างสูงสุดของกล่อง */
-    margin: 50px auto; /* การจัดตำแหน่งให้อยู่กลางหน้าจอ */
+    padding: 30px; /* เพิ่มช่องว่างภายในกล่อง */
+    border-radius: 10px; /* มุมโค้งมนมากขึ้น */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* เพิ่มเงาให้ดูนุ่มขึ้น */
+    max-width: 700px; /* ขยายความกว้างของกล่อง */
+    width: 90%; /* ทำให้กล่องขยายเต็มที่แต่ไม่เกิน max-width */
+    margin: 19vh auto; /* จัดให้อยู่กลางหน้าจอ */
     text-align: center; /* จัดข้อความให้อยู่กลาง */
 }
 
+/* ปรับปรุงขนาดฟอนต์และระยะห่าง */
 .error-message h1 {
-    font-size: 24px; /* ขนาดตัวอักษรสำหรับหัวข้อ */
-    color: #e74c3c; /* สีแดงเข้มสำหรับหัวข้อข้อผิดพลาด */
-    margin-bottom: 15px; /* ระยะห่างด้านล่างของหัวข้อ */
+    font-size: 26px; /* ขยายขนาดตัวอักษร */
+    color: #d63031; /* ใช้สีแดงที่เข้มกว่า */
+    font-weight: bold; /* ทำให้ตัวอักษรหนาขึ้น */
+    margin-bottom: 20px;
 }
 
 .error-message p {
-    font-size: 18px; /* ขนาดตัวอักษรสำหรับข้อความ */
-    color: #555; /* สีตัวอักษรสำหรับข้อความ */
-    margin-bottom: 20px; /* ระยะห่างด้านล่างของข้อความ */
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 25px;
+    line-height: 1.5; /* เพิ่มระยะห่างระหว่างบรรทัดให้อ่านง่ายขึ้น */
 }
 
-.error-message a {
-    color: #3498db; /* สีของลิงค์เป็นสีน้ำเงิน */
-    text-decoration: none; /* ไม่ให้มีขีดเส้นใต้ */
-}
-
-.error-message a:hover {
-    text-decoration: underline; /* เมื่อเอาเมาส์ไปชี้ที่ลิงค์จะมีขีดเส้นใต้ */
-}
+/* ปุ่มกลับไปหน้าแรก */
 .back-to-home {
-    display: block;
-    margin-top: 20px;
-    text-align: center;
-    padding: 10px;
-    background-color: #f1f1f1;
-    color: #000;
+    display: inline-block; /* ทำให้ปุ่มอยู่กึ่งกลาง */
+    padding: 12px 20px;
+    background-color: #3498db;
+    color: #fff;
     text-decoration: none;
     border-radius: 5px;
+    font-size: 16px;
+    transition: 0.3s;
 }
 
 .back-to-home:hover {
-    background-color: #ddd;
+    background-color: #2980b9;
 }
