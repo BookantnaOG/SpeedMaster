@@ -18,16 +18,16 @@ body {
 .reg-container {
     background-color: white;
     padding: 20px;
-    max-width: 1218px;
+    max-width: 1220px;
+    margin-top: 121px;
     border-radius: 65px;
     margin-left: 372px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 75vh;
+    height: 76vh;
 }
-
 
 .color-effect {
     transition: filter 0.3s ease;
