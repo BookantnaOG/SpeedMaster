@@ -53,11 +53,34 @@ function changePassword() {
 }
 
 // ฟังก์ชันลบบัญชี
+function getCSRFToken() {
+    return document.cookie
+        .split("; ")
+        .find(row => row.startsWith("csrftoken="))
+        ?.split("=")[1];
+}
+
 function deleteAccount() {
     if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบบัญชี?")) {
-        alert("บัญชีถูกลบแล้ว!");  // สามารถเชื่อมกับ backend ในการลบบัญชี
+        fetch("/delete/", {
+            method: "DELETE",
+            headers: {
+                "X-CSRFToken": getCSRFToken(),
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert("บัญชีถูกลบแล้ว!");
+                window.location.href = "/";  // Redirect to homepage
+            } else {
+                alert("เกิดข้อผิดพลาดในการลบบัญชี!");
+            }
+        })
+        .catch(error => console.error("Error:", error));
     }
 }
+
 
 function displayCard(cardId) {
     const card = document.getElementById(cardId);

@@ -13,15 +13,15 @@
         {% csrf_token %}
         <div class="profile">
             <img src="{% static 'Register_image_page.jpg' %}" alt="Profile Picture">
-            <p>ID: 0123456</p>
+            <p>ID: {{ context.id }}</p>
             <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first_name" placeholder="First Name" value="สมชาย" disabled>
+            <input type="text" id="first-name" name="first_name" placeholder="First Name" value="{{ context.firstname }}" disabled>
             
             <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="สุขใจ" disabled>
+            <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="{{ context.lastname }}" disabled>
             
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Email" value="Somchai1234@mail.com" disabled>
+            <input type="email" id="email" name="email" placeholder="Email" value="{{ context.email }}" disabled>
             
             <label for="contact">Contact Number</label>
             <input type="text" id="contact" name="contact" placeholder="Contact Number" value="0897654345" disabled>

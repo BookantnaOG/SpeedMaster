@@ -16,6 +16,9 @@ class RegisterForm(UserCreationForm):
         user.email = self.cleaned_data["email"]
         user.first_name = self.cleaned_data["first_name"]
         user.last_name = self.cleaned_data["last_name"]
+        user.password1 = self.cleaned_data["password1"]
+        user.password2 = self.cleaned_data["password2"]
+    
         if commit:
             user.save()
         return user

@@ -46,16 +46,21 @@
                 {{ form.email }}
             </div>
             
-            <!-- Password Fields -->
             <div class="input-group-row">
                 <div class="input-field">
                     <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
                     {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <p style="color:red;">{{ form.password1.errors }}</p>
+                    {% endif %}
                 </div>
-                
+            
                 <div class="input-field">
                     <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
                     {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <p style="color:red;">{{ form.password2.errors }}</p>
+                    {% endif %}
                 </div>
             </div>
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect 
-from django.contrib.auth import login, logout, authenticate 
+from django.contrib.auth import login, logout, authenticate, get_user_model
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.decorators import login_required 
 from django.contrib import messages 
@@ -7,15 +7,6 @@ from django.http import JsonResponse
 from django.templatetags.static import static
 from .forms import RegisterForm, UserUpdateForm  
 
-# Dashboard view to show user info
-@login_required
-def dashboard(request):
-    context = {'message': 'This is a dynamic message!', 'Message': 'Hello'}
-    if request.user.is_authenticated:
-        context['username'] = request.user.username
-    else:
-        context['username'] = 'Guest'
-    return render(request, 'dashboard.html', context)
 
 # Profile editing view
 @login_required
@@ -38,7 +29,6 @@ def register(request):
         if form.is_valid():
             user = form.save()  # บันทึกผู้ใช้ใหม่
             login(request, user)  # ล็อกอินอัตโนมัติหลังจากสมัคร
-            messages.success(request, 'การลงทะเบียนสำเร็จ! ยินดีต้อนรับเข้าสู่ระบบ!')
             return redirect("home")  # ไปที่หน้า home หลังจากสมัครสมาชิก
     else:
         form = RegisterForm()  # ถ้าเป็น GET request ให้แสดงฟอร์มเปล่า
@@ -107,4 +97,46 @@ def membership_dashboard(request):
         'user_is_premium': user_is_premium,
     })
 
+def username(request):
+    # Initialize the context dictionary
+    context = {'message': 'This is a dynamic message!', 'Message': 'Hello'}
 
+    # Check if the user is authenticated
+    if request.user.is_authenticated:
+        # Add the username to the context
+        context['username'] = request.user.username
+    else:
+        # Add a default message if the user is not logged in
+        context['username'] = 'Guest'
+    return context
+
+@login_required
+def dashboard(request):
+    if request.user.is_authenticated:
+        context = username(request)
+        User = get_user_model()
+        user = User.objects.get(username=context["username"])
+        context.update({
+            "id": request.user.id,
+            "firstname": user.first_name,
+            "lastname": user.last_name,
+            "email": user.email
+        })
+    
+    return render(request, 'dashboard.html',{"context":context})
+
+@login_required
+def delete_account(request):
+    if request.method == "DELETE":
+        if request.user.is_authenticated:
+            user = request.user
+            user.delete()  # Delete user from database
+            logout(request)  # Log out user
+            return JsonResponse({"message": "Account deleted successfully"}, status=200)
+        else:
+            return JsonResponse({"error": "User not authenticated"}, status=403)
+
+    return JsonResponse({"error": "Invalid request method"}, status=400)
+        
+    
+    return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
