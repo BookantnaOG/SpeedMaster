@@ -5,7 +5,6 @@
 
 <!-- Link to specific register CSS -->
 <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-<script src="{% static 'dashboard.js' %}" defer></script>
 
 <div class="profile-container">
     <h2>แก้ไขข้อมูลโปรไฟล์</h2>
@@ -20,11 +19,8 @@
             <label for="last-name">Last Name</label>
             <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="{{ context.lastname }}" disabled>
             
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Email" value="{{ context.email }}" disabled>
-            
             <label for="contact">Contact Number</label>
-            <input type="text" id="contact" name="contact" placeholder="Contact Number" value="0897654345" disabled>
+            <input type="text" id="contact" name="contact" placeholder="Contact Number" value="{{ context.contact }}" disabled>
         </div>
         <div class="buttons">
             <button type="button" class="edit-btn button-adjust" onclick="toggleEdit()">แก้ไขโปรไฟล์</button>
@@ -41,7 +37,7 @@
             <p><strong>ฟรี</strong></p>
             <p>บริการดูข้อมูลพื้นฐาน</p>
             <p>ส่วนลด 10% สำหรับบริการเสริม</p>
-            <button class="subscribe-btn" disabled>
+            <button class="subscribe-btn" {% if user_is_regular %}disabled{% else %}onclick="window.location.href='{% url 'membership' %}'"{% endif %}>
                 {% if user_is_regular %}สมัครสมาชิกไว้แล้ว{% else %}สมัครสมาชิก{% endif %}
             </button>
         </div>
@@ -51,31 +47,35 @@
             <p><strong>200 บ. / เดือน</strong></p>
             <p>บริการดูข้อมูลพรีเมียม & ใช้งานฟีเจอร์พิเศษ</p>
             <p>ส่วนลด 20% สำหรับบริการเสริม</p>
-            <button class="subscribe-btn" 
-                {% if user_is_premium %}disabled{% else %}onclick="window.location.href='{% url 'membership' %}'"{% endif %}>
+            <button class="subscribe-btn" {% if user_is_premium %}disabled{% else %}onclick="window.location.href='{% url 'membership' %}'"{% endif %}>
                 {% if user_is_premium %}สมัครสมาชิกไว้แล้ว{% else %}สมัครสมาชิก{% endif %}
             </button>
         </div>
     </div>
 </div>
 
-<div class="status-cards-container">
-    <div class="status-card" id="card-success">
+<div class="menu">
+    <h2>รายการ</h2>
+    <div class="menu-item">
         <h3>จองสำเร็จแล้ว</h3>
-        <p>การจองของคุณสำเร็จแล้ว! กรุณารอซักครู่ในการทำความสะอาด</p>
-        <button onclick="displayCard('card-success')">ตกลง</button>
+        <div class="dropdown-content">
+            <p>การจองของคุณสำเร็จแล้ว! กรุณารอซักคู่อีกครั้งในการทำความสะอาด</p>
+        </div>
     </div>
-
-    <div class="status-card" id="card-premium">
+    
+    <div class="menu-item">
         <h3>กำลังบริการอยู่</h3>
-        <p>บริการของคุณกำลังดำเนินการอยู่! เหลือเวลา <span id="countdown-timer">40</span> นาที</p>
-        <button onclick="displayCard('card-premium')">ตกลง</button>
+        <div class="dropdown-content">
+            <p>บริการของคุณกำลังดำเนินการอยู่! เหลือเวลา 0 นาที</p>
+        </div>
     </div>
-
-    <div class="status-card" id="card-receipt">
+    
+    <div class="menu-item">
         <h3>ใบเสร็จ</h3>
-        <p>คุณสามารถขอใบเสร็จได้ที่นี่!</p>
-        <button onclick="displayCard('card-receipt')">ขอใบเสร็จ</button>
+        <div class="dropdown-content">
+            <p>คุณสามารถขอใบเสร็จได้ที่นี่!</p>
+            <a href="/request-receipt" class="btn">ขอใบเสร็จ</a>
+        </div>
     </div>
 </div>
 

@@ -6,10 +6,11 @@ class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True, max_length=30)
     last_name = forms.CharField(required=True, max_length=150)
-    
+    phone = forms.CharField(required=True, max_length=15)
+
     class Meta:
         model = User
-        fields = ["username", "first_name", "last_name", "email", "password1", "password2"]
+        fields = ["username", "first_name", "last_name", "email", "phone", "password1", "password2"]
     
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -18,7 +19,8 @@ class RegisterForm(UserCreationForm):
         user.last_name = self.cleaned_data["last_name"]
         user.password1 = self.cleaned_data["password1"]
         user.password2 = self.cleaned_data["password2"]
-    
+        user.phone = self.cleaned_data["phone"]
+
         if commit:
             user.save()
         return user
@@ -28,9 +30,7 @@ class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True, max_length=30)
     last_name = forms.CharField(required=True, max_length=150)
-
-
-from django import forms
+    phone = forms.CharField(required=True, max_length=15)
 
 class MembershipForm(forms.Form):
     first_name = forms.CharField(
@@ -40,6 +40,10 @@ class MembershipForm(forms.Form):
     last_name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'required': 'required'})
+    )
+    phone = forms.CharField(
+        max_length=15,
+        widget=forms.TextInput(attrs={'placeholder': 'Phone Number', 'required': 'required'})
     )
     password = forms.CharField(
         max_length=100,
