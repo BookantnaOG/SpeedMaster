@@ -1,9 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Booking, CarInfo, Service
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.http import Http404
+from django.utils import timezone
+from django.http import HttpResponseBadRequest
+
+
 
 # ฟังก์ชันสำหรับจัดการข้อผิดพลาด 404
 def custom_404(request, exception):
@@ -45,6 +49,33 @@ def index(request):
 def booking(request):
     services = Service.objects.all()
     context = username(request)
+    context.update({
+        'today': timezone.now().date().strftime('%Y-%m-%d')
+    })
+    if request.method == "POST":
+        services = request.POST.getlist("service")
+        services = services[0].split(",")
+        try:
+            service = []
+            for i in services:
+                service.append(get_object_or_404(Service, service_id=int(i)))
+
+        except Service.DoesNotExist:
+            return HttpResponseBadRequest("Service does not exist.")
+        
+        date = request.POST.get("selected_date")
+        time_slot = request.POST.get('time')
+        price = sum([float(x.price) for x in service]) + 50
+        vat = round(price* 0.07,3)
+        context.update({
+            "date":date,
+            "time_slot":time_slot,
+            "price":price,
+            "vat":vat,
+            "total":round(price+vat,3)})
+        
+        return render(request, 'bookingDetail.html', {"service":service, "context":context})
+    
     return render(request, 'booking.html', {"services":services, "context":context})
 
 @login_required

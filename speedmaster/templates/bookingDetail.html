@@ -10,10 +10,31 @@
     <div class="service-details">
         <h3>รายการบริการที่เลือก</h3>
         <div class="service-list">
-            <ul id="service-price-table"></ul>
+            <ul id="service-price-table">
+                {% for i in service %}
+                <li>
+                    <span class="service-name">{{i.service_name}}</span>
+                    <span class="service-price">{{i.price}}</span>
+                {% endfor %}
+                </li>
+                <li>
+                    <div class="service-name">ค่าบริการ</div>
+                    <div class="service-price">50 บาท</div>
+                </li>
+                <li>
+                    <div class="car-size">ขนาดรถ</div>
+                    <div class="car-size-price">{carSizeFee} บาท</div>
+                </li>
+                <li>
+                    <div class="service-name">VAT 7%</div>
+                    <div class="service-price">{{context.vat}} บาท</div>
+                </li>
+            </ul>
         </div>
     </div>
 
+    {{context.date}}
+    {{context.time_slot}}
     <!-- ตัวเลือกเพิ่มเติมที่มีผลต่อราคา -->
     <form id="pricing-options-form">
         <div class="pricing-options-container">
@@ -22,7 +43,7 @@
                 
                 <div class="input-box">
                     <label for="car-size">ขนาดของรถ</label>
-                    <select id="car-size" name="car-size" required>
+                    <select id="car-size-select" name="car-size" required>
                         <option value="S">ขนาดเล็ก (S, M)</option>
                         <option value="L">ขนาดกลาง (L, XL)</option>
                         <option value="XXL">ขนาดใหญ่ (XXL)</option>
@@ -58,7 +79,7 @@
     <!-- แสดงราคาหลังจากใช้ส่วนลด -->
     <div class="detail-container">
         <p><b>ราคารวมสุทธิ:</b></p>
-        <span id="final-price">0.00 บาท</span> <!-- Changed the ID for final price -->
+        <span id="final-price">{{context.total}} บาท</span> <!-- Changed the ID for final price -->
     </div>
     
     <!-- แสดงเวลาที่จอง -->

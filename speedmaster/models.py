@@ -37,7 +37,7 @@ class CarDetailingService(models.Model):
     date = models.DateTimeField() # วันที่จอง
 
     class Meta:
-        unique_together = ('booking', 'service', 'timeslot')
+        unique_together = ('booking', 'service', 'timeslot', "date")
 
     def __str__(self):
         return f"{self.booking} ({self.service}) cleanness: {self.cleanness}"
@@ -55,17 +55,6 @@ class CarInfo(models.Model):
     def __str__(self):
         return f"{self.car_brand} ({self.car_license_plate}) user: {self.user}"
 
-class BookingDetail(models.Model):
-    detailing = models.ForeignKey(CarDetailingService, on_delete=models.CASCADE)
-    car_info = models.ForeignKey(CarInfo, on_delete=models.CASCADE)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    class Meta:
-        unique_together = ('detailing', 'car_info')
-
-    def __str__(self):
-        return f"Detail for Booking {self.detailing.booking.booking_id} - {self.detailing.service} cleanness: {self.detailing.cleanness}"
-
 class Payment(models.Model):
     billNo = models.AutoField(primary_key=True)
     payment_type = models.CharField(max_length=10)
@@ -73,3 +62,17 @@ class Payment(models.Model):
 
     def __str__(self):
         return f"BillNo: {self.billNo} PaymentType: {self.payment_type} paid_status: {self.paid_status}"
+    
+class BookingDetail(models.Model):
+    detailing = models.ForeignKey(CarDetailingService, on_delete=models.CASCADE)
+    car_info = models.ForeignKey(CarInfo, on_delete=models.CASCADE)
+    billNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    class Meta:
+        unique_together = ('detailing', 'car_info')
+
+    def __str__(self):
+        return f"Detail for Booking {self.detailing.booking.booking_id} - {self.detailing.service} cleanness: {self.detailing.cleanness}"
+
+

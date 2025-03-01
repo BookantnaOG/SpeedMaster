@@ -6,14 +6,14 @@
     <!-- คอลัมน์ซ้าย -->
     <div class="left-column">
         <h1>Booking Service</h1>
-        <form id="booking-form" method="GET" action="{% url 'bookingdetail' %}">
+        <form id="booking-form" method="POST" action="{% url 'booking' %}">
             {% csrf_token %}
 
             <!-- เลือกบริการ -->
             <label for="service">บริการที่ต้องการ:</label>
             <div class="service-container">
                 {% for service in services %}
-                <div class="service-card" data-service="{{ service.service_name }}" data-price="{{ service.price }}">
+                <div class="service-card" data-service="{{ service.service_id }}" data-price="{{ service.price }}">
                     <img src="{% static 'Image/Page 4/' %}{{ service.service_name }}.png" alt="{{service.service_name}}">
                     <h3>{{ service.service_name }}</h3>
                 </div>
@@ -24,8 +24,12 @@
             <input type="hidden" name="price" id="selected-price">
 
             <!-- เลือกวันที่ -->
+            
             <label for="date">เลือกวันที่:</label>
-            <div class="button-group" id="date">
+            <br/>
+             <input type="date" id="date" min="{{ context.today }}" name="selected_date">
+             <br/>
+            <!-- <div class="button-group" id="date">
                 <button type="button" class="date-btn" data-day="จันทร์">จันทร์</button>
                 <button type="button" class="date-btn" data-day="อังคาร">อังคาร</button>
                 <button type="button" class="date-btn" data-day="พุธ">พุธ</button>
@@ -34,7 +38,7 @@
                 <button type="button" class="date-btn" data-day="เสาร์">เสาร์</button>
                 <button type="button" class="date-btn" data-day="อาทิตย์">อาทิตย์</button>
             </div>
-            <input type="hidden" name="date" id="selected-date">
+            <input type="hidden" name="date" id="selected-date"> -->
 
             <!-- เลือกเวลา -->
             <label for="time">เลือกเวลา:</label>
