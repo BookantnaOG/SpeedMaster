@@ -66,13 +66,12 @@ def booking(request):
         date = request.POST.get("selected_date")
         time_slot = request.POST.get('time')
         price = sum([float(x.price) for x in service]) + 50
-        vat = round(price* 0.07,3)
+
         context.update({
             "date":date,
             "time_slot":time_slot,
             "price":price,
-            "vat":vat,
-            "total":round(price+vat,3)})
+            "total":round(price,3)})
         
         return render(request, 'bookingDetail.html', {"service":service, "context":context})
     
@@ -82,14 +81,10 @@ def booking(request):
 def payment(request):
     # ถ้ามีการส่งคำขอแบบ POST
     if request.method == "POST":
-        # รับข้อมูลจากฟอร์มที่ส่ง
-        service = request.POST.get('service', 'ไม่ระบุ')
-        date = request.POST.get('date', 'ไม่ระบุ')
-        time = request.POST.get('time', 'ไม่ระบุ')
+        
 
         context = username(request)
         # สร้าง context เพื่อส่งไปที่ template
-        context.update({'service': service,'date': date, 'time': time})
             
 
         # ส่งข้อมูลไปยัง payment.html
@@ -102,14 +97,26 @@ def process_payment_qr(request):
     user = get_user_model().objects.get(id=request.user.id)
 
     return redirect('home') 
+
 @login_required
 def bookingdetail(request):
     if request.method == "POST":
         if request.user.is_authenticated:
-            select_car_brand = request.POST.get('car-brand') # car brand
+            #select_car_brand = request.POST.get('car-brand') # car brand
             car_plate = request.POST.get('car-reg') # car plate
             user = request.user # user 
             status = "Waiting for Payment" # processing status
+            price = request.POST.get("price")
+            car_type = request.POST.get('car-type')  
+
+            car_size_map = {
+                "S": "ขนาดเล็ก (S, M)",
+                "L": "ขนาดกลาง (L, XL)",
+                "XXL": "ขนาดใหญ่ (XXL)",
+                "sports": "รถสปอร์ต",
+                "motorcycleSmall": "รถมอเตอร์ไซต์ขนาดเล็ก",
+                "motorcycleLarge": "รถมอเตอร์ไซต์ขนาดใหญ่"
+            }
 
             booking = Booking(status_on=status,
                     user=user,
@@ -118,19 +125,22 @@ def bookingdetail(request):
 
             carinfo = CarInfo(user=user, 
                     car_license_plate=car_plate,
-                    car_brand = select_car_brand)
+                    car_brand = "test",
+                    car_type = car_size_map[car_type], 
+                    booking = booking)
   
             carinfo.save() # save carinfo to database
             
+            # context update
             context = username(request)
-            price = request.POST.get("final-price")
-            if price:
-                print(f"Price: {price}")  # Check in the console to see if it prints the price
-            else:
-                print("No price found")
-
             context.update({
-                "price":request.POST.get("final-price")
+                "price":price,
             })
+            # รับข้อมูลจากฟอร์มที่ส่ง
+            service = request.POST.get('service', 'ไม่ระบุ')
+            date = request.POST.get('date', 'ไม่ระบุ')
+            time = request.POST.get('time', 'ไม่ระบุ')
+            context.update({'service': service,'date': date, 'time': time})
+
             return render(request, "payment.html", context)
     return render(request, 'bookingDetail.html')

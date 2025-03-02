@@ -194,7 +194,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const carSizeSelect = document.getElementById('car-size-select');
     const carSizeText = document.getElementById('car-size');
     const carSizeFee = document.getElementById('car-size-price');
-
+    const finalPrice = document.getElementById('final-price');
+    const vat = document.getElementById('vat-price');
+    const OGPrice = parseFloat(finalPrice.textContent);
     const carSizeFees = {
         S: 100,
         L: 150,
@@ -211,10 +213,29 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectedText = carSizeSelect.options[carSizeSelect.selectedIndex].text;
         carSizeText.textContent = selectedText;
 
-        // Update the car size fee
-        carSizeFee.value = carSizeFees[selectedValue] || 'N/A';
+        // Get the new fee
+        const newFee = carSizeFees[selectedValue] || 0; // Default to 0 if fee is not found
+
+        // Update the car size fee text
+        carSizeFee.textContent = newFee + " บาท";
+
+        // **Do not use previous final price**; instead, start fresh
+        let updatedFinalPrice = OGPrice + newFee;
+
+        // Calculate VAT
+        let vatPrice = updatedFinalPrice * 0.07;
+        vat.textContent = vatPrice.toFixed(2) + " บาท";
+
+        // Final price calculation
+        updatedFinalPrice += vatPrice;
+        finalPrice.textContent = updatedFinalPrice.toFixed(2) + " บาท";
+        // Get the value inside the span
+        const priceText = document.getElementById('final-price').textContent;
+
+        // Set the value of the hidden input field to the span's value
+        document.getElementById('price-input').value = priceText;
     });
 
-    // Trigger the change event on page load to initialize
+    // Trigger the change event on page load to initialize correctly
     carSizeSelect.dispatchEvent(new Event('change'));
 });
