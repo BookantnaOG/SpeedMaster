@@ -30,53 +30,59 @@
         </div>
     </form>
 
-    <h2>ประเภทสมาชิก</h2>
-    <div class="membership">
-        <div class="membership-box regular {% if user_is_regular %}selected{% endif %}">
-            <h3>Regular</h3>
-            <p><strong>ฟรี</strong></p>
-            <p>บริการดูข้อมูลพื้นฐาน</p>
-            <p>ส่วนลด 10% สำหรับบริการเสริม</p>
-            <button class="subscribe-btn" {% if user_is_regular %}disabled{% else %}onclick="window.location.href='{% url 'membership' %}'"{% endif %}>
-                {% if user_is_regular %}สมัครสมาชิกไว้แล้ว{% else %}สมัครสมาชิก{% endif %}
-            </button>
+    <!-- Service Status Section Inside Profile Container -->
+    <div class="service-status-container">
+        <h2>สถานะการบริการ</h2>
+        <div class="status-progress">
+            <button class="status-item completed" onclick="showDetails('status1')">📅</button>
+            <button class="status-item active" onclick="showDetails('status2')">🚗</button>
+            <button class="status-item" onclick="showDetails('status3')">✅</button>
         </div>
-        
-        <div class="membership-box premium {% if user_is_premium %}selected{% endif %}">
-            <h3>Premium</h3>
-            <p><strong>200 บ. / เดือน</strong></p>
-            <p>บริการดูข้อมูลพรีเมียม & ใช้งานฟีเจอร์พิเศษ</p>
-            <p>ส่วนลด 20% สำหรับบริการเสริม</p>
-            <button class="subscribe-btn" {% if user_is_premium %}disabled{% else %}onclick="window.location.href='{% url 'membership' %}'"{% endif %}>
-                {% if user_is_premium %}สมัครสมาชิกไว้แล้ว{% else %}สมัครสมาชิก{% endif %}
-            </button>
+        <!-- Status Details Modal -->
+        <div id="status1-details" class="status-details-modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDetails('status1')">&times;</span>
+                <h3>สถานะการจอง</h3>
+                <p>รายละเอียดเกี่ยวกับการจองบริการ...</p>
+            </div>
+        </div>
+        <div id="status2-details" class="status-details-modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDetails('status2')">&times;</span>
+                <h3>สถานะการทำความสะอาด</h3>
+                <p>รายละเอียดเกี่ยวกับการทำความสะอาด...</p>
+            </div>
+        </div>
+        <div id="status3-details" class="status-details-modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDetails('status3')">&times;</span>
+                <h3>สถานะการเสร็จสิ้น</h3>
+                <p>รายละเอียดเกี่ยวกับสถานะเสร็จสิ้น...</p>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="menu">
-    <h2>รายการ</h2>
-    <div class="menu-item">
-        <h3>จองสำเร็จแล้ว</h3>
-        <div class="dropdown-content">
-            <p>การจองของคุณสำเร็จแล้ว! กรุณารอซักคู่อีกครั้งในการทำความสะอาด</p>
-        </div>
-    </div>
-    
-    <div class="menu-item">
-        <h3>กำลังบริการอยู่</h3>
-        <div class="dropdown-content">
-            <p>บริการของคุณกำลังดำเนินการอยู่! เหลือเวลา 0 นาที</p>
-        </div>
-    </div>
-    
-    <div class="menu-item">
-        <h3>ใบเสร็จ</h3>
-        <div class="dropdown-content">
-            <p>คุณสามารถขอใบเสร็จได้ที่นี่!</p>
-            <a href="/request-receipt" class="btn">ขอใบเสร็จ</a>
-        </div>
-    </div>
-</div>
+    <script>
+        function showDetails(statusId) {
+            // Hide all modals
+            var modals = document.querySelectorAll('.status-details-modal');
+            modals.forEach(function(modal) {
+                modal.style.display = "none";
+            });
+            
+            // Show the clicked status modal
+            var modal = document.getElementById(statusId + '-details');
+            if (modal) {
+                modal.style.display = "block";
+            }
+        }
+
+        function closeDetails(statusId) {
+            var modal = document.getElementById(statusId + '-details');
+            if (modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
 
 {% endblock %}
