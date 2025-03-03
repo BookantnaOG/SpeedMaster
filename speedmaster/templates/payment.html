@@ -10,7 +10,7 @@
 <div class="payment-forms">
     <!-- Total Price Section -->
     <div class="total-price">
-        <p>ราคาสุทธิ: <span id="total-price">{{ price }} {{context.price}}บาท</span></p>
+        <p>ราคาสุทธิ: <span id="total-price">{{ price }} บาท</span></p>
     </div>
 
 
@@ -20,7 +20,7 @@
    
     <form id="qr-code" class="payment-form" style="display:none;" method="GET" action="/dashboard/">
         <h3>QR Promptpay</h3>
-        <img src="{% static 'Image/materieal/QR/s-1.png' %}" alt="QR Code">
+        <img src="https://promptpay.io/?/{{price}}.png" alt="QR Code">
         <div class="button-wrapper">
             <button type="submit">ชำระเงินผ่าน QR</button>
         </div>

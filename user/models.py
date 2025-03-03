@@ -4,7 +4,8 @@ from django.contrib.auth.hashers import make_password
 
 
 class User(AbstractUser):
-    # ใช้ related_name ที่แตกต่างสำหรับการเข้าถึงการเชื่อมโยงกับ 'Membership'
+    is_staff = models.BooleanField(default=False)
+    
     groups = models.ManyToManyField(
         'auth.Group', 
         related_name='user_set_custom', 

@@ -18,32 +18,23 @@
                 {% endfor %}
                 </li>
                 <li>
-                    <div class="service-name">ค่าบริการ</div>
-                    <div class="service-price">50 บาท</div>
-                </li>
-                <li>
-                    <div class="car-size">ขนาดรถ</div>
-                    <div class="car-size-price">{carSizeFee} บาท</div>
-                </li>
-                <li>
-                    <div class="service-name">VAT 7%</div>
-                    <div class="service-price">{{context.vat}} บาท</div>
+                    <div class="service-name" id="car-size">ขนาดรถ</div>
+                    <div class="service-price" id="car-size-price">{carSizeFee} บาท</div>
                 </li>
             </ul>
         </div>
     </div>
 
-    {{context.date}}
-    {{context.time_slot}}
     <!-- ตัวเลือกเพิ่มเติมที่มีผลต่อราคา -->
-    <form id="pricing-options-form">
+    <form action="{% url 'bookingdetail' %}" method="POST" id="confirmation-form">
+        {% csrf_token %}
         <div class="pricing-options-container">
             <div class="pricing-options">
                 <h3>ตัวเลือกเพิ่มเติมที่มีผลต่อราคา</h3>
                 
                 <div class="input-box">
                     <label for="car-size">ขนาดของรถ</label>
-                    <select id="car-size-select" name="car-size" required>
+                    <select id="car-size-select" name="car-type" required>
                         <option value="S">ขนาดเล็ก (S, M)</option>
                         <option value="L">ขนาดกลาง (L, XL)</option>
                         <option value="XXL">ขนาดใหญ่ (XXL)</option>
@@ -65,7 +56,6 @@
                 </div>
             </div>
         </div>
-    </form>
 
     <!-- ใส่โค้ดส่วนลด -->
     <div class="discount-section">
@@ -78,19 +68,28 @@
 
     <!-- แสดงราคาหลังจากใช้ส่วนลด -->
     <div class="detail-container">
+        <p><b>ค่าบริการ%:</b></p>
+        <span id="op-price">50 บาท</span> <!-- Changed the ID for final price -->
+    </div>
+    <div class="detail-container">
+        <p><b>vat 7%:</b></p>
+        <span id="vat-price">บาท</span> <!-- Changed the ID for final price -->
+    </div>
+    <div class="detail-container">
         <p><b>ราคารวมสุทธิ:</b></p>
+        <input type="hidden" id="price-input" name="price" value="">
         <span id="final-price">{{context.total}} บาท</span> <!-- Changed the ID for final price -->
     </div>
     
     <!-- แสดงเวลาที่จอง -->
     <div class="detail-container">
         <p><b>เวลาที่จอง:</b></p>
-        <span id="booking-time-display">ยังไม่ได้เลือก</span>
+        <span id="booking-time-display">{{context.date}} {{context.time_slot}}</span>
     </div>
 
     <div class="confirmation-container">
         <!-- Confirmation Section -->
-        <form action="bookingdetail/" method="POST" id="confirmation-form">
+            
             <div class="confirmation-section">
                 <h3>ยืนยันการทำรายการ</h3>
                 <div class="input-fields">

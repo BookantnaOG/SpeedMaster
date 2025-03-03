@@ -33,14 +33,16 @@ class CarDetailingService(models.Model):
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
     cleanness = models.CharField(max_length=50)
-    timeslot = models.IntegerField(choices=TIMESLOT_LIST) # slot ที่จอง
-    date = models.DateTimeField() # วันที่จอง
+    timeslot = models.IntegerField(choices=TIMESLOT_LIST)  # slot ที่จอง
+    date = models.DateTimeField()  # วันที่จอง
 
     class Meta:
-        unique_together = ('booking', 'service', 'timeslot', "date")
+        unique_together = ('booking', 'service', 'timeslot', 'date')
 
     def __str__(self):
-        return f"{self.booking} ({self.service}) cleanness: {self.cleanness}"
+        # Fixing the way to retrieve the time slot string based on the integer value
+        timeslot_str = next((time for value, time in self.TIMESLOT_LIST if value == self.timeslot), "Unknown time")
+        return f"{self.booking} ({self.service}) cleanness: {self.cleanness} time: {timeslot_str}"
 
 class CarInfo(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
