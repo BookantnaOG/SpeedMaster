@@ -207,7 +207,7 @@ button:hover, .service-btn.selected, .date-btn.selected, .time-btn.selected {
 
 /* การตั้งค่าของรูปภาพภายในการ์ด */
 .service-card img {
-    width: 100%; /* ปรับให้รูปภาพขยายเต็มขนาดของการ์ด */
+    width: 70%; /* ปรับให้รูปภาพขยายเต็มขนาดของการ์ด */
     height: auto; /* ปรับขนาดให้พอดีกับการ์ด */
     object-fit: contain; /* ปรับขนาดให้พอดีกับการ์ด */
     border-radius: 8px; /* มุมของรูปภาพ */

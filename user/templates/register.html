@@ -1,21 +1,86 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
-    <link rel="stylesheet" href="{% static 'login.css' %}">
+    <link rel="stylesheet" href="{% static 'register.css' %}">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Register</h2>
-        <form method="POST" action="/register/">
+    <div class="reg-container">
+        <!-- Car Image Section -->
+        <div class="car-image">
+            <img src="{% static 'Register_image_page.jpg' %}" alt="Car">
+        </div>
+
+        <!-- Registration Form -->
+        <form method="POST" action="{% url 'register' %}" class="register-form">
             {% csrf_token %}
-            {{ form }}
-            <button type="submit" class="next">Register</button>
+            
+            <!-- Register Title -->
+            <h2>Register</h2>
+            
+            <!-- Username Field -->
+            <div class="input-group">
+                <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+                {{ form.username }}
+            </div>
+
+            <!-- First Name and Last Name Fields -->
+            <div class="input-group-row">
+                <div class="input-field">
+                    <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+                    {{ form.first_name }}
+                </div>
+                
+                <div class="input-field">
+                    <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="input-group">
+                <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+                {{ form.email }}
+            </div>
+
+            <!-- Phone Number Field -->
+            <div class="input-group">
+                <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                {{ form.phone }}
+            </div>
+
+            <!-- Password Fields -->
+            <div class="input-group-row">
+                <div class="input-field">
+                    <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                        <p style="color:red;">{{ form.password1.errors }}</p>
+                    {% endif %}
+                </div>
+            
+                <div class="input-field">
+                    <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                        <p style="color:red;">{{ form.password2.errors }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="button-container">
+                <button type="submit" class="btn">Register</button>
+            </div>
+
+            <!-- Link to login page -->
+            <div class="login">
+                Already have an account? <a href="{% url 'login' %}">Login</a>
+            </div>
         </form>
-        <a href="{% url 'login' %}">Already have an account? Sign in</a>
     </div>
 </body>
 </html>

@@ -42,6 +42,7 @@ b {
     padding-left: 20px;
     color: white;
 }
+
 .service-list li {
     padding: 8px;
     color: white;
@@ -50,10 +51,46 @@ b {
     font-size: 1.1em;
     margin-bottom: 5px;
 }
+
 .service-list li::marker {
     content: "•";
     color: #FFB800;
     font-size: 18px;
+}
+
+/* Pricing Options */
+.pricing-options-container {
+    background-color: #3A484B; /* เปลี่ยนสีพื้นหลัง */
+    padding: 20px; /* เพิ่ม padding */
+    border-radius: 8px; /* มุมโค้งมน */
+    margin-bottom: 20px; /* ช่องว่างด้านล่าง */
+}
+
+.pricing-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.pricing-options .input-box {
+    margin-bottom: 16px;
+}
+
+.pricing-options .input-box label {
+    display: block;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.pricing-options .input-box select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: white;
+    color: #2F3D40;
+    cursor: pointer;
 }
 
 /* Discount Section */
@@ -98,6 +135,7 @@ b {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .discount-section .input-box .discount-btn:hover {
     background-color: #D49152;
 }
@@ -167,6 +205,7 @@ b {
 .confirmation-container .button-wrapper {
     text-align: center;
 }
+
 .confirmation-container .button-wrapper .pay-button {
     background-color: #D49152;
     color: white;
@@ -176,6 +215,7 @@ b {
     border-radius: 4px;
     cursor: pointer;
 }
+
 .confirmation-container .button-wrapper .pay-button:hover {
     background-color: #C07B40;
 }
@@ -187,6 +227,7 @@ b {
     font-weight: bold;
     margin-top: 20px;
 }
+
 /* Customize Scrollbar for Select */
 select {
     font-family: Arial, sans-serif;
@@ -196,50 +237,153 @@ select {
     border-radius: 4px;
     background-color: #ffffff;
     color: #2F3D40;
-    width: 40%;
+    width: 100%; /* Full width */
+    max-width: 300px; /* Maximum width */
     margin-top: 10px;
     cursor: pointer;
     box-sizing: border-box;
     transition: border-color 0.3s ease, background-color 0.3s ease;
-    overflow-y: auto; /* Allow vertical scrolling */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
-/* Scrollbar Styling */
-select::-webkit-scrollbar {
-    width: 8px;
-}
-
-select::-webkit-scrollbar-thumb {
-    background-color: #FFB800;
+/* Payment Page Styles */
+#payment-car-reg, #payment-email, #payment-mobile, #payment-car-name, #payment-final-price {
+    font-size: 16px;
+    color: #2F3D40;
+    padding: 10px;
+    border: 1px solid #ddd;
     border-radius: 4px;
-    border: 2px solid #fff;
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
 }
 
-select::-webkit-scrollbar-track {
-    background-color: #f0f0f0;
-    border-radius: 4px;
+/* Payment Summary */
+#payment-summary {
+    font-size: 18px;
+    color: #2F3D40;
+    background-color: #F9F9F9;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
 }
 
-select::-webkit-scrollbar-thumb:hover {
-    background-color: #ff9800;
+#payment-summary h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #FFB800;
 }
 
-/* For Firefox */
-select {
-    scrollbar-width: thin;
-    scrollbar-color: #FFB800 #f0f0f0;
+/* Service Price Table Adjustments */
+#service-price-table ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: white;
 }
 
-/* Additional Styling for the Disabled Option */
-option:disabled {
-    color: #aaa;
-    background-color: #f5f5f5;
-    cursor: not-allowed;
+#service-price-table li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: white;
 }
 
-/* Style for the First Disabled "Select" Option */
-option[disabled] {
-    color: #aaa;
-    background-color: #f2f2f2;
-    font-style: italic;
+#service-price-table .service-name {
+    flex: 1;
+    text-align: left;
+}
+
+#service-price-table .service-price {
+    font-weight: bold;
+    text-align: right;
+}
+
+/* Service VAT Price to Match Service Price */
+#service-price-table .service-vat-price {
+    font-size: 1.2em;  /* ขนาดตัวอักษรเหมือนกับราคาบริการ */
+    font-weight: bold;  /* ตัวหนาเหมือนกับราคาบริการ */
+    text-align: right;  /* จัดให้อยู่ทางขวาเหมือนกับราคาบริการ */
+    color: white;  /* สีตัวอักษรเป็นสีขาว */
+    margin-bottom: 10px;  /* เพิ่มช่องว่างระหว่าง VAT กับราคาบริการ */
+    display: block;  /* ทำให้ข้อความนี้แสดงในบรรทัดใหม่ */
+}
+
+/* For VAT and Final Price */
+#final-price p {
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: right;
+    margin: 0;
+    color: white;  /* ใช้สีขาวเพื่อให้เหมือนกับราคาบริการ */
+}
+
+#service-price-table li p {
+    font-size: 1em;
+    margin: 5px 0;
+}
+/* Tooltip Styles */
+.tooltip {
+    display: none;
+    background-color: #f9f9f9;
+    color: black;
+    border: 1px solid #ccc;
+    padding: 10px;
+    position: absolute;
+    z-index: 1000;
+    width: 350px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: -45px;
+    margin-left: 359px;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Show Tooltip when active */
+.tooltip.active {
+    display: block;
+    opacity: 1;
+    transform: translateX(10px);
+}
+
+/* Tooltip positioning */
+.info-icon:hover + .tooltip {
+    display: block;
+    opacity: 1;
+    transform: translateX(10px);
+}
+
+/* Info Icon Styling */
+.info-icon {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.info-icon:hover {
+    background-color: #0056b3;
+}
+
+/* Tooltip Container for alignment */
+.tooltip-container {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between the info icon and the tooltip */
+}
+
+/* Adjusting position of info-icon within the container */
+.info-icon {
+    margin-left: 316px;
+    margin-top: -41px;
 }

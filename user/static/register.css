@@ -1,79 +1,168 @@
-/* Reset some default styles */
-* {
+/* General Styles */
+body {
+    background-color: rgb(255, 222, 89);
+    color: rgb(0, 0, 0);
     margin: 0;
     padding: 0;
+    top: 0;
+    overflow-x: hidden;
+}
+
+/* ป้องกันองค์ประกอบที่เกินขอบจอ */
+* {
+    max-width: 100%;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f1f3f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-.container {
-    width: 100%;
-    max-width: 400px;
+/* Registration container background */
+.reg-container {
+    background-color: white;
     padding: 20px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+    max-width: 1220px;
+    margin-top: 121px;
+    border-radius: 65px;
+    margin-left: 372px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 76vh;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+.color-effect {
+    transition: filter 0.3s ease;
+    width: 100%;
+    height: auto;
+    filter: grayscale(100%); /* Initially grayscale */
+}
+
+.car-image {
+    width: 419px;
+    display: inline-block;
+    overflow: hidden;
+    margin-right: 10px;
+    border-radius: 56px;
+}
+
+.rounded-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px; /* Rounds the corners of the image */
+    transition: filter 0.3s ease;
+}
+
+.car-image:hover .rounded-image {
+    filter: grayscale(0%) sepia(100%) saturate(200%) hue-rotate(30deg); /* Add color effect on hover */
+}
+
+/* Registration Form */
+.register-form {
+    flex: 1;
+    width: 450px;
+    padding: 30px;
+    background-color: #ffffff;
+    box-shadow: 8px 8px 0px #1d2d35, 12px 12px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    border-left: 8px solid #f4c542;
+    border-top: 8px solid #f4c542;
+}
+
+/* Register title styling */
+h2 {
+    font-size: 28px;
+    font-weight: bold;
     color: #202124;
+    text-align: left;
+    margin-top: -18px;
+}
+
+/* Input group styling */
+.input-group-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
     margin-bottom: 15px;
+}
+
+.input-field {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
 }
 
 input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #dcdfe1;
-    border-radius: 4px;
+    border: 2px solid #dcdfe1;
+    border-radius: 5px;
     font-size: 14px;
     color: #202124;
 }
 
 input:focus {
-    border-color: #4d90fe;
+    border-color: #f4c542;
     outline: none;
 }
 
+/* Button styling */
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
 button.btn {
-    width: 100%;
-    padding: 12px;
-    background-color: #4d90fe;
-    color: white;
+    padding: 12px 20px;
+    background-color: white;
+    color: black;
     font-size: 16px;
-    border: none;
-    border-radius: 4px;
+    border: 2px solid #1d2d35;
+    border-radius: 5px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
 button.btn:hover {
-    background-color: #357ae8;
+    background-color: #f4c542;
+    border-color: #f4c542;
 }
 
-.login-link {
+/* Login link styling */
+.login {
     text-align: center;
-    margin-top: 20px;
-    font-size: 14px;
+    margin-top: 25px;
 }
 
-.login-link a {
-    color: #4d90fe;
+.login a {
+    color: #f4c542;
+    font-weight: bold;
     text-decoration: none;
 }
 
-.login-link a:hover {
+.login a:hover {
     text-decoration: underline;
+}
+input:invalid {
+    border: 1px solid red;
+}
+
+input:focus:invalid {
+    border: 2px solid red;
+}
+
+ul li {
+    color: red;
 }

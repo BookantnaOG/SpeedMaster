@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="{% static 'membership.css' %}">
+</head>
+
+<body>
+    <!-- เพิ่ม class car-image สำหรับการจัดรูป -->
+    <div class="car-image">
+        <img src="{% static 'pictures/car1.png' %}" alt="Profile Picture">
+    </div>
+    
+    <!-- Duplicate the car image and flip it horizontally -->
+    <div class="car-image flipped">
+        <img src="{% static 'pictures/car1.png' %}" alt="Profile Picture">
+    </div>
+
+    <div class="Membership-container">
+        <h1>Membership</h1>
+        <form method="POST" action="/dashboard/">
+            {% csrf_token %}
+            <div class="input-group">
+                <input type="text" name="first_name" placeholder="First Name" required>
+                <input type="text" name="last_name" placeholder="Last Name" required>
+            </div>
+            <div class="input-group">
+                <input type="password" name="password" placeholder="Password" required>
+            </div>
+            <div class="input-group">
+                <input type="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="code-box">
+                <label>Code</label>
+                <input type="text" name="code" placeholder="รหัสได้รับการลงทะเบียนแล้ว">
+            </div>
+            <h3>เลือกช่องทางการชำระ:</h3>
+            <div class="payment-options">
+                <button type="button" class="btn" id="qr-btn">QR Promptpay</button>
+            </div>
+            <div class="qr-code" id="qr-code" style="display: none;">
+                <img id="qr-image" src="" alt="QR Promptpay">
+            </div>
+            <button type="submit" class="btn payment-btn">PAYMENT</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById("qr-btn").addEventListener("click", function () {
+            fetch("{% url 'get_qr_code' %}")
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("qr-image").src = data.qr_image_url;
+                    document.getElementById("qr-code").style.display = "block";
+                })
+                .catch(error => console.error("Error loading QR Code:", error));
+        });
+    </script>
+</body>
+
+</html>
+{% endblock %}

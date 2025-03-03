@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<!-- templates/Error.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข้อผิดพลาด - ไม่พบหน้า</title>
+    <link rel="stylesheet" href="{% static 'Error.css' %}">
+</head>
+<body>
+    {% if not user.is_authenticated %}
+        <div class="error-message">
+            <h1>กรุณาเข้าสู่ระบบ</h1>
+            <p>คุณต้องเข้าสู่ระบบก่อนถึงจะเข้าถึงหน้านี้ได้</p>
+            <a href="{% url 'login' %}">เข้าสู่ระบบ</a>
+            <p>หากยังไม่มีบัญชี, <a href="{% url 'register' %}">สมัครสมาชิก</a></p>
+            <a href="/" class="back-to-home">กลับไปที่หน้าแรก</a>
+        </div>
+    {% else %}
+        {% if error_code == 404 %}
+            <div class="error-message">
+                <h1>โอ๊ะ! ไม่พบหน้าที่คุณกำลังค้นหา</h1>
+                <p>ขออภัย, เราไม่สามารถหาหน้านี้ได้. อาจจะถูกลบหรือ URL ไม่ถูกต้อง.</p>
+                <a href="/" class="back-to-home">กลับไปที่หน้าแรก</a>
+            </div>
+        {% elif error_code == 500 %}
+            <div class="error-message">
+                <h1>โอ๊ะ! เกิดข้อผิดพลาดบนเซิร์ฟเวอร์</h1>
+                <p>ขออภัยในความไม่สะดวก, เกิดข้อผิดพลาดในการประมวลผลคำขอของคุณ. โปรดลองใหม่ในภายหลัง.</p>
+                <a href="/" class="back-to-home">กลับไปที่หน้าแรก</a>
+            </div>
+        {% elif error_code == 403 %}
+            <div class="error-message">
+                <h1>ถูกปฏิเสธ!</h1>
+                <p>คุณไม่มีสิทธิ์เข้าถึงหน้านี้.</p>
+                <a href="/" class="back-to-home">กลับไปที่หน้าแรก</a>
+            </div>
+        {% elif error_code == 400 %}
+            <div class="error-message">
+                <h1>คำขอไม่ถูกต้อง!</h1>
+                <p>มีข้อผิดพลาดในคำขอของคุณ. กรุณาตรวจสอบพารามิเตอร์และลองใหม่.</p>
+                <a href="/" class="back-to-home">กลับไปที่หน้าแรก</a>
+            </div>
+        {% else %}
+            <div class="error-message">
+                <h1>ข้อผิดพลาดที่ไม่รู้จัก</h1>
+                <p>เกิดข้อผิดพลาดบางประการ. โปรดลองใหม่ในภายหลัง.</p>
+                <a href="/" class="back-to-home">กลับไปที่หน้าแรก</a>
+            </div>
+        {% endif %}
+    {% endif %}
+</body>
+</html>
+{% endblock %}
