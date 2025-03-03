@@ -22,7 +22,6 @@ def edit_profile(request):
 
     return render(request, 'profile/edit_profile.html', {'form': form})
 
-# Registration view
 def register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
@@ -30,9 +29,13 @@ def register(request):
             user = form.save()  # บันทึกผู้ใช้ใหม่
             login(request, user)  # ล็อกอินอัตโนมัติหลังจากสมัคร
             return redirect("home")  # ไปที่หน้า home หลังจากสมัครสมาชิก
+        else:
+            # ถ้าฟอร์มไม่ถูกต้องก็จะทำการแสดงข้อผิดพลาด
+            return render(request, "register.html", {"form": form})
     else:
         form = RegisterForm()  # ถ้าเป็น GET request ให้แสดงฟอร์มเปล่า
     return render(request, "register.html", {"form": form})
+
 
 
 # Login view
@@ -74,13 +77,13 @@ def get_qr_code(request):
 
 
 
-def membership_dashboard(request):
+#def membership_dashboard(request):
     # การประมวลผลและส่งข้อมูลไปยัง template
     return render(request, 'dashboard.html')
 
 
 
-def membership_dashboard(request):
+#def membership_dashboard(request):
     # เช็คประเภทสมาชิก
     user_is_regular = False
     user_is_premium = False
