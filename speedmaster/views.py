@@ -6,6 +6,9 @@ from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.http import Http404
 from django.utils import timezone
 from django.http import HttpResponseBadRequest
+import pytz
+from datetime import datetime
+
 
 
 
@@ -49,9 +52,32 @@ def index(request):
 def booking(request):
     services = Service.objects.all()
     context = username(request)
+
+    # time zone
+    thailand_tz = pytz.timezone('Asia/Bangkok')
+    # now = timezone.now().astimezone(thailand_tz)
+    
+    # TIMESLOT_LIST = (
+    #     (0, '10:30'),
+    #     (1, '11:30'),
+    #     (2, '12:30'),
+    #     (3, '13:30'),
+    #     (4, '14:30'),
+    #     (5, '15:30'),
+    #     (6, '16:30')
+    # )
+
+    # # Filter out passed timeslots
+    # available_timeslots = [
+    #     (value, time_str) for value, time_str in TIMESLOT_LIST
+    #     if datetime.strptime(time_str, '%H:%M').time() > now.time()  # Only include future times
+    # ]
+
     context.update({
-        'today': timezone.now().date().strftime('%Y-%m-%d')
+    'today': timezone.now().astimezone(thailand_tz).date().strftime('%Y-%m-%d'),
+    # 'available_timeslots': available_timeslots
     })
+
     if request.method == "POST":
         services = request.POST.getlist("service")
         services = services[0].split(",")
@@ -134,7 +160,7 @@ def bookingdetail(request):
             # context update
             context = username(request)
             context.update({
-                "price":price,
+                "price":float((price.split(" ")[0]).strip()),
             })
             # รับข้อมูลจากฟอร์มที่ส่ง
             service = request.POST.get('service', 'ไม่ระบุ')
