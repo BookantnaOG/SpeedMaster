@@ -194,15 +194,29 @@ button:hover, .service-btn.selected, .date-btn.selected, .time-btn.selected {
     align-items: center;
     transition: all 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้กับการ์ด */
 }
 
 /* เพิ่มเอฟเฟกต์เมื่อ hover การ์ด หรือเมื่อการ์ดถูกเลือก หรือกด (active) */
 .service-card:hover,
 .service-card.selected,
 .service-card.active {
-    background-color: #314e52;
-    border-color: #314e52;
-    color: white;
+    background-color: #314e52; /* เปลี่ยนสีพื้นหลัง */
+    border-color: #314e52; /* เปลี่ยนสีขอบ */
+    color: rgb(255, 0, 0); /* เปลี่ยนสีข้อความ */
+    transform: scale(1.05); /* ขยายการ์ดเล็กน้อยเมื่อเลือกหรือ hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อเลือกหรือ hover */
+}
+
+/* เพิ่มเอฟเฟกต์เมื่อการ์ดถูกเลือก (selected) */
+.service-card.selected {
+    transform: scale(1.1); /* ขยายการ์ดใหญ่ขึ้นเมื่อเลือก */
+}
+
+/* เพิ่มเอฟเฟกต์เมื่อการ์ดถูกกด (active) */
+.service-card.active {
+    transform: scale(0.98); /* หดการ์ดเล็กน้อยเมื่อกด */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* ลดเงาเมื่อกด */
 }
 
 /* การตั้งค่าของรูปภาพภายในการ์ด */

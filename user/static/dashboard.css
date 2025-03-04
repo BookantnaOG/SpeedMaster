@@ -170,19 +170,21 @@ h2 {
 
 .provider-info {
     display: flex;
+    flex-direction: column;
     align-items: center;
 }
 
 .provider-info img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
+    width: 255px;
+    height: 280px;
+    border-radius: 15%;
+    margin-bottom: 5px;
 }
 
 .provider-info .provider-name {
     font-weight: bold;
 }
+
 
 /* Add this to your dashboard.css */
 .connector-line {
