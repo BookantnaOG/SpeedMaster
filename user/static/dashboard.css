@@ -96,6 +96,7 @@ h2 {
     background-color: #ff4d4d;
     color: white;
 }
+
 /* Service Status Section Styles */
 .status-progress {
     display: flex;
@@ -152,54 +153,41 @@ h2 {
     transform: translateY(-50%);
 }
 
-/* Modal Styles for Status Details */
-.status-details-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
+/* Service Status Details Box Styles (Replacing Modal) */
+.status-details-box {
+    display: none; /* Hidden by default */
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
-.modal-content {
-    background-color: white;
-    margin: 15% auto;
-    padding: 20px;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 500px;
+.status-details-box h3 {
+    font-size: 1.2em;
+    color: #333;
 }
 
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
+.provider-info {
+    display: flex;
+    align-items: center;
+}
+
+.provider-info img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.provider-info .provider-name {
     font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-
-
-/* Subscribe button styles */
-.subscribe-btn {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.subscribe-btn:hover {
-    background-color: #45a049;
+/* Add this to your dashboard.css */
+.connector-line {
+    width: 20px;
+    height: 2px; /* Adjust the height if needed */
+    background-color: #ccc; /* Default color */
+    margin: 5px 0;
 }
