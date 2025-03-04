@@ -53,55 +53,54 @@ def booking(request):
     services = Service.objects.all()
     context = username(request)
 
-    # time zone
+    # กำหนดเวลาในโซนประเทศไทย
     thailand_tz = pytz.timezone('Asia/Bangkok')
-    # now = timezone.now().astimezone(thailand_tz)
-    
-    # TIMESLOT_LIST = (
-    #     (0, '10:30'),
-    #     (1, '11:30'),
-    #     (2, '12:30'),
-    #     (3, '13:30'),
-    #     (4, '14:30'),
-    #     (5, '15:30'),
-    #     (6, '16:30')
-    # )
-
-    # # Filter out passed timeslots
-    # available_timeslots = [
-    #     (value, time_str) for value, time_str in TIMESLOT_LIST
-    #     if datetime.strptime(time_str, '%H:%M').time() > now.time()  # Only include future times
-    # ]
-
     context.update({
-    'today': timezone.now().astimezone(thailand_tz).date().strftime('%Y-%m-%d'),
-    # 'available_timeslots': available_timeslots
+        'today': timezone.now().astimezone(thailand_tz).date().strftime('%Y-%m-%d'),
     })
 
     if request.method == "POST":
-        services = request.POST.getlist("service")
-        services = services[0].split(",")
+        # ดึงข้อมูลบริการที่เลือกจาก POST
+        services_selected = request.POST.getlist("service")  # รายการของบริการที่เลือก
+        
+        if not services_selected:
+            return HttpResponseBadRequest("กรุณาเลือกบริการอย่างน้อยหนึ่งรายการ.")
+        
+        # สมมติว่า บริการถูกส่งเป็นสตริงที่คั่นด้วยเครื่องหมายจุลภาค
+        services = services_selected[0].split(",") if services_selected else []
+
         try:
-            service = []
-            for i in services:
-                service.append(get_object_or_404(Service, service_id=int(i)))
+            # ดึงข้อมูลบริการที่เลือก
+            selected_services = []
+            for service_id in services:
+                if service_id.isdigit():  # ตรวจสอบว่า service_id เป็นตัวเลขหรือไม่
+                    selected_services.append(get_object_or_404(Service, service_id=int(service_id)))
+                else:
+                    return HttpResponseBadRequest(f"หมายเลขบริการไม่ถูกต้อง: {service_id}")
 
         except Service.DoesNotExist:
-            return HttpResponseBadRequest("Service does not exist.")
+            return HttpResponseBadRequest("ไม่พบบริการที่เลือกบางรายการ.")
         
+        # ดึงวันที่และเวลาที่เลือก
         date = request.POST.get("selected_date")
         time_slot = request.POST.get('time')
-        price = sum([float(x.price) for x in service]) + 50
-
-        context.update({
-            "date":date,
-            "time_slot":time_slot,
-            "price":price,
-            "total":round(price,3)})
         
-        return render(request, 'bookingDetail.html', {"service":service, "context":context})
-    
-    return render(request, 'booking.html', {"services":services, "context":context})
+        # คำนวณราคา (รวมค่าบริการเพิ่มเติม เช่น 50 บาท)
+        price = sum([float(service.price) for service in selected_services]) + 50
+
+        # อัปเดต context ด้วยรายละเอียดการจอง
+        context.update({
+            "date": date,
+            "time_slot": time_slot,
+            "price": price,
+            "total": round(price, 3)
+        })
+
+        # แสดงผลหน้าการจองพร้อมรายละเอียดบริการที่เลือก
+        return render(request, 'bookingDetail.html', {"service": selected_services, "context": context})
+
+    return render(request, 'booking.html', {"services": services, "context": context})
+
 
 @login_required
 def payment(request):
