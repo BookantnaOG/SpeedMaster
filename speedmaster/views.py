@@ -85,17 +85,23 @@ def booking(request):
         # ดึงวันที่และเวลาที่เลือก
         date = request.POST.get("selected_date")
         time_slot = request.POST.get('time')
-        price = sum([float(x.price) for x in service]) + 50
-
-        context.update({
-            "date":date,
-            "time_slot":time_slot,
-            "price":price,
-            "total":round(price,3)})
         
-        return render(request, 'bookingDetail.html', {"service":service, "context":context})
-    
-    return render(request, 'booking.html', {"services":services, "context":context})
+        # คำนวณราคา (รวมค่าบริการเพิ่มเติม เช่น 50 บาท)
+        price = sum([float(service.price) for service in selected_services]) + 50
+
+        # อัปเดต context ด้วยรายละเอียดการจอง
+        context.update({
+            "date": date,
+            "time_slot": time_slot,
+            "price": price,
+            "total": round(price, 3)
+        })
+
+        # แสดงผลหน้าการจองพร้อมรายละเอียดบริการที่เลือก
+        return render(request, 'bookingDetail.html', {"service": selected_services, "context": context})
+
+    return render(request, 'booking.html', {"services": services, "context": context})
+
 
 @login_required
 def payment(request):
