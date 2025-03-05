@@ -106,17 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener('click', updateTime);
     });
 
-    // 🛠️ ตรวจสอบการเลือกบริการ วันที่ และเวลา ก่อนส่งฟอร์ม
-    document.getElementById('booking-form').addEventListener('submit', function(event) {
-        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
-        const selectedDate = localStorage.getItem('selectedDate');
-        const selectedTime = localStorage.getItem('selectedTime');
-
-        if (selectedServices.length === 0 || !selectedDate || !selectedTime) {
-            alert("กรุณาเลือกบริการ, วันที่ และเวลา ก่อนที่จะยืนยันการจอง");
-            event.preventDefault();
-        }
-    });
+    
 
     // ✅ โหลดค่าที่เลือกไว้ก่อนหน้า (ถ้ามี)
     loadPreviousSelections();
