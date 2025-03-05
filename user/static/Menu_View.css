@@ -205,3 +205,104 @@ h2 {
     padding: 20px;
     background-color: #f4f4f4;
 }
+
+
+.service-status-container {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    margin: 74px;
+    margin-left: 240px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1194px;
+    position: relative;
+}
+
+/* Progress and icons container */
+.progress-and-icons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Status buttons */
+.status-progress {
+    display: flex;
+    align-items: center;
+}
+
+.status-item {
+    background-color: #ccc;
+    border: none;
+    padding: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    margin: 0 15px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.status-item:hover {
+    background-color: #999;
+}
+
+.status-item.pending {
+    background-color: #ccc;
+}
+
+.status-item.completed {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.status-item.active {
+    background-color: #FF9800;
+    color: white;
+}
+
+/* Connector lines between status items */
+.connector-line {
+    width: 50px;
+    height: 5px;
+    background-color: #ccc;
+    margin: 0 10px;
+}
+
+/* Status detail boxes */
+.status-details-box {
+    display: none;
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 10px; /* To position the box right beneath the icon */
+}
+
+.status-details-box h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.status-details-box p {
+    font-size: 16px;
+    color: #666;
+}
+
+.provider-info {
+    display: flex;
+    flex-direction: column; /* ทำให้เนื้อหาภายในอยู่ในแนวตั้ง */
+    align-items: center; /* จัดตำแหน่งกลาง */
+}
+
+.profile-img {
+    margin-bottom: 10px; /* เพิ่มระยะห่างระหว่างรูปกับชื่อ */
+}
+
+.provider-name {
+    font-size: 18px; /* ปรับขนาดฟอนต์ของชื่อ */
+    text-align: center; /* จัดตำแหน่งข้อความให้ตรงกลาง */
+}
+
