@@ -11,5 +11,8 @@ urlpatterns = [
     path('payment/', views.payment_view, name='payment'),
     path('membership/',views.membership_view, name='membership'),
     path("get_qr_code/", get_qr_code, name="get_qr_code"),
-    path("delete/", views.delete_account, name="get_qr_code"),
+    path("delete/", views.delete_account, name="delete_account"),
+    path("telephone/", views.add_telephone, name="add_telephone"),
+    path("password/", views.change_password, name="change_password"),
+    path("edit/", views.edit_profile, name="edit_profile"),
 ]

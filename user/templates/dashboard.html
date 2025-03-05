@@ -5,30 +5,35 @@
 
 <!-- Link to specific register CSS -->
 <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-
+<script src="{% static 'dashboard.js' %}"></script>
 <div class="profile-container">
     <h2>แก้ไขข้อมูลโปรไฟล์</h2>
-    <form class="profile-form" method="POST" action="{% url 'update_profile' %}">
+    <form class="profile-form" method="POST" action="{% url 'edit_profile' %}">
         {% csrf_token %}
         <div class="profile">
             <img src="{% static 'Register_image_page.jpg' %}" alt="Profile Picture">
             <p>ID: {{ context.id }}</p>
+
             <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first_name" placeholder="First Name" value="{{ context.firstname }}" disabled>
+            <input type="text" id="first-name" name="first_name" placeholder="{{ context.firstname }}" value="">
             
             <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="{{ context.lastname }}" disabled>
+            <input type="text" id="last-name" name="last_name" placeholder="{{ context.lastname }}" value="">
             
-            <label for="contact">Contact Number</label>
-            <input type="text" id="contact" name="contact" placeholder="Contact Number" value="{{ context.contact }}" disabled>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="{{ context.email }}" value="">
         </div>
         <div class="buttons">
-            <button type="button" class="edit-btn button-adjust" onclick="toggleEdit()">แก้ไขโปรไฟล์</button>
-            <button type="submit" class="save-btn button-adjust" style="display:none;">บันทึก</button>
-            <button type="button" class="change-pass-btn" onclick="changePassword()">เปลี่ยนรหัสผ่าน</button>
-            <button type="button" class="delete-btn" onclick="deleteAccount()">ลบบัญชี</button>
+            <button type="submit" class="edit-btn button-adjust" onclick="toggleEdit()">แก้ไขโปรไฟล์</button>
+        
         </div>
     </form>
+    <div class="buttons">
+        <button type="button" class="edit-btn button-adjust" onclick="addTel()">เพิ่มเบอร์</button>
+        <button type="submit" class="save-btn button-adjust" style="display:none;">บันทึก</button>
+        <button type="button" class="change-pass-btn" onclick="changePassword()">เปลี่ยนรหัสผ่าน</button>
+        <button type="button" class="delete-btn" onclick="deleteAccount()">ลบบัญชี</button>
+    </div>
 
     <div class="service-status-container">
         <h2>สถานะการบริการ</h2>
