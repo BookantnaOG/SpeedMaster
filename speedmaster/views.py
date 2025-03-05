@@ -81,7 +81,7 @@ def booking(request):
 
     if request.method == "POST":
         services = request.POST.getlist("service")
-        services = ww[0].split(",")
+        services = services[0].split(",")
         try:
             service = []
             for i in services:
