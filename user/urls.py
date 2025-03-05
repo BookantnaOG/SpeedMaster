@@ -15,4 +15,8 @@ urlpatterns = [
     path("telephone/", views.add_telephone, name="add_telephone"),
     path("password/", views.change_password, name="change_password"),
     path("edit/", views.edit_profile, name="edit_profile"),
+    path('history-booking/', views.history_booking, name='history_booking'),
+    path('receptionist/', views.receptionist, name='receptionist'),
+    path('staff/', views.staff, name='staff'),
+    path('status-booking/', views.status_booking, name='status_booking'),
 ]

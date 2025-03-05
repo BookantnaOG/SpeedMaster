@@ -1,0 +1,90 @@
+/* ADD&FORGET.css */
+
+/* Tel container with white background, padding, and box shadow */
+.tel-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40vh;
+}
+
+/* Style the form fields */
+.tel-container form input, .tel-container form select, .tel-container form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the submit button */
+.tel-container form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.tel-container form button:hover {
+    background-color: #45a049;
+}
+
+/* Optional: Style the CSRF token field to hide it */
+.tel-container form input[name="csrfmiddlewaretoken"] {
+    display: none;
+}
+/* ADD&FORGET.css */
+
+/* Password change container with white background, padding, and box shadow */
+.password-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 5vh;
+}
+
+/* Style the form fields */
+.password-container form input, .password-container form select, .password-container form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+/* Style the submit button */
+.password-container form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.password-container form button:hover {
+    background-color: #45a049;
+}
+
+/* Optional: Style the CSRF token field to hide it */
+.password-container form input[name="csrfmiddlewaretoken"] {
+    display: none;
+}

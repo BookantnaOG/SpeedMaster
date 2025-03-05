@@ -185,3 +185,16 @@ def edit_profile(request):
     user.email = email
     user.save()
     return redirect("dashboard")
+
+
+def history_booking(request):
+    return render(request, 'history.html')
+
+def receptionist(request):
+    return render(request, 'Receptionist.html')
+
+def staff(request):
+    return render(request, 'Staff.html')
+
+def status_booking(request):
+    return render(request, 'Status_booking.html')

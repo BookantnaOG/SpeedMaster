@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Add a wrapper container for the content to manage the footer position -->
+<div class="content-wrapper">
+    <!-- Staff table container -->
+    <div class="staff-container">
+        <h2>พนักงาน</h2>
+
+        <!-- Link to external CSS file -->
+        <link rel="stylesheet" href="{% static 'Menu_view.css' %}">
+
+        <!-- Renamed table to staff-table-detail -->
+        <table class="staff-table-detail">
+            <thead>
+                <tr>
+                    <th>รหัสพนักงาน</th>
+                    <th>ชื่อ</th>
+                    <th>สถานะการทำงาน</th>
+                    <th>สถานะใบเสร็จ</th> <!-- New column for receipt status -->
+                    <th>การอนุมัติ</th> <!-- New column for approval status -->
+                    <th>การกระทำ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic rows start here -->
+                {% comment %}
+                <!-- Example dynamic data -->
+                {% for staff in staff_list %}
+                <tr>
+                    <td>{{ staff.employee_id }}</td>
+                    <td>{{ staff.name }}</td>
+                    <td>{{ staff.work_status }}</td>
+                    <td>{{ staff.receipt_status }}</td>
+                    <td>
+                        {% if staff.approved %}
+                            <span>อนุมัติ</span>
+                        {% else %}
+                            <button class="approve-btn">อนุมัติ</button>
+                            <button class="reject-btn">ไม่อนุมัติ</button>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <button class="cancel-btn">ยกเลิก</button>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endcomment %}
+                <!-- Static data example -->
+                <tr>
+                    <td>001</td>
+                    <td>สมชาย</td>
+                    <td>ทำงานปกติ</td>
+                    <td>ยังไม่ได้</td>
+                    <td>
+                        <button class="approve-btn">อนุมัติ</button>
+                        <button class="reject-btn">ไม่อนุมัติ</button>
+                    </td>
+                    <td>
+                        <button class="cancel-btn">ยกเลิก</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>สมหญิง</td>
+                    <td>ลาพัก</td>
+                    <td>ได้รับแล้ว</td>
+                    <td>
+                        <span>อนุมัติ</span>
+                    </td>
+                    <td>
+                        <button class="cancel-btn">ยกเลิก</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Link to JS file -->
+<script src="{% static 'Menu_view.js' %}"></script>
+
+<script>
+    // Dynamic JS example (This is where dynamic behavior can be added later)
+    // Example: Handle approval button click dynamically
+    document.querySelectorAll('.approve-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // Code to handle approval logic (e.g., send request to the server to update approval status)
+            alert("Approved!");
+        });
+    });
+
+    document.querySelectorAll('.reject-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // Code to handle rejection logic (e.g., send request to the server to update rejection status)
+            alert("Rejected!");
+        });
+    });
+
+    // Cancel button functionality (Dynamic behavior can be added here as well)
+    document.querySelectorAll('.cancel-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            // Code to handle cancel logic
+            alert("Cancelled!");
+        });
+    });
+</script>
+
+{% endblock %}

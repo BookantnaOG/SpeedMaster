@@ -1,0 +1,57 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Add a wrapper container for the content to manage the footer position -->
+<div class="content-wrapper">
+    <!-- Staff table container -->
+    <div class="staff-container">
+        <h2>พนักงาน</h2>
+
+        <!-- Link to external CSS file -->
+        <link rel="stylesheet" href="{% static 'Menu_view.css' %}">
+
+        <!-- Renamed table to staff-table-detail -->
+        <table class="staff-table-detail">
+            <thead>
+                <tr>
+                    <th>รหัสพนักงาน</th>
+                    <th>ชื่อ</th>
+                    <th>สถานะการทำงาน</th>
+                    <th>การกระทำ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example static rows with specific tasks -->
+                <tr>
+                    <td>001</td>
+                    <td>จอห์น โด</td>
+                    <td>ล้างรถ</td>
+                    <td>
+                        <button class="cancel-btn" onclick="cancelTask('001', this)">ยกเลิก</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>เจน สมิธ</td>
+                    <td>เคลือบแก้ว</td>
+                    <td>
+                        <span>เสร็จสิ้น</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>003</td>
+                    <td>พอล บราวน์</td>
+                    <td>ติดฟิล์ม</td>
+                    <td>
+                        <button class="cancel-btn" onclick="cancelTask('003', this)">ยกเลิก</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="{% static 'Menu_view.js' %}"></script>
+
+{% endblock %}
