@@ -1,123 +1,134 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // 🛠️ โหลดค่าที่เคยเลือกไว้ใน localStorage
-    function loadPreviousSelections() {
-        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
-        const selectedDate = localStorage.getItem('selectedDate') || '';
-        const selectedTime = localStorage.getItem('selectedTime') || '';
+    // 🛠️ รีเซ็ตค่าต่าง ๆ เมื่อโหลดหน้าเว็บใหม่
+    const serviceElements = document.querySelectorAll('.service-card');
+    const selectedServiceInput = document.getElementById('selected-service');
+    const selectedTimeInput = document.getElementById('selected-time');
+    const selectedDateInput = document.getElementById('selected-date');
+    const calendarDays = document.getElementById("calendar-days");
 
-        // ✅ อัปเดตการ์ดบริการที่เคยเลือก
-        document.querySelectorAll('.service-card').forEach(card => {
-            const service = card.getAttribute('data-service');
-            if (selectedServices.includes(service)) {
-                card.classList.add('selected', 'active');
+    // รีเซ็ตการเลือกบริการ
+    serviceElements.forEach(serviceElement => {
+        serviceElement.classList.remove('selected'); // ลบคลาส selected ถ้ามี
+    });
+
+    selectedServiceInput.value = '';  // รีเซ็ต input ซ่อนสำหรับบริการ
+    selectedTimeInput.value = '';     // รีเซ็ต input ซ่อนสำหรับเวลา
+    selectedDateInput.value = '';     // รีเซ็ต input ซ่อนสำหรับวันที่
+
+    // อัปเดตข้อมูลการจองในคอลัมน์ขวา
+    document.getElementById('booking-service').textContent = "ยังไม่ได้เลือก";
+    document.getElementById('booking-date').textContent = "ยังไม่ได้เลือก";
+    document.getElementById('booking-time').textContent = "ยังไม่ได้เลือก";
+
+    // ฟังก์ชั่นจัดการการเลือกบริการ
+    serviceElements.forEach(serviceElement => {
+        serviceElement.addEventListener('click', function () {
+            const serviceId = serviceElement.dataset.service;
+            const servicePrice = serviceElement.dataset.price;
+            let selectedServices = selectedServiceInput.value.split(',').filter(id => id.trim() !== '');  // กรองค่าที่ว่างออก
+
+            // เพิ่มบริการที่เลือกลงใน array ถ้ายังไม่มีในนั้น
+            if (!selectedServices.includes(serviceId)) {
+                selectedServices.push(serviceId);
+                selectedServiceInput.value = selectedServices.join(',');  // เก็บหลายบริการ
+            } else {
+                // ถ้ามีแล้วให้ลบออกจาก array
+                const index = selectedServices.indexOf(serviceId);
+                selectedServices.splice(index, 1);
+                selectedServiceInput.value = selectedServices.join(',');  // อัปเดตค่า
             }
-        });
 
-        // ✅ อัปเดตปุ่มวันที่
-        document.querySelectorAll('.date-btn').forEach(btn => {
-            if (btn.innerText === selectedDate) {
-                btn.classList.add('selected');
-            }
-        });
+            // อัปเดตการแสดงข้อมูล
+            const selectedServiceText = selectedServices.length > 0 ? selectedServices.join(', ') : "ยังไม่ได้เลือก";
+            document.getElementById('booking-service').textContent = selectedServiceText;
 
-        // ✅ อัปเดตปุ่มเวลา
-        document.querySelectorAll('.time-btn').forEach(btn => {
-            if (btn.innerText === selectedTime) {
-                btn.classList.add('selected');
-            }
-        });
+            // คำนวณราคาทั้งหมดจากบริการที่เลือก
+            const totalPrice = selectedServices.reduce((sum, id) => {
+                const serviceElement = document.querySelector(`[data-service="${id}"]`);
+                return sum + parseFloat(serviceElement.dataset.price);
+            }, 0);
 
-        // ✅ อัปเดต UI
-        document.getElementById('booking-service').innerText = selectedServices.join(', ') || 'ยังไม่ได้เลือก';
-        document.getElementById('booking-date').innerText = selectedDate || 'ยังไม่ได้เลือก';
-        document.getElementById('booking-time').innerText = selectedTime || 'ยังไม่ได้เลือก';
-    }
+            document.getElementById('booking-price').textContent = totalPrice.toFixed(2);
 
-    // 🛠️ อัปเดตบริการที่เลือก
-    function updateService() {
-        const selectedServices = [];
-        document.querySelectorAll('.service-card.active').forEach(card => {
-            selectedServices.push(card.getAttribute('data-service'));
-        });
-
-        // ✅ เก็บข้อมูลลงใน localStorage
-        localStorage.setItem('selectedServices', JSON.stringify(selectedServices));
-
-        // ✅ อัปเดต UI
-        document.getElementById('booking-service').innerText = selectedServices.join(', ') || 'ยังไม่ได้เลือก';
-        document.getElementById('selected-service').value = selectedServices.join(',');
-    }
-
-    // 🛠️ อัปเดตวันที่ที่เลือก (เลือกได้แค่ตัวเดียว)
-    function updateDate(event) {
-        const date = event.target.innerText;
-        
-        // ✅ เอาคลาส selected ออกจากปุ่มที่ไม่ได้เลือก
-        document.querySelectorAll('.date-btn').forEach(btn => btn.classList.remove('selected'));
-        
-        // ✅ เพิ่มคลาส selected ให้ปุ่มที่ถูกคลิก
-        event.target.classList.add('selected');
-
-        // ✅ บันทึกใน localStorage
-        localStorage.setItem('selectedDate', date);
-
-        // ✅ อัปเดต UI
-        document.getElementById('booking-date').innerText = date;
-        document.getElementById('selected-date').value = date;
-    }
-
-    // 🛠️ อัปเดตเวลาที่เลือก (เลือกได้แค่ตัวเดียว)
-    function updateTime(event) {
-        const time = event.target.innerText;
-
-        // ✅ เอาคลาส selected ออกจากปุ่มที่ไม่ได้เลือก
-        document.querySelectorAll('.time-btn').forEach(btn => btn.classList.remove('selected'));
-
-        // ✅ เพิ่มคลาส selected ให้ปุ่มที่ถูกคลิก
-        event.target.classList.add('selected');
-
-        // ✅ บันทึกใน localStorage
-        localStorage.setItem('selectedTime', time);
-
-        // ✅ อัปเดต UI
-        document.getElementById('booking-time').innerText = time;
-        document.getElementById('selected-time').value = time;
-    }
-
-    // 🛠️ เพิ่ม Event Listener ให้กับการ์ดบริการ (เลือกได้หลายใบ)
-    document.querySelectorAll('.service-card').forEach(card => {
-        card.addEventListener('click', function() {
-            // ✅ สลับคลาส active เพื่อให้กดแล้วค้างไว้
-            card.classList.toggle('active');
-            card.classList.toggle('selected');
-
-            // ✅ อัปเดตบริการที่เลือก
-            updateService();
+            // เพิ่มหรือเอาคลาส selected ตามการเลือก
+            serviceElement.classList.toggle('selected');
         });
     });
 
-    // 🛠️ เพิ่ม Event Listener ให้ปุ่มวัน (เลือกได้แค่ 1 วัน)
-    document.querySelectorAll('.date-btn').forEach(button => {
-        button.addEventListener('click', updateDate);
+    // ฟังก์ชั่นจัดการการเลือกเวลา
+    const timeButtons = document.querySelectorAll('.time-btn');
+    timeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            selectedTimeInput.value = button.dataset.time;  // เก็บเวลาใน input ซ่อน
+            document.getElementById('booking-time').textContent = button.textContent;
+            timeButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
     });
 
-    // 🛠️ เพิ่ม Event Listener ให้ปุ่มเวลา (เลือกได้แค่ 1 เวลา)
-    document.querySelectorAll('.time-btn').forEach(button => {
-        button.addEventListener('click', updateTime);
+    // ฟังก์ชั่นจัดการการเลือกวันที่
+    function generateCalendar(year, month) {
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+        const daysInMonth = lastDay.getDate();
+        const firstDayOfWeek = firstDay.getDay();
+
+        // Clear current days
+        calendarDays.innerHTML = "";
+
+        // Add empty days before the first day of the month
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            const li = document.createElement("li");
+            calendarDays.appendChild(li);
+        }
+
+        // Add actual days
+        for (let day = 1; day <= daysInMonth; day++) {
+            const li = document.createElement("li");
+            li.textContent = day;
+            li.addEventListener("click", () => {
+                selectedDateInput.value = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+                document.getElementById("booking-date").textContent = selectedDateInput.value;
+                highlightSelectedDate(li);
+            });
+            calendarDays.appendChild(li);
+        }
+    }
+
+    function highlightSelectedDate(li) {
+        // Remove previous highlight
+        const previousSelected = document.querySelector('.days .selected');
+        if (previousSelected) {
+            previousSelected.classList.remove('selected');
+        }
+        li.classList.add('selected');
+    }
+
+    // Initialize calendar for current month
+    const currentDate = new Date();
+    generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+
+    // Handle next/previous month navigation
+    document.getElementById("prev").addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
     });
 
-    // 🛠️ ตรวจสอบการเลือกบริการ วันที่ และเวลา ก่อนส่งฟอร์ม
-    document.getElementById('booking-form').addEventListener('submit', function(event) {
-        const selectedServices = JSON.parse(localStorage.getItem('selectedServices')) || [];
-        const selectedDate = localStorage.getItem('selectedDate');
-        const selectedTime = localStorage.getItem('selectedTime');
+    document.getElementById("next").addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        generateCalendar(currentDate.getFullYear(), currentDate.getMonth());
+    });
 
-        if (selectedServices.length === 0 || !selectedDate || !selectedTime) {
+    // ตรวจสอบการเลือกบริการ วันที่ และเวลา ก่อนส่งฟอร์ม
+    document.getElementById('booking-form').addEventListener('submit', function (event) {
+        const selectedService = selectedServiceInput.value;
+        const selectedDate = selectedDateInput.value;
+        const selectedTime = selectedTimeInput.value;
+
+        // ตรวจสอบว่ามีการเลือกบริการ, วันที่ และเวลา หรือไม่
+        if (!selectedService || !selectedDate || !selectedTime) {
             alert("กรุณาเลือกบริการ, วันที่ และเวลา ก่อนที่จะยืนยันการจอง");
-            event.preventDefault();
+            event.preventDefault(); // ป้องกันการส่งฟอร์ม
         }
     });
-
-    // ✅ โหลดค่าที่เลือกไว้ก่อนหน้า (ถ้ามี)
-    loadPreviousSelections();
 });
