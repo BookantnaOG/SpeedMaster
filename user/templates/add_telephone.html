@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block content %}
+
+<form method="post" action="{% url 'add_telephone' %}">
+    {% csrf_token %}
+    
+    {{ form.as_p }}  <!-- This will render the form fields as paragraphs -->
+    
+    <button type="submit">Submit</button>
+</form>
+
+
+{% endblock %}

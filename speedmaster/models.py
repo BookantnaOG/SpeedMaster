@@ -13,7 +13,7 @@ class Service(models.Model):
 
 class Booking(models.Model):
     booking_id = models.AutoField(primary_key=True)
-    status_on = models.CharField(max_length=50)
+    status_on = models.CharField(max_length=50) # สถานะการทำงาน
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     booking_date = models.DateTimeField(auto_now_add=True) # วันสร้าง booking 
 
@@ -32,47 +32,36 @@ class CarDetailingService(models.Model):
     )
     booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
     service = models.ForeignKey(Service, on_delete=models.CASCADE)
-    cleanness = models.CharField(max_length=50)
-    timeslot = models.IntegerField(choices=TIMESLOT_LIST)  # slot ที่จอง
+    time_slot = models.IntegerField(choices=TIMESLOT_LIST)  # slot ที่จอง
     date = models.DateTimeField()  # วันที่จอง
 
     class Meta:
-        unique_together = ('booking', 'service', 'timeslot', 'date')
+        unique_together = ('booking', 'service', 'time_slot', 'date')
 
     def __str__(self):
         # Fixing the way to retrieve the time slot string based on the integer value
         timeslot_str = next((time for value, time in self.TIMESLOT_LIST if value == self.timeslot), "Unknown time")
         return f"{self.booking} ({self.service}) cleanness: {self.cleanness} time: {timeslot_str}"
 
-class CarInfo(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    car_license_plate = models.CharField(max_length=20, primary_key=True)
-    car_type = models.CharField(max_length=50)  # big, small, van
-    car_brand = models.CharField(max_length=50)  # brands
-    booking = models.ForeignKey(Booking, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ('user', 'car_license_plate')
-
-    def __str__(self):
-        return f"{self.car_brand} ({self.car_license_plate}) user: {self.user}"
 
 class Payment(models.Model):
     billNo = models.AutoField(primary_key=True)
     payment_type = models.CharField(max_length=10)
-    paid_status = models.BooleanField(default=False)
+    paid_status = models.BooleanField(default=False) # False -> ยังไม่จ่าย, True -> จ่ายแล้ว
 
     def __str__(self):
         return f"BillNo: {self.billNo} PaymentType: {self.payment_type} paid_status: {self.paid_status}"
     
 class BookingDetail(models.Model):
     detailing = models.ForeignKey(CarDetailingService, on_delete=models.CASCADE)
-    car_info = models.ForeignKey(CarInfo, on_delete=models.CASCADE)
     billNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
+    car_license_plate = models.CharField(max_length=20, unique=True)
+    car_type = models.CharField(max_length=50)  # big, small, van
+    car_brand = models.CharField(max_length=50)  # brands
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     
     class Meta:
-        unique_together = ('detailing', 'car_info')
+        unique_together = ('detailing', 'billNo')
 
     def __str__(self):
         return f"Detail for Booking {self.detailing.booking.booking_id} - {self.detailing.service} cleanness: {self.detailing.cleanness}"
