@@ -55,7 +55,7 @@ class Payment(models.Model):
 class BookingDetail(models.Model):
     detailing = models.ForeignKey(CarDetailingService, on_delete=models.CASCADE)
     billNo = models.ForeignKey(Payment, on_delete=models.CASCADE)
-    car_license_plate = models.CharField(max_length=20, unique=True)
+    car_license_plate = models.CharField(max_length=20)
     car_type = models.CharField(max_length=50)  # big, small, van
     car_brand = models.CharField(max_length=50)  # brands
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
