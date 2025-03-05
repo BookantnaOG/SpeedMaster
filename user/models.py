@@ -5,6 +5,7 @@ from django.contrib.auth.hashers import make_password
 
 class User(AbstractUser):
     is_staff = models.BooleanField(default=False)
+    is_receptionist = models.BooleanField(default=False)
     
     groups = models.ManyToManyField(
         'auth.Group', 

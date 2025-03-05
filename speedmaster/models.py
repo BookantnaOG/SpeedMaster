@@ -59,11 +59,12 @@ class BookingDetail(models.Model):
     car_type = models.CharField(max_length=50)  # big, small, van
     car_brand = models.CharField(max_length=50)  # brands
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
+    # telephone = models.ForeignKey(UserTelephone, on_delete=models.CASCADE)
     
     class Meta:
         unique_together = ('detailing', 'billNo')
 
     def __str__(self):
-        return f"Detail for Booking {self.detailing.booking.booking_id} - {self.detailing.service} cleanness: {self.detailing.cleanness}"
+        return f"Detail for Booking {self.detailing.booking.booking_id} - {self.detailing.service} "
 
 

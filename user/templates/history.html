@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'layout2.html' %}
 {% load static %}
 
 {% block content %}
@@ -21,28 +21,22 @@
                     <th>Service Used</th>
                     <th>Payment Status</th>
                     <th>Telephone</th>
+                    
                 </tr>
             </thead>
             <tbody>
-                <!-- Example Row (You can replace this with dynamic data later) -->
+                {% for booking in bookings %}
                 <tr>
-                    <td>#001</td>
-                    <td>2025-03-05 10:00 AM</td>
-                    <td>John Doe</td>
-                    <td>johndoe@example.com</td>
-                    <td>Car Wash</td>
-                    <td>Paid</td>
-                    <td>123-456-7890</td>
+                    <td>{{ booking.booking_id }}</td>
+                    <td>{{ booking.date }} {{ booking.time_slot }}</td>
+                    <td>{{ user.first_name }} {{ user.last_name }} </td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ booking.service }}</td>
+                    <td>{{ booking.status_on}}</td>
+                    <td>{{ booking.telephone }}</td>
                 </tr>
-                <tr>
-                    <td>#002</td>
-                    <td>2025-03-06 02:00 PM</td>
-                    <td>Jane Smith</td>
-                    <td>janesmith@example.com</td>
-                    <td>Ceramic Coating</td>
-                    <td>Unpaid</td>
-                    <td>987-654-3210</td>
-                </tr>
+                {% endfor %}
+                
                 <!-- Replace this part with dynamic data later -->
                 
                 <!-- # Fetching Data from Database -->

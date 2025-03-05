@@ -148,6 +148,26 @@ td {
 }
 
 /* Styling for the cancel button */
+.approve-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.decline-btn {
+    background-color: orange;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
 .cancel-btn {
     background-color: #ff4d4d;
     color: white;
@@ -157,6 +177,15 @@ td {
     border-radius: 5px;
     font-size: 14px;
 }
+
+.approve-btn:hover {
+    background-color: green;
+}
+
+.decline-btn:hover {
+    background-color: orange;
+}
+
 
 .cancel-btn:hover {
     background-color: #e60000;

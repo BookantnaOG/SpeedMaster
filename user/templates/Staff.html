@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'layout2.html' %}
 {% load static %}
 
 {% block content %}
@@ -12,31 +12,40 @@
         <link rel="stylesheet" href="{% static 'Menu_view.css' %}">
 
         <!-- Renamed table to staff-table-detail -->
+        ===123{{bookings}}
         <table class="staff-table-detail">
             <thead>
                 <tr>
-                    <th>รหัสพนักงาน</th>
-                    <th>ชื่อ</th>
+                    <th>ทะเบียนรถ</th>
+                    <th>ยี่ห้อรถ</th>
+                    <th>บริการ</th>
                     <th>สถานะการทำงาน</th>
                     <th>การกระทำ</th>
                 </tr>
             </thead>
             <tbody>
                 <!-- Example static rows with specific tasks -->
+                {% for i in bookings %}
                 <tr>
-                    <td>001</td>
+                    <td>{{i.car_plate}}</td>
                     <td>จอห์น โด</td>
-                    <td>ล้างรถ</td>
+                    <td>ล้างรถ</td> 
+                    <td>1</td>
                     <td>
-                        <button class="cancel-btn" onclick="cancelTask('001', this)">ยกเลิก</button>
+                        <a href="{% url 'finish' item.id %}" class="btn" onclick="">เสร็จสิ้น</a>
+
+                        <a href="{% url 'cancel' item.id %}" class="cancel-btn" onclick="cancelTask('001', this)">ยกเลิก</a>
                     </td>
                 </tr>
+                {% endfor %}
                 <tr>
                     <td>002</td>
                     <td>เจน สมิธ</td>
                     <td>เคลือบแก้ว</td>
+                    <td></td>
                     <td>
-                        <span>เสร็จสิ้น</span>
+                        <a  class="btn" onclick="">เสร็จสิ้น</a>
+                        <a  class="cancel-btn" onclick="cancelTask('001', this)">ยกเลิก</a>
                     </td>
                 </tr>
                 <tr>

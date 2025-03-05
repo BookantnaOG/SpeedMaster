@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect 
+from django.shortcuts import render, redirect, get_object_or_404 
 from django.contrib.auth import login, logout, authenticate, get_user_model, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.decorators import login_required 
@@ -6,7 +6,9 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.templatetags.static import static
 from .forms import RegisterForm, UserUpdateForm, UserTelephoneForm, PasswordChangeForm
-
+from speedmaster.models import CarDetailingService, Service, Booking, Payment, BookingDetail
+from django.db import transaction
+from .models import User_Telephone
 
 # Profile editing view
 @login_required
@@ -27,6 +29,8 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             user = form.save()  # บันทึกผู้ใช้ใหม่
+            telephone = User_Telephone(user=user, telephone_number=request.POST.get('phone'))
+            telephone.save()
             login(request, user)  # ล็อกอินอัตโนมัติหลังจากสมัคร
             return redirect("home")  # ไปที่หน้า home หลังจากสมัครสมาชิก
         else:
@@ -186,15 +190,151 @@ def edit_profile(request):
     user.save()
     return redirect("dashboard")
 
-
 def history_booking(request):
-    return render(request, 'history.html')
+    user = request.user
+    
+    # Get all bookings for the user
+    booking_query = CarDetailingService.objects.filter(booking__user=user)
+
+    # Prepare the context as a list
+    booking_history = []
+    time_slot_map = {
+    1: "10:30",
+    2: "11:30",
+    3: "12:30",
+    4: "13:30",
+    5: "14:30",
+    6: "15:30",
+    7: "16:30"
+    }
+
+    for booking in booking_query:
+        booking_history.append({
+            "booking_id": booking.booking.booking_id,
+            "service": booking.service.service_name,  # Assuming service has `service_name`
+            "time_slot": time_slot_map[booking.time_slot],
+            "date": booking.date.strftime("%d/%m/%Y"),
+            "status_on":booking.booking.status_on
+        })
+
+    context = {
+        "user": user,
+        "bookings": booking_history
+    }
+
+    return render(request, 'history.html', context)
+
 
 def receptionist(request):
-    return render(request, 'Receptionist.html')
+    user = request.user
+
+    # Get all bookings where the status is "Waiting"
+    booking_query = BookingDetail.objects.filter(detailing__booking__status_on="Waiting for Payment")
+
+    # Time slot mapping
+    time_slot_map = {
+        1: "10:30",
+        2: "11:30",
+        3: "12:30",
+        4: "13:30",
+        5: "14:30",
+        6: "15:30",
+        7: "16:30"
+    }
+
+
+    booking_history = []
+    
+    
+
+    for booking in booking_query:
+        booking_history.append({
+        "booking_id": booking.detailing.booking.booking_id,
+        "service": booking.detailing.service.service_name,  # Ensure `service_name` exists
+        "time_slot": time_slot_map.get(booking.detailing.time_slot, "Unknown"),  # Prevent KeyError
+        "date": booking.detailing.date.strftime("%d/%m/%Y"),
+        "status_on": booking.detailing.booking.status_on,
+        "booking_detail_id": booking.id,
+        #"bill_status": paid_status_map[booking.billNo.paid_status],
+    })
+
+    context = {
+        "user": user,
+        "bookings": booking_history
+    }
+
+    return render(request, 'Receptionist.html', context)
 
 def staff(request):
-    return render(request, 'Staff.html')
+    user = request.user
+
+    # Get all bookings where the status is "Waiting"
+    booking_query = CarDetailingService.objects.filter(booking__status_on="Waiting")
+
+    # Time slot mapping
+    time_slot_map = {
+        1: "10:30",
+        2: "11:30",
+        3: "12:30",
+        4: "13:30",
+        5: "14:30",
+        6: "15:30",
+        7: "16:30"
+    }
+
+    booking_history = []
+    for booking in booking_query:
+
+        booking_history.append({
+            "booking_id": booking.booking.booking_id,
+            "service": booking.service.service_name,  # Ensure `service_name` exists
+            "time_slot": time_slot_map.get(booking.time_slot, "Unknown"),  # Prevent KeyError
+            "date": booking.date.strftime("%d/%m/%Y"),
+            "status_on": booking.booking.status_on,
+            "car_plate": getattr(booking.booking.bookingdetail, "car_license_plate", "Unknown")  # Handle missing attribute
+        })
+
+    context = {
+        "user": user,
+        "bookings": booking_query
+    }
+
+    return render(request, 'Staff.html', context)
 
 def status_booking(request):
     return render(request, 'Status_booking.html')
+
+def paid_approve(request, item_id):
+    # Attempt to make all changes within an atomic transaction
+    with transaction.atomic():
+        # Get the booking detail item, or raise a 404 error if not found
+        booking_detail = get_object_or_404(BookingDetail, pk=item_id)
+
+        # Update the paid status to True for the related bill
+        booking_detail.billNo.paid_status = True
+        booking_detail.billNo.save()  # Save to persist changes
+
+        # Update the booking status
+        booking_detail.detailing.booking.status_on = "Wait"
+        booking_detail.detailing.booking.save()  # Save to persist changes
+
+    # Redirect to the 'receptionist' view
+    return redirect('receptionist')
+
+def paid_decline(request, item_id):
+    # Get the booking detail item
+    booking_detail = BookingDetail.objects.get(pk=item_id)
+    # Update the paid status to False
+    booking_detail.billNo.paid_status = False
+    booking_detail.detailing.booking.status_on = "Decline"
+    booking_detail.save()
+    return redirect('receptionist')
+
+def paid_cancel(request, item_id):
+    # Get the booking detail item
+    booking_detail = BookingDetail.objects.get(pk=item_id)
+    # Update the paid status to False
+    booking_detail.billNo.paid_status = False
+    booking_detail.detailing.booking.status_on = "Cancel"
+    booking_detail.save()
+    return redirect('receptionist')

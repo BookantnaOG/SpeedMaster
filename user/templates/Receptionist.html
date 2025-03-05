@@ -1,4 +1,4 @@
-{% extends 'layout.html' %}
+{% extends 'layout2.html' %}
 {% load static %}
 
 {% block content %}
@@ -6,7 +6,7 @@
 <div class="content-wrapper">
     <!-- Staff table container -->
     <div class="staff-container">
-        <h2>พนักงาน</h2>
+        <h2>Receptionist</h2>
 
         <!-- Link to external CSS file -->
         <link rel="stylesheet" href="{% static 'Menu_view.css' %}">
@@ -15,64 +15,36 @@
         <table class="staff-table-detail">
             <thead>
                 <tr>
-                    <th>รหัสพนักงาน</th>
-                    <th>ชื่อ</th>
-                    <th>สถานะการทำงาน</th>
-                    <th>สถานะใบเสร็จ</th> <!-- New column for receipt status -->
+                    <th>ID</th>
+                    <th>Service</th>
+                    <th>วันและเวลา</th>
+                    <th>สถานะใบเสร็จ</th>
+                    <th>QR receipt </th> <!-- New column for receipt status -->
                     <th>การอนุมัติ</th> <!-- New column for approval status -->
                     <th>การกระทำ</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Dynamic rows start here -->
-                {% comment %}
                 <!-- Example dynamic data -->
-                {% for staff in staff_list %}
+                {% for item in bookings %}
                 <tr>
-                    <td>{{ staff.employee_id }}</td>
-                    <td>{{ staff.name }}</td>
-                    <td>{{ staff.work_status }}</td>
-                    <td>{{ staff.receipt_status }}</td>
+                    <td>{{ item.booking_id }}</td>
+                    <td>{{ item.service }}</td>
+                    <td>{{ item.date }} {{ item.time_slot }}</td>
+                    <td>{{ item.status_on }}</td>
+                    <td>{{ item.test }}</td>
                     <td>
-                        {% if staff.approved %}
-                            <span>อนุมัติ</span>
-                        {% else %}
-                            <button class="approve-btn">อนุมัติ</button>
-                            <button class="reject-btn">ไม่อนุมัติ</button>
-                        {% endif %}
+                        <a href ="{%url 'approve_payment' item.booking_detail_id %}"class="approve-btn">อนุมัติ</a>
+                            </br>
+                            </br>
+                        <a href ="{%url 'decline_payment' item.booking_detail_id %}"class="decline-btn">ไม่อนุมัติ</a> 
                     </td>
                     <td>
-                        <button class="cancel-btn">ยกเลิก</button>
+                        <a href ="{%url 'cancel_payment' item.booking_detail_id %}"class="cancel-btn">ยกเลิก</a>
                     </td>
                 </tr>
                 {% endfor %}
-                {% endcomment %}
                 <!-- Static data example -->
-                <tr>
-                    <td>001</td>
-                    <td>สมชาย</td>
-                    <td>ทำงานปกติ</td>
-                    <td>ยังไม่ได้</td>
-                    <td>
-                        <button class="approve-btn">อนุมัติ</button>
-                        <button class="reject-btn">ไม่อนุมัติ</button>
-                    </td>
-                    <td>
-                        <button class="cancel-btn">ยกเลิก</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>สมหญิง</td>
-                    <td>ลาพัก</td>
-                    <td>ได้รับแล้ว</td>
-                    <td>
-                        <span>อนุมัติ</span>
-                    </td>
-                    <td>
-                        <button class="cancel-btn">ยกเลิก</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>

@@ -19,4 +19,7 @@ urlpatterns = [
     path('receptionist/', views.receptionist, name='receptionist'),
     path('staff/', views.staff, name='staff'),
     path('status-booking/', views.status_booking, name='status_booking'),
+    path('paid-approve/<int:item_id>/', views.paid_approve, name='approve_payment'),
+    path('paid-decline/<int:item_id>/', views.paid_decline, name='decline_payment'),
+    path('paid-decline/<int:item_id>/', views.paid_cancel, name='cancel_payment'),
 ]
