@@ -28,6 +28,9 @@
     <!-- ตัวเลือกเพิ่มเติมที่มีผลต่อราคา -->
     <form action="{% url 'bookingdetail' %}" method="POST" id="confirmation-form">
         {% csrf_token %}
+        <input type="hidden" name="service" id="selected-service" value="{{context.services}}">
+        <input type="hidden" name="selected_date" id="selected-service" value="{{context.date}}">
+        <input type="hidden" name="time_slot" id="selected-time" value="{{context.time_slot}}">
         <div class="pricing-options-container">
             <div class="pricing-options">
                 <h3>ตัวเลือกเพิ่มเติมที่มีผลต่อราคา</h3>
@@ -96,16 +99,16 @@
                     <!-- เปลี่ยนจากเลือกขนาดรถ เป็นให้พิมพ์ชื่อรถแทน -->
                     <div class="input-box">
                         <label for="car-name">ชื่อรถ</label>
-                        <input type="text" id="car-name" name="car-name" placeholder="กรอกชื่อรถของคุณ" required>
+                        <input type="text" id="car-name" name="car-name" placeholder="กรอกชื่อรถของคุณ" required value="1111111111">
                     </div>
                     
                     <div class="input-box">
                         <label for="car-reg">ทะเบียนรถ</label>
-                        <input type="text" id="car-reg" name="car-reg" placeholder="กรอกทะเบียนรถ" required>
+                        <input type="text" id="car-reg" name="car-reg" placeholder="กรอกทะเบียนรถ" required value="1111111111">
                     </div>
                     <div class="input-box mobile-input">
                         <label for="mobile">Mobile</label>
-                        <input type="text" id="mobile" name="mobile" placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก" required>
+                        <input type="text" id="mobile" name="mobile" placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก" required value="1111111111">
                     </div>
                     <div class="button-wrapper">
                         <button type="submit" id="payment-btn" class="pay-button">PAYMENT</button>

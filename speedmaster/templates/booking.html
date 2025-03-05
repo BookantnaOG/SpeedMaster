@@ -17,28 +17,29 @@
                     <img src="{% static 'Image/Page 4/' %}{{ service.service_name }}.png" alt="{{service.service_name}}">
                     <h3>{{ service.service_name }}</h3>
                 </div>
-            {% endfor %}            
+                {% endfor %}
             </div>
             <!-- Input ที่ไม่แสดง แต่เก็บค่าบริการ -->
             <input type="hidden" name="service" id="selected-service">
             <input type="hidden" name="price" id="selected-price">
 
             <!-- เลือกวันที่ -->
-            
             <label for="date">เลือกวันที่:</label>
-            <br/>
-             <input type="date" id="date" min="{{ context.today }}" name="selected_date" required>
-             <br/>
-            <!-- <div class="button-group" id="date">
-                <button type="button" class="date-btn" data-day="จันทร์">จันทร์</button>
-                <button type="button" class="date-btn" data-day="อังคาร">อังคาร</button>
-                <button type="button" class="date-btn" data-day="พุธ">พุธ</button>
-                <button type="button" class="date-btn" data-day="พฤหัสบดี">พฤหัสบดี</button>
-                <button type="button" class="date-btn" data-day="ศุกร์">ศุกร์</button>
-                <button type="button" class="date-btn" data-day="เสาร์">เสาร์</button>
-                <button type="button" class="date-btn" data-day="อาทิตย์">อาทิตย์</button>
+            <div class="calendar" id="calendar-container">
+                <ul class="weeks">
+                    <li>Sun</li>
+                    <li>Mon</li>
+                    <li>Tue</li>
+                    <li>Wed</li>
+                    <li>Thu</li>
+                    <li>Fri</li>
+                    <li>Sat</li>
+                </ul>
+                <ul class="days" id="calendar-days">
+                    <!-- Days will be inserted here -->
+                </ul>
             </div>
-            <input type="hidden" name="date" id="selected-date"> -->
+            <input type="hidden" name="selected_date" id="selected-date">
 
             <!-- เลือกเวลา -->
             <label for="time">เลือกเวลา:</label>
@@ -51,7 +52,7 @@
                 <button type="button" class="time-btn" data-time="15:30">15:30</button>
                 <button type="button" class="time-btn" data-time="16:30">16:30</button>
             </div>
-            <input type="hidden" name="time" id="selected-time">
+            <input type="hidden" name="time_slot" id="selected-time">
 
             <!-- ปุ่มยืนยันการจอง -->
             <button type="submit" class="btn">ยืนยันการจอง</button>
@@ -69,5 +70,4 @@
 
 <script src="{% static 'booking.js' %}" defer></script>
 <link rel="stylesheet" href="{% static 'booking.css' %}">
-
 {% endblock %}

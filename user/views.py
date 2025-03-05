@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect 
-from django.contrib.auth import login, logout, authenticate, get_user_model
+from django.contrib.auth import login, logout, authenticate, get_user_model, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm 
 from django.contrib.auth.decorators import login_required 
 from django.contrib import messages 
 from django.http import JsonResponse
 from django.templatetags.static import static
-from .forms import RegisterForm, UserUpdateForm  
+from .forms import RegisterForm, UserUpdateForm, UserTelephoneForm, PasswordChangeForm
 
 
 # Profile editing view
@@ -140,6 +140,48 @@ def delete_account(request):
             return JsonResponse({"error": "User not authenticated"}, status=403)
 
     return JsonResponse({"error": "Invalid request method"}, status=400)
-        
+
+@login_required
+def add_telephone(request):
+    if request.method == "POST":
+        form = UserTelephoneForm(request.POST)
+        if form.is_valid():
+            telephone = form.save(commit=False)
+            telephone.user = request.user
+            telephone.save()
+            return redirect("dashboard")
+    else:
+        form = UserTelephoneForm()
+    return render(request, "add_telephone.html", {"form": form}) 
     
-    return JsonResponse({"success": False, "message": "Invalid request."}, status=400)
+@login_required
+def change_password(request):
+    # If you want to add custom user-related context, you can do it here
+    context = {'user': request.user}
+    
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)  # Keeps the user logged in
+            return redirect('dashboard')  # Redirect to the dashboard after successful password change
+    else:
+        form = PasswordChangeForm(request.user)
+    
+    context['form'] = form  # Add the form to the context
+    
+    return render(request, 'password.html', context)
+
+@login_required
+def edit_profile(request):
+    user = request.user
+    first_name = request.POST.get("first_name")
+    last_name = request.POST.get("last_name")
+    email = request.POST.get("email")
+
+    # apply changes
+    user.first_name = first_name
+    user.last_name = last_name
+    user.email = email
+    user.save()
+    return redirect("dashboard")

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
 /* รักษารูปแบบเดิมของ body */
 body {
     font-family: 'Poppins', sans-serif;
@@ -194,15 +195,34 @@ button:hover, .service-btn.selected, .date-btn.selected, .time-btn.selected {
     align-items: center;
     transition: all 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้กับการ์ด */
 }
 
 /* เพิ่มเอฟเฟกต์เมื่อ hover การ์ด หรือเมื่อการ์ดถูกเลือก หรือกด (active) */
 .service-card:hover,
-.service-card.selected,
+.service-card.selected,{
+    background-color: #314e52; /* เปลี่ยนสีพื้นหลัง */
+    border-color: #314e52; /* เปลี่ยนสีขอบ */
+    color: rgb(255, 0, 0); /* เปลี่ยนสีข้อความ */
+    transform: scale(1.05); /* ขยายการ์ดเล็กน้อยเมื่อเลือกหรือ hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อเลือกหรือ hover */
+}
 .service-card.active {
-    background-color: #314e52;
-    border-color: #314e52;
-    color: white;
+    background-color: #314e52; /* เปลี่ยนสีพื้นหลัง */
+    border-color: #314e52; /* เปลี่ยนสีขอบ */
+    color: rgb(255, 0, 0); /* เปลี่ยนสีข้อความ */
+    transform: scale(1.05); /* ขยายการ์ดเล็กน้อยเมื่อเลือกหรือ hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* เพิ่มเงาเมื่อเลือกหรือ hover */
+}
+/* เพิ่มเอฟเฟกต์เมื่อการ์ดถูกเลือก (selected) */
+.service-card.selected {
+    transform: scale(1.1); /* ขยายการ์ดใหญ่ขึ้นเมื่อเลือก */
+}
+
+/* เพิ่มเอฟเฟกต์เมื่อการ์ดถูกกด (active) */
+.service-card.active {
+    transform: scale(0.98); /* หดการ์ดเล็กน้อยเมื่อกด */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* ลดเงาเมื่อกด */
 }
 
 /* การตั้งค่าของรูปภาพภายในการ์ด */
@@ -219,4 +239,62 @@ button:hover, .service-btn.selected, .date-btn.selected, .time-btn.selected {
     font-size: 1rem; /* ปรับขนาดตัวอักษร */
     color: #333; /* สีข้อความ */
     margin-top: 10px; /* เพิ่มช่องว่างระหว่างข้อความและขอบการ์ด */
+}
+/* Styling for the calendar */
+#calendar-container {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+}
+
+.weeks {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    font-weight: bold;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 10px;
+}
+
+.days li {
+    list-style: none;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.days li:hover {
+    background-color: #ddd;
+}
+
+.selected {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.time-btn {
+    margin: 5px;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border: none;
+    background-color: #f1f1f1;
+    transition: background-color 0.3s;
+}
+
+.time-btn:hover {
+    background-color: #ddd;
+}
+
+.time-btn.active {
+    background-color: #4CAF50;
+    color: white;
 }

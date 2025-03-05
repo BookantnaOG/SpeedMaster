@@ -5,30 +5,35 @@
 
 <!-- Link to specific register CSS -->
 <link rel="stylesheet" href="{% static 'dashboard.css' %}">
-
+<script src="{% static 'dashboard.js' %}"></script>
 <div class="profile-container">
     <h2>แก้ไขข้อมูลโปรไฟล์</h2>
-    <form class="profile-form" method="POST" action="{% url 'update_profile' %}">
+    <form class="profile-form" method="POST" action="{% url 'edit_profile' %}">
         {% csrf_token %}
         <div class="profile">
             <img src="{% static 'Register_image_page.jpg' %}" alt="Profile Picture">
             <p>ID: {{ context.id }}</p>
+
             <label for="first-name">First Name</label>
-            <input type="text" id="first-name" name="first_name" placeholder="First Name" value="{{ context.firstname }}" disabled>
+            <input type="text" id="first-name" name="first_name" placeholder="{{ context.firstname }}" value="">
             
             <label for="last-name">Last Name</label>
-            <input type="text" id="last-name" name="last_name" placeholder="Last Name" value="{{ context.lastname }}" disabled>
+            <input type="text" id="last-name" name="last_name" placeholder="{{ context.lastname }}" value="">
             
-            <label for="contact">Contact Number</label>
-            <input type="text" id="contact" name="contact" placeholder="Contact Number" value="{{ context.contact }}" disabled>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" placeholder="{{ context.email }}" value="">
         </div>
         <div class="buttons">
-            <button type="button" class="edit-btn button-adjust" onclick="toggleEdit()">แก้ไขโปรไฟล์</button>
-            <button type="submit" class="save-btn button-adjust" style="display:none;">บันทึก</button>
-            <button type="button" class="change-pass-btn" onclick="changePassword()">เปลี่ยนรหัสผ่าน</button>
-            <button type="button" class="delete-btn" onclick="deleteAccount()">ลบบัญชี</button>
+            <button type="submit" class="edit-btn button-adjust" onclick="toggleEdit()">แก้ไขโปรไฟล์</button>
+        
         </div>
     </form>
+    <div class="buttons">
+        <button type="button" class="edit-btn button-adjust" onclick="addTel()">เพิ่มเบอร์</button>
+        <button type="submit" class="save-btn button-adjust" style="display:none;">บันทึก</button>
+        <button type="button" class="change-pass-btn" onclick="changePassword()">เปลี่ยนรหัสผ่าน</button>
+        <button type="button" class="delete-btn" onclick="deleteAccount()">ลบบัญชี</button>
+    </div>
 
     <div class="service-status-container">
         <h2>สถานะการบริการ</h2>
@@ -36,45 +41,37 @@
             <!-- Status Icons -->
             <div class="status-progress">
                 <button class="status-item" id="status1" onclick="showDetails('status1')">📅</button>
-                <div class="connector-line" id="connector1"></div> <!-- Line connecting to the next status -->
+                <div class="connector-line" id="connector1"></div>
                 <button class="status-item" id="status2" onclick="showDetails('status2')">🚗</button>
                 <div class="connector-line" id="connector2"></div>
                 <button class="status-item" id="status3" onclick="showDetails('status3')">✅</button>
             </div>
         </div>
     </div>
+
     
-    <!-- Status Details Modal -->
-    <div id="status1-details" class="status-details-modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeDetails('status1')">&times;</span>
-            <h3>สถานะการจอง</h3>
-            <p>รายละเอียดเกี่ยวกับการจองบริการ...</p>
-        </div>
+        <!-- Status Details Box for Status 1 -->
+    <div id="status1-box" class="status-details-box">
+        <h3>สถานะการจอง</h3>
+        <p>รายละเอียดเกี่ยวกับการจองบริการ...</p>
     </div>
-    <div id="status2-details" class="status-details-modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeDetails('status2')">&times;</span>
-            <h3>สถานะการทำความสะอาด</h3>
-            <p>กำลังทำความสะอาดโปรดรอซักครู่</p>
-            <!-- Service provider details -->
-            <div class="provider-info">
-                <img src="{% static 'User1.jpg' %}" alt="Profile Picture" class="profile-img">  
-                <p class="provider-name">นราธิป พรหมประไก่</p>
-            </div>
-        </div>
-    </div>
-   
-    
-    <div id="status3-details" class="status-details-modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeDetails('status3')">&times;</span>
-            <h3>สถานะการเสร็จสิ้น</h3>
-            <p>รายละเอียดเกี่ยวกับสถานะเสร็จสิ้น...</p>
+
+    <!-- Status Details Box for Status 2 -->
+    <div id="status2-box" class="status-details-box">
+        <h3>สถานะการทำความสะอาด</h3>
+        <p>กำลังทำความสะอาดโปรดรอซักครู่</p>
+        <div class="provider-info">
+            <img src="{% static 'User1.jpg' %}" alt="Profile Picture" class="profile-img">
+            <p class="provider-name">นราธิป พรหมประไก่</p>
         </div>
     </div>
 
-</div>
+    <!-- Status Details Box for Status 3 -->
+    <div id="status3-box" class="status-details-box">
+        <h3>สถานะการเสร็จสิ้น</h3>
+        <p>รายละเอียดเกี่ยวกับสถานะเสร็จสิ้น...</p>
+    </div>
+
 
 <script>
     let currentProgress = 0;
@@ -82,7 +79,8 @@
     function showDetails(statusId) {
         const statuses = ['status1', 'status2', 'status3'];
         const connectors = ['connector1', 'connector2'];
-
+        const statusBoxes = ['status1-box', 'status2-box', 'status3-box'];
+    
         // Reset all buttons to pending status first
         statuses.forEach((status, index) => {
             document.getElementById(status).classList.remove('completed', 'active');
@@ -91,18 +89,23 @@
                 document.getElementById(connectors[index]).style.backgroundColor = '#ccc'; // Reset connector line color
             }
         });
-
+    
+        // Hide all status boxes first
+        statusBoxes.forEach(box => {
+            document.getElementById(box).style.display = 'none';
+        });
+    
         // Set the status of the clicked button
         if (statusId === 'status1') {
             document.getElementById('status1').classList.add('completed');
             updateConnectors(33);
-            document.getElementById('status1-details').style.display = 'block'; // Show modal
+            document.getElementById('status1-box').style.display = 'block'; // Show status box
         } else if (statusId === 'status2') {
             document.getElementById('status1').classList.add('completed');
             document.getElementById('status2').classList.add('completed');
             document.getElementById('connector1').style.backgroundColor = '#4CAF50'; // Change connector line color to green
             updateConnectors(66);
-            document.getElementById('status2-details').style.display = 'block'; // Show modal
+            document.getElementById('status2-box').style.display = 'block'; // Show status box
         } else if (statusId === 'status3') {
             document.getElementById('status1').classList.add('completed');
             document.getElementById('status2').classList.add('completed');
@@ -110,23 +113,18 @@
             document.getElementById('connector1').style.backgroundColor = '#4CAF50';
             document.getElementById('connector2').style.backgroundColor = '#4CAF50'; // Change last connector line color to green
             updateConnectors(100);
-            document.getElementById('status3-details').style.display = 'block'; // Show modal
+            document.getElementById('status3-box').style.display = 'block'; // Show status box
         }
     }
+    
 
     function updateConnectors(progress) {
-        // This function updates the connector lines based on the completion status
-        // The progress is mapped to the percentage of the progress for the connectors
         if (progress >= 33) {
             document.getElementById('connector1').style.backgroundColor = '#4CAF50';
         }
         if (progress >= 66) {
             document.getElementById('connector2').style.backgroundColor = '#4CAF50';
         }
-    }
-
-    function closeDetails(statusId) {
-        document.getElementById(statusId + '-details').style.display = 'none'; // Hide modal
     }
 </script>
 
