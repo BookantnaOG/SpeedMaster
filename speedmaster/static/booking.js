@@ -106,7 +106,10 @@ document.addEventListener("DOMContentLoaded", function () {
         button.addEventListener('click', updateTime);
     });
 
+<<<<<<< HEAD
     
+=======
+>>>>>>> fc730fb6cc544f116a4acc7d8723acf3d40b3fb8
 
     // ✅ โหลดค่าที่เลือกไว้ก่อนหน้า (ถ้ามี)
     loadPreviousSelections();
