@@ -22,4 +22,6 @@ urlpatterns = [
     path('paid-approve/<int:item_id>/', views.paid_approve, name='approve_payment'),
     path('paid-decline/<int:item_id>/', views.paid_decline, name='decline_payment'),
     path('paid-decline/<int:item_id>/', views.paid_cancel, name='cancel_payment'),
+    path('process-finish/<int:item_id>/', views.process_finish, name='finish_process'),
+    path('process-cancel/<int:item_id>/', views.process_cancel, name='cancel_process'),
 ]

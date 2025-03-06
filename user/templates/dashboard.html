@@ -11,8 +11,13 @@
     <a href="{% url 'history_booking' %}" data-component-view="history">ประวัติการจอง</a>
     <a href="{% url 'status_booking' %}" data-component-view="service-status">สถานะบริการ</a>
     <a href="#" data-component-view="receipt">ใบเสร็จ</a>
+    {% if context.is_staff %}
     <a href="{% url 'staff' %}" data-component-view="employee">พนักงาน</a> <!-- For employee version -->
+    {% endif %}
+
+    {% if context.is_receptionist %}
     <a href="{% url 'receptionist' %}" data-component-view="receptionist">Receptions</a> <!-- For Admin version  ฝากไปแก้ให้หน่อยเด้อ -->
+    {% endif %}
 </div>
 
 <div class="profile-container">

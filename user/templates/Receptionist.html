@@ -27,22 +27,24 @@
             <tbody>
                 <!-- Example dynamic data -->
                 {% for item in bookings %}
-                <tr>
-                    <td>{{ item.booking_id }}</td>
-                    <td>{{ item.service }}</td>
-                    <td>{{ item.date }} {{ item.time_slot }}</td>
-                    <td>{{ item.status_on }}</td>
-                    <td>{{ item.test }}</td>
-                    <td>
-                        <a href ="{%url 'approve_payment' item.booking_detail_id %}"class="approve-btn">อนุมัติ</a>
-                            </br>
-                            </br>
-                        <a href ="{%url 'decline_payment' item.booking_detail_id %}"class="decline-btn">ไม่อนุมัติ</a> 
-                    </td>
-                    <td>
-                        <a href ="{%url 'cancel_payment' item.booking_detail_id %}"class="cancel-btn">ยกเลิก</a>
-                    </td>
-                </tr>
+                    {% if item.booking_detail_id %}
+                    <tr>
+                        <td>{{ item.booking_id }}</td>
+                        <td>{{ item.service }}</td>
+                        <td>{{ item.date }} {{ item.time_slot }}</td>
+                        <td>{{ item.status_on }}</td>
+                        <td>{{ item.test }}</td>
+                        <td>
+                            <a href ="{%url 'approve_payment' item.booking_detail_id %}"class="approve-btn">อนุมัติ</a>
+                                </br>
+                                </br>
+                            <a href ="{%url 'decline_payment' item.booking_detail_id %}"class="decline-btn">ไม่อนุมัติ</a> 
+                        </td>
+                        <td>
+                            <a href ="{%url 'cancel_payment' item.booking_detail_id %}"class="cancel-btn">ยกเลิก</a>
+                        </td>
+                    </tr>
+                    {% endif %}
                 {% endfor %}
                 <!-- Static data example -->
             </tbody>

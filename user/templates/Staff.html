@@ -12,7 +12,6 @@
         <link rel="stylesheet" href="{% static 'Menu_view.css' %}">
 
         <!-- Renamed table to staff-table-detail -->
-        ===123{{bookings}}
         <table class="staff-table-detail">
             <thead>
                 <tr>
@@ -26,36 +25,20 @@
             <tbody>
                 <!-- Example static rows with specific tasks -->
                 {% for i in bookings %}
-                <tr>
-                    <td>{{i.car_plate}}</td>
-                    <td>จอห์น โด</td>
-                    <td>ล้างรถ</td> 
-                    <td>1</td>
-                    <td>
-                        <a href="{% url 'finish' item.id %}" class="btn" onclick="">เสร็จสิ้น</a>
+                    {% if i.booking_detail_id %}
+                    <tr>
+                        <td>{{i.car_plate}}</td>
+                        <td>{{i.car_brand}}</td>
+                        <td>{{i.service}}</td> 
+                        <td>{{i.status_on}}</td>
+                        <td>
+                            <a href="{% url 'finish_process' i.booking_detail_id %}" class="btn" onclick="">เสร็จสิ้น</a>
 
-                        <a href="{% url 'cancel' item.id %}" class="cancel-btn" onclick="cancelTask('001', this)">ยกเลิก</a>
-                    </td>
-                </tr>
+                            <a href="{% url 'cancel_process' i.booking_detail_id %}" class="cancel-btn" onclick="cancelTask('001', this)">ยกเลิก</a>
+                        </td>
+                    </tr>
+                    {% endif %}
                 {% endfor %}
-                <tr>
-                    <td>002</td>
-                    <td>เจน สมิธ</td>
-                    <td>เคลือบแก้ว</td>
-                    <td></td>
-                    <td>
-                        <a  class="btn" onclick="">เสร็จสิ้น</a>
-                        <a  class="cancel-btn" onclick="cancelTask('001', this)">ยกเลิก</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>003</td>
-                    <td>พอล บราวน์</td>
-                    <td>ติดฟิล์ม</td>
-                    <td>
-                        <button class="cancel-btn" onclick="cancelTask('003', this)">ยกเลิก</button>
-                    </td>
-                </tr>
             </tbody>
         </table>
     </div>

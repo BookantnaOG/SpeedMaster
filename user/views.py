@@ -127,7 +127,9 @@ def dashboard(request):
             "id": request.user.id,
             "firstname": user.first_name,
             "lastname": user.last_name,
-            "email": user.email
+            "email": user.email,
+            "is_receptionist": user.is_receptionist,
+            "is_staff": user.is_staff
         })
     
     return render(request, 'dashboard.html',{"context":context})
@@ -269,7 +271,7 @@ def staff(request):
     user = request.user
 
     # Get all bookings where the status is "Waiting"
-    booking_query = CarDetailingService.objects.filter(booking__status_on="Waiting")
+    booking_query = BookingDetail.objects.filter(detailing__booking__status_on="Wait")
 
     # Time slot mapping
     time_slot_map = {
@@ -282,21 +284,24 @@ def staff(request):
         7: "16:30"
     }
 
-    booking_history = []
-    for booking in booking_query:
 
+    booking_history = []
+    
+    
+
+    for booking in booking_query:
         booking_history.append({
-            "booking_id": booking.booking.booking_id,
-            "service": booking.service.service_name,  # Ensure `service_name` exists
-            "time_slot": time_slot_map.get(booking.time_slot, "Unknown"),  # Prevent KeyError
-            "date": booking.date.strftime("%d/%m/%Y"),
-            "status_on": booking.booking.status_on,
-            "car_plate": getattr(booking.booking.bookingdetail, "car_license_plate", "Unknown")  # Handle missing attribute
+            "booking_id": booking.detailing.booking.booking_id,
+            "service": booking.detailing.service.service_name,  # Ensure `service_name` exists
+            "time_slot": time_slot_map.get(booking.detailing.time_slot, "Unknown"),  # Prevent KeyError
+            "date": booking.detailing.date.strftime("%d/%m/%Y"),
+            "status_on": booking.detailing.booking.status_on,
+            "car_plate": booking.car_license_plate# Handle missing attribute # Handle missing attribute
         })
 
     context = {
         "user": user,
-        "bookings": booking_query
+        "bookings": booking_history
     }
 
     return render(request, 'Staff.html', context)
@@ -335,6 +340,22 @@ def paid_cancel(request, item_id):
     booking_detail = BookingDetail.objects.get(pk=item_id)
     # Update the paid status to False
     booking_detail.billNo.paid_status = False
+    booking_detail.detailing.booking.status_on = "Cancel"
+    booking_detail.save()
+    return redirect('receptionist')
+
+def process_finish(request, item_id):
+    # Attempt to make all changes within an atomic transaction
+    with transaction.atomic():
+        # Get the booking detail item, or raise a 404 error if not found
+        booking_detail = get_object_or_404(BookingDetail, pk=item_id)
+
+        # Update the booking status
+        booking_detail.detailing.booking.status_on = "Finish"
+        booking_detail.detailing.booking.save()  # Save to persist changes
+
+def process_cancel(request, item_id):
+    booking_detail = BookingDetail.objects.get(pk=item_id)
     booking_detail.detailing.booking.status_on = "Cancel"
     booking_detail.save()
     return redirect('receptionist')

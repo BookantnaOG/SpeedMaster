@@ -137,6 +137,7 @@ def bookingdetail(request):
             status = "Waiting for Payment" # processing status
             price = request.POST.get("price")
             car_type = request.POST.get('car-type')  
+            car_name = request.POST.get('car-name')
             time_slot = request.POST.get('time_slot')
             date = request.POST.get('selected_date')
             context = username(request)
@@ -189,7 +190,7 @@ def bookingdetail(request):
                             billNo=payment,
                             total_price=price,
                             car_license_plate=car_plate,
-                            car_brand = "test",
+                            car_brand = car_name,
                             car_type = car_size_map[car_type] 
                 )
                 
