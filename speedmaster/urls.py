@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import handler404, handler500, handler403, handler400
 from speedmaster import views  # import views จากแอปของคุณ
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views
 
@@ -18,6 +19,6 @@ urlpatterns = [
     path('booking/', views.booking, name='booking'),  
     path('payment/', views.payment, name='payment'),
     path('bookingdetail/', views.bookingdetail, name='bookingdetail'),
-    path('process-qr-payment/', views.process_payment_qr, name='process-qr-payment'),
     path('', include('user.urls')),  # Include user app URLs
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

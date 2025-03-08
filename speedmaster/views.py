@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Booking, CarInfo, Service
+from .models import Booking, Service, Payment, BookingDetail, CarDetailingService, User_Telephone
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.http import Http404
 from django.utils import timezone
 from django.http import HttpResponseBadRequest
+import pytz
+from datetime import datetime
+
 
 
 
@@ -47,11 +50,36 @@ def index(request):
 
 @login_required
 def booking(request):
+    telephone_number = User_Telephone.objects.filter(user=request.user)
     services = Service.objects.all()
+    user = request.user
     context = username(request)
+
+    # time zone
+    thailand_tz = pytz.timezone('Asia/Bangkok')
+    # now = timezone.now().astimezone(thailand_tz)
+    
+    # TIMESLOT_LIST = (
+    #     (0, '10:30'),
+    #     (1, '11:30'),
+    #     (2, '12:30'),
+    #     (3, '13:30'),
+    #     (4, '14:30'),
+    #     (5, '15:30'),
+    #     (6, '16:30')
+    # )
+
+    # # Filter out passed timeslots
+    # available_timeslots = [
+    #     (value, time_str) for value, time_str in TIMESLOT_LIST
+    #     if datetime.strptime(time_str, '%H:%M').time() > now.time()  # Only include future times
+    # ]
+
     context.update({
-        'today': timezone.now().date().strftime('%Y-%m-%d')
+    'today': timezone.now().astimezone(thailand_tz).date().strftime('%Y-%m-%d'),
+    # 'available_timeslots': available_timeslots
     })
+
     if request.method == "POST":
         services = request.POST.getlist("service")
         services = services[0].split(",")
@@ -64,39 +92,44 @@ def booking(request):
             return HttpResponseBadRequest("Service does not exist.")
         
         date = request.POST.get("selected_date")
-        time_slot = request.POST.get('time')
+        time_slot = request.POST.get('time_slot')
         price = sum([float(x.price) for x in service]) + 50
 
         context.update({
             "date":date,
             "time_slot":time_slot,
             "price":price,
-            "total":round(price,3)})
+            "total":round(price,3),
+            "services":",".join(services)})
         
-        return render(request, 'bookingDetail.html', {"service":service, "context":context})
+        
+        return render(request, 'bookingDetail.html', {"service":service,
+                                                       "context":context,
+                                                         "telephone_number":telephone_number})
     
     return render(request, 'booking.html', {"services":services, "context":context})
 
 @login_required
 def payment(request):
-    # ถ้ามีการส่งคำขอแบบ POST
     if request.method == "POST":
-        
+        bill_no = request.POST.get("payment_id")
+        if bill_no is None:
+            return HttpResponseBadRequest("Invalid form submission: Missing bill number.")
 
-        context = username(request)
-        # สร้าง context เพื่อส่งไปที่ template
-            
+        payment = get_object_or_404(Payment, billNo=bill_no)
 
-        # ส่งข้อมูลไปยัง payment.html
-        return render(request, 'payment.html', context, context)
+        pic = request.FILES.get('receipt')
+        if not pic:
+            return HttpResponseBadRequest("No file uploaded.")
 
-    # กรณีที่ไม่ใช่ POST (เช่น GET), ให้แสดงฟอร์มปกติ
+        # Assign uploaded picture to payment
+        payment.user_receipt = pic
+        payment.save()
+
+        # Pass pic in a context dictionary
+        return render(request, 'test.html', {'pic': pic})
+
     return render(request, 'payment.html')
-
-def process_payment_qr(request):
-    user = get_user_model().objects.get(id=request.user.id)
-
-    return redirect('home') 
 
 @login_required
 def bookingdetail(request):
@@ -108,7 +141,11 @@ def bookingdetail(request):
             status = "Waiting for Payment" # processing status
             price = request.POST.get("price")
             car_type = request.POST.get('car-type')  
-
+            car_name = request.POST.get('car-name')
+            time_slot = request.POST.get('time_slot')
+            date = request.POST.get('selected_date')
+            tel_number = request.POST.get('mobile')
+            context = username(request)
             car_size_map = {
                 "S": "ขนาดเล็ก (S, M)",
                 "L": "ขนาดกลาง (L, XL)",
@@ -118,29 +155,67 @@ def bookingdetail(request):
                 "motorcycleLarge": "รถมอเตอร์ไซต์ขนาดใหญ่"
             }
 
+            time_slot_map ={
+            '10:30': 0,
+            '11:30': 1,
+            '12:30': 2,
+            '13:30': 3,
+            '14:30': 4,
+            '15:30': 5,
+            '16:30': 6
+            }
+            
             booking = Booking(status_on=status,
                     user=user,
                     )
-            booking.save() # save booking to database
-
-            carinfo = CarInfo(user=user, 
-                    car_license_plate=car_plate,
-                    car_brand = "test",
-                    car_type = car_size_map[car_type], 
-                    booking = booking)
-  
-            carinfo.save() # save carinfo to database
+            if tel_number:
+                telephone = User_Telephone.objects.get(telephone_number=tel_number)
+            else:
+                telephone = User_Telephone(user=user, telephone_number=tel_number)
+                telephone.save()
             
+            payment = Payment(payment_type="QR", paid_status=False)
+            
+            
+            # get selected service
+            try:
+                services = request.POST.getlist("service")
+                services = services[0].split(",")
+                price = float((price.split(" ")[0]))
+                for i in services:
+                    cardetailing = CarDetailingService(
+                                 booking=booking, 
+                                 service=get_object_or_404(
+                                     Service, service_id=int(i)
+                                     ),
+                                time_slot=time_slot_map[time_slot], date=date
+                )
+                    bookingdetail = BookingDetail(
+                            detailing=cardetailing,
+                            billNo=payment,
+                            total_price=price,
+                            car_license_plate=car_plate,
+                            car_brand = car_name,
+                            car_type = car_size_map[car_type],
+                            telephone=telephone 
+                )
+                
+
+            except Service.DoesNotExist:
+                return HttpResponseBadRequest("Service does not exist.")
+            
+            booking.save() # save booking to database
+            payment.save() # save payment to database
+            cardetailing.save() # save cardetailing to database
+            bookingdetail.save() # save bookingdetail to database
+            
+
             # context update
-            context = username(request)
             context.update({
                 "price":price,
+                "username":user.username,
+                "billNo":payment.billNo,
             })
-            # รับข้อมูลจากฟอร์มที่ส่ง
-            service = request.POST.get('service', 'ไม่ระบุ')
-            date = request.POST.get('date', 'ไม่ระบุ')
-            time = request.POST.get('time', 'ไม่ระบุ')
-            context.update({'service': service,'date': date, 'time': time})
 
-            return render(request, "payment.html", context)
+            return render(request, "payment.html", {"context":context})
     return render(request, 'bookingDetail.html')
