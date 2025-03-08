@@ -33,7 +33,7 @@
                         <td>{{ item.service }}</td>
                         <td>{{ item.date }} {{ item.time_slot }}</td>
                         <td>{{ item.status_on }}</td>
-                        <td>{{ item.test }}</td>
+                        <td><img src="{{ item.receipt.url }}"></td>
                         <td>
                             <a href ="{%url 'approve_payment' item.booking_detail_id %}"class="approve-btn">อนุมัติ</a>
                                 </br>

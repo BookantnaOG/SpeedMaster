@@ -18,17 +18,4 @@ document.addEventListener("DOMContentLoaded", function () {
             showPaymentForm('qr-code');
         });
     }
-
-
-    document.querySelectorAll('.payment-form').forEach(function(form) {
-        form.addEventListener('submit', function(event) {
-            event.preventDefault(); // ป้องกันการส่งฟอร์มโดยตรง
-
-            // แสดงข้อความแจ้งเตือนว่าการชำระเงินสำเร็จ
-            alert("ชำระเงินสำเร็จ! กำลังกลับไปยังหน้าแรก...");
-
-            // Redirect ไปยังหน้าหลัก
-            window.location.href = '/';
-        });
-    });
 });

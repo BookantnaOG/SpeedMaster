@@ -4,23 +4,29 @@
 {% block content %}
 <link rel="stylesheet" href="{% static 'payment.css' %}">
 <!-- Title for payment selection -->
-<h2 class="centered">เลือกช่องทางชำระ</h2>
-
+<h2 class="centered">{{pic}}</h2>
+    
 <!-- Payment Forms -->
 <div class="payment-forms">
     <!-- Total Price Section -->
     <div class="total-price">
-        <p>ราคาสุทธิ: <span id="total-price">{{ price }} {{time_slot}}บาท</span></p>
+        <p>ราคาสุทธิ: <span id="total-price">{{ context.price }} {{ context.time_slot }}บาท</span></p>
     </div>
 
-
-
+    
+    
     <!-- <button id="credit-card-btn">ชำระด้วยบัตรเครดิต</button>-->
     <button id="qr-code-btn">ชำระด้วย QR Promptpay</button>
    
-    <form id="qr-code" class="payment-form" style="display:none;" method="GET" action="/dashboard/">
+    <form id="qr-code" class="payment-form" style="display:none;" method="POST" action="{% url 'payment' %}" enctype="multipart/form-data">
+        {% csrf_token %}
         <h3>QR Promptpay</h3>
-        <img src="https://promptpay.io/0624324211/{{price}}.png" alt="QR Code">
+        <img src="https://promptpay.io/0624324211/{{ context.price }}.png" alt="QR Code">
+
+        <input type="hidden" name="payment_id" id="payment_id" value="{{ context.billNo }}">
+        <label for="receipt">Select a picture:</label>
+        <input type="file" name="receipt" id="receipt" required>
+
         <div class="button-wrapper">
             <button type="submit">ชำระเงินผ่าน QR</button>
         </div>

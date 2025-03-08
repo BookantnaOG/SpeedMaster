@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from user.models import User_Telephone
 
 class Service(models.Model):
     service_id = models.AutoField(primary_key=True)
@@ -48,6 +49,7 @@ class Payment(models.Model):
     billNo = models.AutoField(primary_key=True)
     payment_type = models.CharField(max_length=10)
     paid_status = models.BooleanField(default=False) # False -> ยังไม่จ่าย, True -> จ่ายแล้ว
+    user_receipt = models.ImageField(upload_to='receipts/',blank=True, null=True)
 
     def __str__(self):
         return f"BillNo: {self.billNo} PaymentType: {self.payment_type} paid_status: {self.paid_status}"
@@ -59,7 +61,7 @@ class BookingDetail(models.Model):
     car_type = models.CharField(max_length=50)  # big, small, van
     car_brand = models.CharField(max_length=50)  # brands
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    # telephone = models.ForeignKey(UserTelephone, on_delete=models.CASCADE)
+    telephone = models.ForeignKey(User_Telephone, on_delete=models.CASCADE)
     
     class Meta:
         unique_together = ('detailing', 'billNo')
@@ -68,3 +70,7 @@ class BookingDetail(models.Model):
         return f"Detail for Booking {self.detailing.booking.booking_id} - {self.detailing.service} "
 
 
+# INSERT INTO speedmaster_service (service_id, service_name, service_name_eng, description, price) VALUES
+# (1, 'ทำความสะอาด', 'Car Washing', 'ล้างรถ (Car Wash) บริการล้างรถที่พิถีพิถัน ใช้น้ำยาและอุปกรณ์คุณภาพสูง เพื่อขจัดสิ่งสกปรก ฝุ่น และคราบต่างๆ อย่างอ่อนโยน พร้อมให้รถของคุณสะอาดเงางามเหมือนใหม่', 100),
+# (2, 'ฟิล์มกันรอย', 'Car-and-shield', 'ติดตั้งฟิล์มกันรอยคุณภาพสูง ช่วยปกป้องสีรถจากรอยขีดข่วน หินกระเด็น และรังสียูวี พร้อมคืนสภาพได้เองเมื่อเกิดรอยขีดข่วนเล็กน้อย เพื่อให้รถของคุณดูดีตลอดเวลา', 200),
+# (3, 'เคลือบแก้ว', 'glass-coating', 'ปกป้องพื้นผิวรถด้วยเทคโนโลยีเคลือบเซรามิกที่ช่วยเพิ่มความเงางาม ทนต่อรอยขีดข่วน ลดการเกาะของคราบน้ำและสิ่งสกปรก พร้อมยืดอายุสีรถให้ดูใหม่อยู่เสมอ', 500);

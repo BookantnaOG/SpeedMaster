@@ -3,15 +3,38 @@
 
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'ADD&FORGET.css' %}">
-<div class="tel-container">
-    <form method="post" action="{% url 'add_telephone' %}">
-        {% csrf_token %}
-        
-        {{ form.as_p }}  <!-- This will render the form fields as paragraphs -->
-        
-        <button type="submit">Submit</button>
-    </form>
+<div class="content-wrapper">
+    <div class="booking-table-container">
+        <h2>Booking History Information</h2>
+
+        <!-- Link to external CSS file -->
+        <link rel="stylesheet" type="text/css" href="{% static 'Menu_View.css' %}">
+
+        <!-- Renamed table to Booking-table-detail -->
+        <table class="booking-table-detail">
+            <thead>
+                <tr>
+                    <th>Telephone Number</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in tel_nums %}
+                <tr>
+                    <td>{{ i.telephone_number }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="tel-container">
+            <form method="post" action="{% url 'add_telephone' %}">
+                {% csrf_token %}
+                
+                {{ form.as_p }}  <!-- This will render the form fields as paragraphs -->
+                
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
 </div>
 
-<!-- มันส่งเบอร์กลับไปแล้ว Runtime Errorนะครับ-->
 {% endblock %}

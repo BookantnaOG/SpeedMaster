@@ -106,10 +106,21 @@
                         <label for="car-reg">ทะเบียนรถ</label>
                         <input type="text" id="car-reg" name="car-reg" placeholder="กรอกทะเบียนรถ" required value="1111111111">
                     </div>
+                    <label for="mobile">Telephone Numebr</label>
+                    {% if telephone_number %} 
+                    <div class="input-box">
+                        <select id="mobile" name="mobile" required>
+                            {% for i in telephone_number %}
+                            <option value="{{i.telephone_number}}">{{i.telephone_number}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {%else%}
                     <div class="input-box mobile-input">
-                        <label for="mobile">Mobile</label>
                         <input type="text" id="mobile" name="mobile" placeholder="กรอกเบอร์โทรศัพท์ 10 หลัก" required value="1111111111">
                     </div>
+                    {% endif %}
+
                     <div class="button-wrapper">
                         <button type="submit" id="payment-btn" class="pay-button">PAYMENT</button>
                     </div>

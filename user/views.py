@@ -149,16 +149,18 @@ def delete_account(request):
 
 @login_required
 def add_telephone(request):
+    telephone_numbers = User_Telephone.objects.filter(user=request.user)
+    
     if request.method == "POST":
         form = UserTelephoneForm(request.POST)
         if form.is_valid():
             telephone = form.save(commit=False)
             telephone.user = request.user
             telephone.save()
-            return redirect("dashboard")
+            return redirect("add_telephone")
     else:
         form = UserTelephoneForm()
-    return render(request, "add_telephone.html", {"form": form}) 
+    return render(request, "add_telephone.html", {"form": form, "tel_nums":telephone_numbers}) 
     
 @login_required
 def change_password(request):
@@ -181,7 +183,7 @@ def change_password(request):
 @login_required
 def edit_profile(request):
     user = request.user
-    first_name = request.POST.get("first_name")
+    first_name = request.POST.get("first_name") 
     last_name = request.POST.get("last_name")
     email = request.POST.get("email")
 
@@ -260,7 +262,8 @@ def receptionist(request):
         "time_slot": time_slot_map.get(booking.detailing.time_slot, "Unknown"),  # Prevent KeyError
         "date": booking.detailing.date.strftime("%d/%m/%Y"),
         "status_on": booking.detailing.booking.status_on,
-        "booking_detail_id": booking.id
+        "booking_detail_id": booking.id,
+        "receipt": booking.billNo.user_receipt,
         #"bill_status": paid_status_map[booking.billNo.paid_status],
     })
 
