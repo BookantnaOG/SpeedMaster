@@ -2,107 +2,60 @@
 {% load static %}
 
 {% block content %}
+{% for booking in bookings %}
 <div class="service-status-container">
     <link rel="stylesheet" href="{% static 'Menu_View.css' %}">
     <h2>สถานะการบริการ</h2>
     <div class="progress-and-icons-container">
         <!-- Status Icons -->
-        <div class="status-progress">
-            <button class="status-item" id="status1" onclick="showDetails('status1')">📅</button>
+         
+        <div class="status-progress" onload="showDetails()">
+            <input class="status" type="hidden" value="{{booking.status_on}}">
+            <button class="status-item" id="status1">📅</button>
             <div class="connector-line" id="connector1"></div>
-            <button class="status-item" id="status2" onclick="showDetails('status2')">🚗</button>
+            <button class="status-item" id="status2">🚗</button>
             <div class="connector-line" id="connector2"></div>
-            <button class="status-item" id="status3" onclick="showDetails('status3')">✅</button>
+            <button class="status-item" id="status3">✅</button>
         </div>
     </div>
 
     <!-- Status Details Boxes -->
+     
     <div id="status1-details" class="status-details-box">
         <h3>สถานะการจอง</h3>
-        <p>รายละเอียดเกี่ยวกับการจองบริการ...</p>
+        <p>ID: {{booking.booking_id}} </p>
+        <p>Service: {{booking.service}} </p>
+        <p>Date: {{booking.date}} {{booking.time_slot}}</p>
+        <p>Status: {{booking.status_on}}</p>
+        <p>Car Brand: {{booking.car_brand}}</p>
+        <p>Car type: {{booking.car_type}}</p>
+        <p>Car Plate: {{booking.car_license_plate}}</p>
     </div>
+
     <div id="status2-details" class="status-details-box">
-        <h3>สถานะการทำความสะอาด</h3>
+        <h3>สถานะการจอง</h3>
+        <p>ID: {{booking.booking_id}} </p>
+        <p>Service: {{booking.service}} </p>
+        <p>Date: {{booking.date}} {{booking.time_slot}}</p>
+        <p>Status: {{booking.status_on}}</p>
+        <p>Car Brand: {{booking.car_brand}}</p>
+        <p>Car type: {{booking.car_type}}</p>
+        <p>Car Plate: {{booking.car_license_plate}}</p>
         <p>กำลังทำความสะอาดโปรดรอซักครู่</p>
-        <!-- Service provider details -->
-        <div class="provider-info">
-            <img src="{% static 'User1.jpg' %}" alt="Profile Picture" class="profile-img">
-            <p class="provider-name">นราธิป พรหมประไก่</p>
-        </div>
     </div>
+
     <div id="status3-details" class="status-details-box">
-        <h3>สถานะการเสร็จสิ้น</h3>
-        <p>รายละเอียดเกี่ยวกับสถานะเสร็จสิ้น...</p>
+        <h3>สถานะการจอง</h3>
+        <p>ID: {{booking.booking_id}} </p>
+        <p>Service: {{booking.service}} </p>
+        <p>Date: {{booking.date}} {{booking.time_slot}}</p>
+        <p>Status: {{booking.status_on}}</p>
+        <p>Car Brand: {{booking.car_brand}}</p>
+        <p>Car type: {{booking.car_type}}</p>
+        <p>Car Plate: {{booking.car_license_plate}}</p>
+        <p>เสร็จสิ้น</p>
     </div>
 </div>
-
-<script>
-let currentProgress = 0;
-
-function showDetails(statusId) {
-    const statuses = ['status1', 'status2', 'status3'];
-    const connectors = ['connector1', 'connector2'];
-
-    // Reset all status items to their initial state
-    statuses.forEach(status => {
-        document.getElementById(status).classList.remove('completed');
-        document.getElementById(status).classList.remove('active');
-        document.getElementById(status).classList.add('pending');
-    });
-
-    // Reset connector lines
-    connectors.forEach(connector => {
-        document.getElementById(connector).style.backgroundColor = '#ccc';
-    });
-
-    // Set the status of the clicked button and show its details
-    if (statusId === 'status1') {
-        document.getElementById('status1').classList.add('completed');
-        updateConnectors(33);
-        toggleBox('status1-details');
-        // Hide other status boxes
-        document.getElementById('status2-details').style.display = 'none';
-        document.getElementById('status3-details').style.display = 'none';
-    } else if (statusId === 'status2') {
-        document.getElementById('status1').classList.add('completed');
-        document.getElementById('status2').classList.add('completed');
-        document.getElementById('connector1').style.backgroundColor = '#4CAF50'; // Change connector line color to green
-        updateConnectors(66);
-        toggleBox('status2-details');
-        // Hide other status boxes
-        document.getElementById('status1-details').style.display = 'none';
-        document.getElementById('status3-details').style.display = 'none';
-    } else if (statusId === 'status3') {
-        document.getElementById('status1').classList.add('completed');
-        document.getElementById('status2').classList.add('completed');
-        document.getElementById('status3').classList.add('completed');
-        document.getElementById('connector1').style.backgroundColor = '#4CAF50';
-        document.getElementById('connector2').style.backgroundColor = '#4CAF50'; // Change last connector line color to green
-        updateConnectors(100);
-        toggleBox('status3-details');
-        // Hide other status boxes
-        document.getElementById('status1-details').style.display = 'none';
-        document.getElementById('status2-details').style.display = 'none';
-    }
-}
-
-function toggleBox(statusDetailId) {
-    const box = document.getElementById(statusDetailId);
-    if (box.style.display === 'block') {
-        box.style.display = 'none';
-    } else {
-        box.style.display = 'block';
-    }
-}
-
-function updateConnectors(progress) {
-    if (progress >= 33) {
-        document.getElementById('connector1').style.backgroundColor = '#4CAF50';
-    }
-    if (progress >= 66) {
-        document.getElementById('connector2').style.backgroundColor = '#4CAF50';
-    }
-}
-</script>
-
+{% endfor %}
+<script src="{% static 'Status_booking.js' %}"></script>
 {% endblock %}

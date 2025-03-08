@@ -208,6 +208,7 @@ def bookingdetail(request):
             # context update
             context.update({
                 "price":price,
+                "username":user.username,
             })
 
             # รับข้อมูลจากฟอร์มที่ส่ง
