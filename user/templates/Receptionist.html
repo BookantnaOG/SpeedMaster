@@ -19,13 +19,12 @@
                     <th>Service</th>
                     <th>วันและเวลา</th>
                     <th>สถานะใบเสร็จ</th>
-                    <th>QR receipt </th> <!-- New column for receipt status -->
-                    <th>การอนุมัติ</th> <!-- New column for approval status -->
+                    <th>QR receipt</th>
+                    <th>การอนุมัติ</th>
                     <th>การกระทำ</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Example dynamic data -->
                 {% for item in bookings %}
                     {% if item.booking_detail_id %}
                     <tr>
@@ -33,20 +32,24 @@
                         <td>{{ item.service }}</td>
                         <td>{{ item.date }} {{ item.time_slot }}</td>
                         <td>{{ item.status_on }}</td>
-                        <td><img src="{{ item.receipt.url }}"></td>
                         <td>
-                            <a href ="{%url 'approve_payment' item.booking_detail_id %}"class="approve-btn">อนุมัติ</a>
-                                </br>
-                                </br>
-                            <a href ="{%url 'decline_payment' item.booking_detail_id %}"class="decline-btn">ไม่อนุมัติ</a> 
+                            {% if item.receipt and item.receipt.url %}
+                                <img src="{{ item.receipt.url }}" alt="Receipt QR" style="width: 100px; height: auto;">
+                            {% else %}
+                                <p>ไม่มีใบเสร็จ</p>
+                            {% endif %}
                         </td>
                         <td>
-                            <a href ="{%url 'cancel_payment' item.booking_detail_id %}"class="cancel-btn">ยกเลิก</a>
+                            <a href="{% url 'approve_payment' item.booking_detail_id %}" class="approve-btn">อนุมัติ</a>
+                            <br><br>
+                            <a href="{% url 'decline_payment' item.booking_detail_id %}" class="decline-btn">ไม่อนุมัติ</a> 
+                        </td>
+                        <td>
+                            <a href="{% url 'cancel_payment' item.booking_detail_id %}" class="cancel-btn">ยกเลิก</a>
                         </td>
                     </tr>
                     {% endif %}
                 {% endfor %}
-                <!-- Static data example -->
             </tbody>
         </table>
     </div>
@@ -56,26 +59,23 @@
 <script src="{% static 'Menu_view.js' %}"></script>
 
 <script>
-    // Dynamic JS example (This is where dynamic behavior can be added later)
-    // Example: Handle approval button click dynamically
     document.querySelectorAll('.approve-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            // Code to handle approval logic (e.g., send request to the server to update approval status)
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
             alert("Approved!");
         });
     });
 
-    document.querySelectorAll('.reject-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            // Code to handle rejection logic (e.g., send request to the server to update rejection status)
+    document.querySelectorAll('.decline-btn').forEach(button => {
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
             alert("Rejected!");
         });
     });
 
-    // Cancel button functionality (Dynamic behavior can be added here as well)
     document.querySelectorAll('.cancel-btn').forEach(button => {
-        button.addEventListener('click', function() {
-            // Code to handle cancel logic
+        button.addEventListener('click', function(event) {
+            event.preventDefault();
             alert("Cancelled!");
         });
     });
