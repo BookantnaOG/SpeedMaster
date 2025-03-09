@@ -1,65 +1,75 @@
 document.addEventListener("DOMContentLoaded", function () {
-    let currentProgress = 0;
-    
-    // Function to start the auto-update process
+    // Function to start the auto-update process for each booking
     function autoUpdateStatus() {
-        const statusValue = document.getElementsByClassName("status");
-        const statuses = ['status1', 'status2', 'status3'];
-        const connectors = ['connector1', 'connector2'];
+        const bookings = document.querySelectorAll('.service-status-container');
 
-        // Reset all status items to their initial state
-        statuses.forEach(status => {
-            document.getElementById(status).classList.remove('completed');
-            document.getElementById(status).classList.remove('active');
-            document.getElementById(status).classList.add('pending');
+        bookings.forEach((booking, index) => {
+            let currentProgress = 0;
+            
+            const statusValue = booking.getElementsByClassName("status");
+            const statuses = booking.querySelectorAll('.status-item');
+            const connectors = booking.querySelectorAll('.connector-line');
+
+            // Reset all status items to their initial state
+            statuses.forEach(status => {
+                status.classList.remove('completed');
+                status.classList.remove('active');
+                status.classList.add('pending');
+            });
+
+            // Reset connector lines
+            connectors.forEach(connector => {
+                connector.style.backgroundColor = '#ccc';
+            });
+
+            // Set the status after each timeout
+            setTimeout(() => {
+                // Status 1: Waiting for Payment
+                const status1 = booking.querySelector('#status1');
+                status1.classList.add('completed');
+                updateConnectors(33, booking);
+                toggleBox(booking, 'status1-details');
+                hideDetails(booking, ['status2-details', 'status3-details']);
+            }, 0);  // Immediately show status1 (0ms delay)
+
+            setTimeout(() => {
+                // Status 2: Wait (After 30 seconds)
+                const status1 = booking.querySelector('#status1');
+                const status2 = booking.querySelector('#status2');
+                const connector1 = booking.querySelector('#connector1');
+                status1.classList.add('completed');
+                status2.classList.add('completed');
+                connector1.style.backgroundColor = '#4CAF50'; // Change connector line color to green
+                updateConnectors(66, booking);
+                toggleBox(booking, 'status2-details');
+                hideDetails(booking, ['status1-details', 'status3-details']);
+            }, 30000); // After 30 seconds, show status2
+
+            setTimeout(() => {
+                // Status 3: Finish (After 60 seconds)
+                const status1 = booking.querySelector('#status1');
+                const status2 = booking.querySelector('#status2');
+                const status3 = booking.querySelector('#status3');
+                const connector1 = booking.querySelector('#connector1');
+                const connector2 = booking.querySelector('#connector2');
+                status1.classList.add('completed');
+                status2.classList.add('completed');
+                status3.classList.add('completed');
+                connector1.style.backgroundColor = '#4CAF50';
+                connector2.style.backgroundColor = '#4CAF50'; // Change last connector line color to green
+                updateConnectors(100, booking);
+                toggleBox(booking, 'status3-details');
+                hideDetails(booking, ['status1-details', 'status2-details']);
+            }, 60000); // After 60 seconds, show status3
         });
-
-        // Reset connector lines
-        connectors.forEach(connector => {
-            document.getElementById(connector).style.backgroundColor = '#ccc';
-        });
-
-        // Set the status after each timeout
-        setTimeout(() => {
-            // Status 1: Waiting for Payment
-            document.getElementById('status1').classList.add('completed');
-            updateConnectors(33);
-            toggleBox('status1-details');
-            document.getElementById('status2-details').style.display = 'none';
-            document.getElementById('status3-details').style.display = 'none';
-        }, 0);  // Immediately show status1 (0ms delay)
-
-        setTimeout(() => {
-            // Status 2: Wait (After 30 seconds)
-            document.getElementById('status1').classList.add('completed');
-            document.getElementById('status2').classList.add('completed');
-            document.getElementById('connector1').style.backgroundColor = '#4CAF50'; // Change connector line color to green
-            updateConnectors(66);
-            toggleBox('status2-details');
-            document.getElementById('status1-details').style.display = 'none';
-            document.getElementById('status3-details').style.display = 'none';
-        }, 30000); // After 30 seconds, show status2
-
-        setTimeout(() => {
-            // Status 3: Finish (After 60 seconds)
-            document.getElementById('status1').classList.add('completed');
-            document.getElementById('status2').classList.add('completed');
-            document.getElementById('status3').classList.add('completed');
-            document.getElementById('connector1').style.backgroundColor = '#4CAF50';
-            document.getElementById('connector2').style.backgroundColor = '#4CAF50'; // Change last connector line color to green
-            updateConnectors(100);
-            toggleBox('status3-details');
-            document.getElementById('status1-details').style.display = 'none';
-            document.getElementById('status2-details').style.display = 'none';
-        }, 60000); // After 60 seconds, show status3
     }
 
     // Start auto-updating status once page is loaded
     autoUpdateStatus();
 
     // Function to toggle the visibility of status detail boxes
-    function toggleBox(statusDetailId) {
-        const box = document.getElementById(statusDetailId);
+    function toggleBox(booking, statusDetailId) {
+        const box = booking.querySelector(`#${statusDetailId}`);
         if (box.style.display === 'block') {
             box.style.display = 'none';
         } else {
@@ -67,13 +77,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // Function to hide other status detail boxes
+    function hideDetails(booking, detailIds) {
+        detailIds.forEach(detailId => {
+            const box = booking.querySelector(`#${detailId}`);
+            box.style.display = 'none';
+        });
+    }
+
     // Function to update connector colors based on progress
-    function updateConnectors(progress) {
+    function updateConnectors(progress, booking) {
         if (progress >= 33) {
-            document.getElementById('connector1').style.backgroundColor = '#4CAF50';
+            const connector1 = booking.querySelector('#connector1');
+            connector1.style.backgroundColor = '#4CAF50';
         }
         if (progress >= 66) {
-            document.getElementById('connector2').style.backgroundColor = '#4CAF50';
+            const connector2 = booking.querySelector('#connector2');
+            connector2.style.backgroundColor = '#4CAF50';
         }
     }
 });
