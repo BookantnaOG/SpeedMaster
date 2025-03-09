@@ -256,6 +256,10 @@ def receptionist(request):
     
 
     for booking in booking_query:
+        if booking.billNo.user_receipt:
+            receipt = booking.billNo.user_receipt
+        else:
+            receipt = None
         booking_history.append({
         "booking_id": booking.detailing.booking.booking_id,
         "service": booking.detailing.service.service_name,  # Ensure `service_name` exists
@@ -263,7 +267,7 @@ def receptionist(request):
         "date": booking.detailing.date.strftime("%d/%m/%Y"),
         "status_on": booking.detailing.booking.status_on,
         "booking_detail_id": booking.id,
-        "receipt": booking.billNo.user_receipt,
+        "receipt": receipt,
         #"bill_status": paid_status_map[booking.billNo.paid_status],
     })
 
