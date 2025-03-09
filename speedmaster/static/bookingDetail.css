@@ -246,6 +246,26 @@ select {
     overflow-y: auto; /* Enable vertical scrolling */
 }
 
+#mobile {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #ffffff;
+    color: #2F3D40;
+    width: 100%;
+    max-width: 324px;
+    margin-top: -28px;
+    margin-left: 431px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    overflow-y: auto;
+
+}
+
+
 /* Payment Page Styles */
 #payment-car-reg, #payment-email, #payment-mobile, #payment-car-name, #payment-final-price {
     font-size: 16px;
