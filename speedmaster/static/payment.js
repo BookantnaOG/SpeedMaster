@@ -19,3 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+function showAlert() {
+        alert("Payment completed! You are being redirected to the dashboard to get your receipt.");
+    }

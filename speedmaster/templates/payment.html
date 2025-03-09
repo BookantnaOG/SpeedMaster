@@ -28,11 +28,16 @@
         <input type="file" name="receipt" id="receipt" required>
 
         <div class="button-wrapper">
-            <button type="submit">ชำระเงินผ่าน QR</button>
+            <button type="submit" onclick="showAlert()">ชำระเงินผ่าน QR</button>
         </div>
     </form>
 
 </div>
 
 <script src="{% static 'payment.js' %}"></script>
+<script>
+    function showAlert() {
+        alert("ชำระเงินเสร็จสิ้น! กำลังนำคุณไปยังแดชบอร์ดเพื่อรับใบเสร็จของคุณ.");
+    }
+</script>
 {% endblock %}

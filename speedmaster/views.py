@@ -8,7 +8,7 @@ from django.utils import timezone
 from django.http import HttpResponseBadRequest
 import pytz
 from datetime import datetime
-
+from django.contrib import messages
 
 
 
@@ -125,9 +125,9 @@ def payment(request):
         # Assign uploaded picture to payment
         payment.user_receipt = pic
         payment.save()
-
+        messages.success(request, "Payment completed! You are being redirected to the dashboard to get your receipt.")
         # Pass pic in a context dictionary
-        return render(request, 'test.html', {'pic': pic})
+        return redirect('dashboard')
 
     return render(request, 'payment.html')
 
