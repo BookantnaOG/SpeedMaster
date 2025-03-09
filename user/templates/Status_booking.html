@@ -2,60 +2,60 @@
 {% load static %}
 
 {% block content %}
-{% for booking in bookings %}
-<div class="service-status-container">
-    <link rel="stylesheet" href="{% static 'Menu_View.css' %}">
-    <h2>สถานะการบริการ</h2>
-    <div class="progress-and-icons-container">
-        <!-- Status Icons -->
-         
-        <div class="status-progress" onload="showDetails()">
-            <input class="status" type="hidden" value="{{booking.status_on}}">
-            <button class="status-item" id="status1">📅</button>
-            <div class="connector-line" id="connector1"></div>
-            <button class="status-item" id="status2">🚗</button>
-            <div class="connector-line" id="connector2"></div>
-            <button class="status-item" id="status3">✅</button>
+    {% for booking in bookings %}
+    <div class="service-status-container">
+        <link rel="stylesheet" href="{% static 'Menu_View.css' %}">
+        <h2>สถานะการบริการ</h2>
+        <div class="progress-and-icons-container">
+            <!-- Status Icons -->
+            <div class="status-progress">
+                <input class="status" type="hidden" value="{{booking.status_on}}">
+                <button class="status-item" id="status1">📅</button>
+                <div class="connector-line" id="connector1"></div>
+                <button class="status-item" id="status2">🚗</button>
+                <div class="connector-line" id="connector2"></div>
+                <button class="status-item" id="status3">✅</button>
+            </div>
         </div>
-    </div>
 
-    <!-- Status Details Boxes -->
-     
-    <div id="status1-details" class="status-details-box">
-        <h3>สถานะการจอง</h3>
-        <p>ID: {{booking.booking_id}} </p>
-        <p>Service: {{booking.service}} </p>
-        <p>Date: {{booking.date}} {{booking.time_slot}}</p>
-        <p>Status: {{booking.status_on}}</p>
-        <p>Car Brand: {{booking.car_brand}}</p>
-        <p>Car type: {{booking.car_type}}</p>
-        <p>Car Plate: {{booking.car_license_plate}}</p>
-    </div>
+        <!-- Status Details Boxes -->
+        <div id="status1-details" class="status-details-box">
+            <h3>สถานะการจอง</h3>
+            <p>ID: {{booking.booking_id}} </p>
+            <p>Service: {{booking.service}} </p>
+            <p>Date: {{booking.date}} {{booking.time_slot}}</p>
+            <p>Status: {{booking.status_on}}</p>
+            <p>Car Brand: {{booking.car_brand}}</p>
+            <p>Car type: {{booking.car_type}}</p>
+            <p>Car Plate: {{booking.car_license_plate}}</p>
+        </div>
 
-    <div id="status2-details" class="status-details-box">
-        <h3>สถานะการจอง</h3>
-        <p>ID: {{booking.booking_id}} </p>
-        <p>Service: {{booking.service}} </p>
-        <p>Date: {{booking.date}} {{booking.time_slot}}</p>
-        <p>Status: {{booking.status_on}}</p>
-        <p>Car Brand: {{booking.car_brand}}</p>
-        <p>Car type: {{booking.car_type}}</p>
-        <p>Car Plate: {{booking.car_license_plate}}</p>
-        <p>กำลังทำความสะอาดโปรดรอซักครู่</p>
+        {% if booking.status_on == 'กำลังทำความสะอาด' %}
+        <div id="status2-details" class="status-details-box">
+            <h3>สถานะการจอง</h3>
+            <p>ID: {{booking.booking_id}} </p>
+            <p>Service: {{booking.service}} </p>
+            <p>Date: {{booking.date}} {{booking.time_slot}}</p>
+            <p>Status: {{booking.status_on}}</p>
+            <p>Car Brand: {{booking.car_brand}}</p>
+            <p>Car type: {{booking.car_type}}</p>
+            <p>Car Plate: {{booking.car_license_plate}}</p>
+            <p>กำลังทำความสะอาดโปรดรอซักครู่</p>
+        </div>
+        {% elif booking.status_on == 'เสร็จสิ้น' %}
+        <div id="status3-details" class="status-details-box">
+            <h3>สถานะการจอง</h3>
+            <p>ID: {{booking.booking_id}} </p>
+            <p>Service: {{booking.service}} </p>
+            <p>Date: {{booking.date}} {{booking.time_slot}}</p>
+            <p>Status: {{booking.status_on}}</p>
+            <p>Car Brand: {{booking.car_brand}}</p>
+            <p>Car type: {{booking.car_type}}</p>
+            <p>Car Plate: {{booking.car_license_plate}}</p>
+            <p>เสร็จสิ้น</p>
+        </div>
+        {% endif %}
     </div>
-
-    <div id="status3-details" class="status-details-box">
-        <h3>สถานะการจอง</h3>
-        <p>ID: {{booking.booking_id}} </p>
-        <p>Service: {{booking.service}} </p>
-        <p>Date: {{booking.date}} {{booking.time_slot}}</p>
-        <p>Status: {{booking.status_on}}</p>
-        <p>Car Brand: {{booking.car_brand}}</p>
-        <p>Car type: {{booking.car_type}}</p>
-        <p>Car Plate: {{booking.car_license_plate}}</p>
-        <p>เสร็จสิ้น</p>
-    </div>
-</div>
-{% endfor %}
-<script src="{% static 'Status_booking.js' %}"></script>
+    {% endfor %}
+    <script src="{% static 'Status_booking.js' %}"></script>
 {% endblock %}
