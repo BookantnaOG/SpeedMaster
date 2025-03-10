@@ -1,0 +1,76 @@
+{% extends 'layout2.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Add a wrapper container for the content to manage the footer position -->
+<div class="content-wrapper">
+    <div class="booking-table-container">
+        <h2>Booking History Information</h2>
+
+        <!-- Link to external CSS file -->
+        <link rel="stylesheet" type="text/css" href="{% static 'Menu_View.css' %}">
+
+        <!-- Renamed table to Booking-table-detail -->
+        <table class="booking-table-detail">
+            <thead>
+                <tr>
+                    <th>Car Plate</th>
+                    <th>Date/Time</th>
+                    <th>Name</th>
+                    <th>User</th>
+                    <th>Service Used</th>
+                    <th>Payment Status</th>
+                    <th>Telephone</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for booking in bookings %}
+                <tr>
+                    <td>{{ booking.car_plate }}</td>
+                    <td>{{ booking.date }} {{ booking.time_slot }}</td>
+                    <td>{{ user.first_name }} {{ user.last_name }} </td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ booking.service }}</td>
+                    <td>{{ booking.status_on}}</td>
+                    <td>{{ booking.telephone }}</td>
+                </tr>
+                {% endfor %}
+                
+                <!-- Replace this part with dynamic data later -->
+                
+                <!-- # Fetching Data from Database -->
+                {% comment %}
+                    <tr>
+                        <td>{{ booking.booking_order }}</td>
+                        <td>{{ booking.date_time }}</td>
+                        <td>{{ booking.name }}</td>
+                        <td>{{ booking.user_email }}</td>
+                        <td>{{ booking.service_used }}</td>
+                        <td>{{ booking.payment_status }}</td>
+                        <td>{{ booking.telephone }}</td>
+                    </tr>
+                {% endcomment %}
+
+                <!-- # When you're ready to fetch data from the DB, you can use this loop instead -->
+                <!-- {% for booking in bookings %} -->
+                    <!-- <tr>
+                        <td>{{ booking.booking_order }}</td>
+                        <td>{{ booking.date_time }}</td>
+                        <td>{{ booking.name }}</td>
+                        <td>{{ booking.user_email }}</td>
+                        <td>{{ booking.service_used }}</td>
+                        <td>{{ booking.payment_status }}</td>
+                        <td>{{ booking.telephone }}</td>
+                    </tr> -->
+                <!-- {% empty %}
+                    <tr>
+                        <td colspan="7">No bookings available.</td>
+                    </tr>
+                {% endfor %} -->
+
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

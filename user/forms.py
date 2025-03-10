@@ -1,7 +1,16 @@
 from django import forms 
 from django.contrib.auth.models import User 
 from django.contrib.auth.forms import UserCreationForm 
+from .models import User_Telephone
+from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import PasswordChangeForm
 
+User = get_user_model()
+
+class PasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = User
+        fields = ['old_password', 'new_password1', 'new_password2']
 class RegisterForm(UserCreationForm):
     email = forms.EmailField(required=True)
     first_name = forms.CharField(required=True, max_length=30)
@@ -52,3 +61,9 @@ class MembershipForm(forms.Form):
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={'placeholder': 'Email', 'required': 'required'})
     )
+
+
+class UserTelephoneForm(forms.ModelForm):
+    class Meta:
+        model = User_Telephone
+        fields = ['telephone_number']

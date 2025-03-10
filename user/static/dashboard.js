@@ -2,38 +2,19 @@ let isEditing = false;  // ตัวแปรที่ใช้เก็บส�
 
 // ฟังก์ชันสำหรับสลับสถานะการแก้ไขโปรไฟล์
 function toggleEdit() {
-    const editButton = document.querySelector('.edit-btn');
-    const inputs = document.querySelectorAll('.profile-form input');
-    
-    // ถ้าอยู่ในโหมดแก้ไข
-    if (isEditing) {
-        editButton.textContent = "แก้ไขโปรไฟล์";  // เปลี่ยนข้อความกลับ
-        // เปลี่ยน input กลับไปเป็น disabled
-        inputs.forEach(input => input.disabled = true);
-    } else {
-        editButton.textContent = "ตกลง";  // เปลี่ยนข้อความเป็นตกลง
-        // เปลี่ยน input ให้สามารถแก้ไขได้
-        inputs.forEach(input => input.disabled = false);
-    }
-    
-    // เปลี่ยนปุ่มเป็น "ยกเลิก" เมื่อกำลังแก้ไข
-    const cancelButton = document.createElement('button');
-    cancelButton.type = 'button';
-    cancelButton.textContent = "ยกเลิก";
-    cancelButton.classList.add('cancel-btn');
-    cancelButton.onclick = cancelEdit;
-    
-    const buttonsDiv = document.querySelector('.buttons');
-    if (!isEditing) {
-        buttonsDiv.appendChild(cancelButton);
-    } else {
-        const cancelButtonExisting = document.querySelector('.cancel-btn');
-        if (cancelButtonExisting) {
-            cancelButtonExisting.remove();
+    fetch("/edit/", {
+        method: "POST",
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = "/edit";  // Redirect to /telephone
+        } else {
+            console.error("Error with the request");
         }
-    }
-
-    isEditing = !isEditing;  // สลับสถานะ
+    })
+    .catch(error => {
+        console.error("Network error:", error);
+    });
 }
 
 // ฟังก์ชันสำหรับยกเลิกการแก้ไข
@@ -49,7 +30,19 @@ function cancelEdit() {
 
 // ฟังก์ชันเปลี่ยนรหัสผ่าน (ในอนาคต)
 function changePassword() {
-    alert("กำลังพัฒนาในอนาคต!");  // ยังไม่พัฒนา
+    fetch("/password/", {
+        method: "GET",
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = "/password";  // Redirect to /telephone
+        } else {
+            console.error("Error with the request");
+        }
+    })
+    .catch(error => {
+        console.error("Network error:", error);
+    });
 }
 
 // ฟังก์ชันลบบัญชี
@@ -59,6 +52,24 @@ function getCSRFToken() {
         .find(row => row.startsWith("csrftoken="))
         ?.split("=")[1];
 }
+
+function addTel() {
+    fetch("/telephone/", {
+        method: "GET",
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = "/telephone";  // Redirect to /telephone
+        } else {
+            console.error("Error with the request");
+        }
+    })
+    .catch(error => {
+        console.error("Network error:", error);
+    });
+}
+
+
 
 function deleteAccount() {
     if (confirm("คุณแน่ใจหรือไม่ว่าต้องการลบบัญชี?")) {

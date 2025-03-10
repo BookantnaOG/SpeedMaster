@@ -96,6 +96,38 @@ h2 {
     background-color: #ff4d4d;
     color: white;
 }
+
+/* Box Menu Styles */
+[data-component-view="box-menu"] {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    gap: 10px;
+    background-color: #ffffff; /* Adjusted to white for consistency */
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+[data-component-view="box-menu"] a {
+    display: block;
+    padding: 12px;
+    color: #333333; /* Darker text color for readability */
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+[data-component-view="box-menu"] a:hover {
+    background-color: #FF9800; /* Orange hover effect to match button style */
+    color: #ffffff; /* White text on hover */
+}
+
+
 /* Service Status Section Styles */
 .status-progress {
     display: flex;
@@ -186,8 +218,6 @@ h2 {
     text-decoration: none;
     cursor: pointer;
 }
-
-
 
 /* Subscribe button styles */
 .subscribe-btn {
